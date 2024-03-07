@@ -82,21 +82,21 @@ val_loader = DataLoader(VerSe_val, batch_size=batch_size,
 
 
 #Start wand.db
-wandb.init(
-    # set the wandb project where this run will be logged
-    project="Bachelor project",
+# wandb.init(
+#     # set the wandb project where this run will be logged
+#     project="Bachelor project",
     
-    # track hyperparameters and run metadatxta
-    config={
-    "learning_rate": lr,
-    "epochs": num_epochs,
-    'weight_decay': wd,
-    'batch_size': batch_size,
-    'drop_out': dropout,
-    'transform': transform,
-    'run_name': run_name,
-    }
-)
+#     # track hyperparameters and run metadatxta
+#     config={
+#     "learning_rate": lr,
+#     "epochs": num_epochs,
+#     'weight_decay': wd,
+#     'batch_size': batch_size,
+#     'drop_out': dropout,
+#     'transform': transform,
+#     'run_name': run_name,
+#     }
+# )
 
 
 
@@ -175,7 +175,7 @@ for epoch in range(num_epochs):
             val_loss.append(avg_loss_val)
 
             #Log in wandb
-            wandb.log({"Train_loss": avg_loss_train, "Validation_loss": avg_loss_val})
+            # wandb.log({"Train_loss": avg_loss_train, "Validation_loss": avg_loss_val})
 
             #Save checkpoint
             checkpoint = {

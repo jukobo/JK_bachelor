@@ -9,7 +9,8 @@ import matplotlib.pyplot as plt
 from tqdm import tqdm
 import torchvision.transforms as transforms
 from torch import linalg as LA
-import wandb
+# import wandb
+
 #My own documents
 from my_plotting_functions import *
 from Create_dataset import LoadData

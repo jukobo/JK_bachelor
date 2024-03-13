@@ -43,12 +43,12 @@ if plot_loss:
 #Plot predictions
 if predict_and_plot:
     ### ADJUST ###
-    #Outputs
-    msk_pred_dir = '/Users/andreasaspe/Documents/Data/Verse20/VertebraeSegmentation/Verse20_validation_predictions' #Predictions or ground truth.
-    msk_target_dir = '/Users/andreasaspe/Documents/Data/Verse20/VertebraeSegmentation/Verse20_validation_prep/msk' #Predictions or ground truth.
-    #Inputs
-    img_dir = '/Users/andreasaspe/Documents/Data/Verse20/VertebraeSegmentation/Verse20_validation_prep/img' #Image folder of prepped data
-    heatmap_dir = '/Users/andreasaspe/Documents/Data/Verse20/VertebraeSegmentation/Verse20_validation_prep/heatmaps' #Image folder of prepped data
+    #Outputs (Julie)
+    msk_pred_dir = 'Verse20_test_predictions' #Predictions or ground truth.
+    msk_target_dir = 'Data\Verse20\VertebraeSegmentation\Verse20_test_prep\msk' #Predictions or ground truth.
+    #Inputs (Julie)
+    img_dir = 'Data\Verse20\VertebraeSegmentation\Verse20_test_prep\img' #Image folder of prepped data
+    heatmap_dir = 'Data\Verse20\VertebraeSegmentation\Verse20_test_prep\heatmaps' #Image folder of prepped data
 
 
     all_scans = 1 #Set to 1 if you want to preprocess all scans

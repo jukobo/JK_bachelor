@@ -30,11 +30,11 @@ parameters_dict = {
 
 #For everything
 #gpu-cluster
-img_dir_training = 'Data/Verse20/VertebraeSegmentation/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20/Verse20_training_prep/img' #'/scratch/s174197/data/Verse20/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20_training_prep/img' #r'C:\Users\PC\Documents\Andreas_s174197\Preprocessed_data\img'
-heatmap_dir_training = 'Data/Verse20/VertebraeSegmentation/Verse20_training_prep/heatmaps'
-img_dir_validation ='Data/Verse20/VertebraeSegmentation/Verse20_validation_prep/img'
-heatmap_dir_validation = 'Data/Verse20/VertebraeSegmentation/Verse20_validation_prep/heatmaps'
-checkpoint_dir = 'Data/Checkpoints/VertebraeSegmentation/NO_DATAAUG' #'/Users/andreasaspe/Library/Mobile Documents/com~apple~CloudDocs/DTU/12.semester/Thesis/My_code/My_networks/Spine_Localisation/Checkpoints'
+img_dir_training = 'Data/Verse20/VertebraeLocalisation/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20/Verse20_training_prep/img' #'/scratch/s174197/data/Verse20/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20_training_prep/img' #r'C:\Users\PC\Documents\Andreas_s174197\Preprocessed_data\img'
+heatmap_dir_training = 'Data/Verse20/VertebraeLocalisation/Verse20_training_prep/heatmaps'
+img_dir_validation ='Data/Verse20/VertebraeLocalisation/Verse20_validation_prep/img'
+heatmap_dir_validation = 'Data/Verse20/VertebraeLocalisation/Verse20_validation_prep/heatmaps'
+checkpoint_dir = 'Data/Checkpoints/VertebraeLocalisation/NO_DATAAUG' #'/Users/andreasaspe/Library/Mobile Documents/com~apple~CloudDocs/DTU/12.semester/Thesis/My_code/My_networks/Spine_Localisation/Checkpoints'
 checkpoint_filename = 'data_augmentation' #No underscore after this
 
 #mac

@@ -31,15 +31,15 @@ parameters_dict = {
 
 #For everything
 #Training
-img_dir_training = '/Data/Verse20/VertebraeSegmentation/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20/Verse20_training_prep/img' #'/scratch/s174197/data/Verse20/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20_training_prep/img' #r'C:\Users\PC\Documents\Andreas_s174197\Preprocessed_data\img'
-heatmap_dir_training = '/Data/Verse20/VertebraeSegmentation/Verse20_training_prep/heatmaps'
+img_dir_training = '/Data/Verse20/SpineLocalisation/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20/Verse20_training_prep/img' #'/scratch/s174197/data/Verse20/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20_training_prep/img' #r'C:\Users\PC\Documents\Andreas_s174197\Preprocessed_data\img'
+heatmap_dir_training = '/Data/Verse20/SpineLocalisation/Verse20_training_prep/heatmaps'
 
 # img_dir_training = '/scratch/s174197/data/Verse20/SpineLocalisation/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20/Verse20_training_prep/img' #'/scratch/s174197/data/Verse20/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20_training_prep/img' #r'C:\Users\PC\Documents\Andreas_s174197\Preprocessed_data\img'
 # heatmap_dir_training = '/scratch/s174197/data/Verse20/SpineLocalisation/Verse20_training_heatmaps' #'/Users/andreasaspe/Documents/Data/Verse20/Verse20_training_heatmaps' #'/scratch/s174197/data/Verse20/Verse20_training_heatmaps' #'/Users/andreasaspe/Documents/Data/Verse20_training_heatmaps' #r'C:\Users\PC\Documents\Andreas_s174197\heatmaps'
 
 #Validation
-img_dir_validation ='/Data/Verse20/VertebraeSegmentation/Verse20_validation_prep/img'
-heatmap_dir_validation = '/Data/Verse20/VertebraeSegmentation/Verse20_validation_prep/heatmaps'
+img_dir_validation ='/Data/Verse20/SpineLocalisation/Verse20_validation_prep/img'
+heatmap_dir_validation = '/Data/Verse20/SpineLocalisation/Verse20_validation_prep/heatmaps'
 
 # img_dir_validation = '/scratch/s174197/data/Verse20/SpineLocalisation/Verse20_validation_prep/img'
 # heatmap_dir_validation = '/scratch/s174197/data/Verse20/SpineLocalisation/Verse20_validation_heatmaps'

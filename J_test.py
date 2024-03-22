@@ -6,7 +6,9 @@ a = 2+2
 b = 3*a
 
 output.append(a)
+print(output)
 output.append(b)
+print(output)
 
 ## Data test
 import os
@@ -108,9 +110,9 @@ class LoadData(Dataset):
 
         return inputs, msk, subject
 
-img_dir_training = 'Data/Verse20/VertebraeSegmentation/Verse20_test_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20/Verse20_training_prep/img' #'/scratch/s174197/data/Verse20/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20_training_prep/img' #r'C:\Users\PC\Documents\Andreas_s174197\Preprocessed_data\img'
-heatmap_dir_training = 'Data/Verse20/VertebraeSegmentation/Verse20_test_prep/heatmaps'
-msk_dir_training = 'Data/Verse20/VertebraeSegmentation/Verse20_test_prep/msk'
+img_dir_training = 'Data/Verse20/VertebraeSegmentation/Verse20_training_prep/img'
+heatmap_dir_training = 'Data/Verse20/VertebraeSegmentation/Verse20_training_prep/heatmaps'
+msk_dir_training = 'Data/Verse20/VertebraeSegmentation/Verse20_training_prep/msk'
 
 #Define paramters
 parameters_dict = {
@@ -127,4 +129,4 @@ VerSe_train = LoadData(img_dir=img_dir_training, heatmap_dir=heatmap_dir_trainin
 
 c = "Data loaded"
 output.append(c)
-
+print(output)

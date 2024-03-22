@@ -8,14 +8,14 @@ Created on Wed May 10 00:42:50 2023
 
 #General imports
 import os
-import sys
+# import sys
 from torch.utils.data import DataLoader
-import torch
-import torch.optim as optim
-import numpy as np
-import matplotlib.pyplot as plt
-from os import listdir
-import nibabel as nib
+# import torch
+# import torch.optim as optim
+# import numpy as np
+# import matplotlib.pyplot as plt
+# from os import listdir
+# import nibabel as nib
 #My own documents
 from my_plotting_functions import *
 from VertebraeSegmentationNet import *

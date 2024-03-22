@@ -1,12 +1,12 @@
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 from copy import copy
-import numpy as np
-from skimage.measure import label, regionprops
-import os
+# import numpy as np
+# from skimage.measure import label, regionprops
+# import os
 from matplotlib.patches import Circle
 import copy
-import matplotlib.patches as mpatches
+# import matplotlib.patches as mpatches
 from matplotlib.lines import Line2D
 import matplotlib.colors as mcolors
 

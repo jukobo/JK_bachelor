@@ -1,19 +1,19 @@
 #General imports
 import os
-import sys
+# import sys
 from torch.utils.data import DataLoader
 import torch
 import torch.optim as optim
 import numpy as np
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 from tqdm import tqdm
-import torchvision.transforms as transforms
+# import torchvision.transforms as transforms
 from torch import linalg as LA
 
 #My own documents
 from my_plotting_functions import *
 from Create_dataset import LoadData
-from my_data_utils import Predict, gaussian_kernel_3d
+# from my_data_utils import Predict, gaussian_kernel_3d
 from VertebraeSegmentationNet import *
 #from VertebraeSegmentationNet_batchnormdropout import *
 
@@ -31,7 +31,7 @@ parameters_dict = {
 #For everything
 #gpu-cluster
 #Training
-img_dir_training = '../../Data/Verse20/VertebraeSegmentation/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20/Verse20_training_prep/img' #'/scratch/s174197/data/Verse20/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20_training_prep/img' #r'C:\Users\PC\Documents\Andreas_s174197\Preprocessed_data\img'
+img_dir_training = 'Data/Verse20/VertebraeSegmentation/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20/Verse20_training_prep/img' #'/scratch/s174197/data/Verse20/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20_training_prep/img' #r'C:\Users\PC\Documents\Andreas_s174197\Preprocessed_data\img'
 heatmap_dir_training = 'Data/Verse20/VertebraeSegmentation/Verse20_training_prep/heatmaps'
 msk_dir_training = 'Data/Verse20/VertebraeSegmentation/Verse20_training_prep/msk'
 #Validation
@@ -185,6 +185,6 @@ for epoch in range(num_epochs):
 
 
 
-
+print("Done")
 
 

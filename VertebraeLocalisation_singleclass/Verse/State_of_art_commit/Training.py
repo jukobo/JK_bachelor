@@ -16,6 +16,9 @@ from Create_dataset import LoadData
 from my_data_utils import Predict, gaussian_kernel_3d
 #from VertebraeLocalisationNet import *
 from new_VertebraeLocalisationNet import *
+#from new_VertebraeLocalisationNet_dropoutalternative import *
+#from new_VertebraeLocalisationNet_everything import *
+#from VertebraeLocalisationNet_batchnorm import *
 #from VertebraeLocalisationNet_newdropout import *
 
 #Define paramters
@@ -28,14 +31,16 @@ parameters_dict = {
 }
 
 
-#For everything
+#For everythings
 #gpu-cluster
-img_dir_training = 'Data/Verse20/VertebraeLocalisation/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20/Verse20_training_prep/img' #'/scratch/s174197/data/Verse20/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20_training_prep/img' #r'C:\Users\PC\Documents\Andreas_s174197\Preprocessed_data\img'
-heatmap_dir_training = 'Data/Verse20/VertebraeLocalisation/Verse20_training_prep/heatmaps'
-img_dir_validation ='Data/Verse20/VertebraeLocalisation/Verse20_validation_prep/img'
-heatmap_dir_validation = 'Data/Verse20/VertebraeLocalisation/Verse20_validation_prep/heatmaps'
-checkpoint_dir = 'Data/Checkpoints/VertebraeLocalisation/NO_DATAAUG' #'/Users/andreasaspe/Library/Mobile Documents/com~apple~CloudDocs/DTU/12.semester/Thesis/My_code/My_networks/Spine_Localisation/Checkpoints'
-checkpoint_filename = 'data_augmentation' #No underscore after this
+img_dir_training = '/scratch/s174197/data/Verse20/VertebraeLocalisation2/Verse20_training_prep_HUafterNosmoothing/img' #'/Users/andreasaspe/Documents/Data/Verse20/Verse20_training_prep/img' #'/scratch/s174197/data/Verse20/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20_training_prep/img' #r'C:\Users\PC\Documents\Andreas_s174197\Preprocessed_data\img'
+heatmap_dir_training = '/scratch/s174197/data/Verse20/VertebraeLocalisation2/Verse20_training_heatmaps_HUafterNosmoothing'
+img_dir_validation = '/scratch/s174197/data/Verse20/VertebraeLocalisation2/Verse20_validation_prep_HUafterNosmoothing/img'
+heatmap_dir_validation = '/scratch/s174197/data/Verse20/VertebraeLocalisation2/Verse20_validation_heatmaps_HUafterNosmoothing'
+checkpoint_dir = '/scratch/s174197/data/Checkpoints/VertebraeLocalisation2/' #'/Users/andreasaspe/Library/Mobile Documents/com~apple~CloudDocs/DTU/12.semester/Thesis/My_code/My_networks/Spine_Localisation/Checkpoints'
+run_name = 'New_data_old_network_HUafter_Nosmoothing'
+checkpoint_filename = run_name #No underscore after this
+description = 'Im trying with my new data again. Both with normalization before and after. And completely same network as state of art'
 
 #mac
 # img_dir_training = '/Users/andreasaspe/Documents/Data/Verse20/VertebraeLocalisation/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20/Verse20_training_prep/img' #'/scratch/s174197/data/Verse20/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20_training_prep/img' #r'C:\Users\PC\Documents\Andreas_s174197\Preprocessed_data\img'
@@ -53,7 +58,7 @@ dropout = parameters_dict['dropout']
 
 
 #Load data
-VerSe_train = LoadData(img_dir=img_dir_training, heatmap_dir=heatmap_dir_training,transform='rotation')
+VerSe_train = LoadData(img_dir=img_dir_training, heatmap_dir=heatmap_dir_training,transform=None)
 train_loader = DataLoader(VerSe_train, batch_size=batch_size,
                         shuffle=True, num_workers=0) #SET TO True!
 VerSe_val = LoadData(img_dir=img_dir_validation, heatmap_dir=heatmap_dir_validation)
@@ -64,10 +69,12 @@ val_loader = DataLoader(VerSe_val, batch_size=batch_size,
 #Start wand.db
 wandb.init(
     # set the wandb project where this run will be logged
-    project="VertebraeLocalisation",
+    project="VertebraeLocalisation2",
     entity='andreasaspe',
+    name=run_name,
+    notes = description,
     
-    # track hyperparameters and run metadata
+    # track hyperparameters and run metadatxta
     config={
     "learning_rate": lr,
     "epochs": num_epochs,
@@ -119,7 +126,7 @@ for epoch in range(num_epochs):
         inputs, targets = inputs.to(device), targets.to(device)
 
         # Forward pass, compute gradients, perform one training step.
-        output, _, _ = model(inputs) #Output
+        output = model(inputs) #Output
         loss = loss_fn(output, targets) #Loss
         optimizer.zero_grad() #Clean up gradients
         loss.backward() #Compute gradients
@@ -141,7 +148,7 @@ for epoch in range(num_epochs):
     with torch.no_grad():
         for inputs, targets, _ in tqdm(val_loader):
             inputs, targets = inputs.to(device), targets.to(device)
-            output, _, _ = model(inputs)
+            output = model(inputs)
             loss = loss_fn(output, targets)
             # Save loss
             val_loss_batches.append(loss.item())

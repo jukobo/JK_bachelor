@@ -31,19 +31,27 @@ parameters_dict = {
 
 #For everything
 #Training
-img_dir_training = '/scratch/s174197/data/Verse20/SpineLocalisation/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20/Verse20_training_prep/img' #'/scratch/s174197/data/Verse20/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20_training_prep/img' #r'C:\Users\PC\Documents\Andreas_s174197\Preprocessed_data\img'
-heatmap_dir_training = '/scratch/s174197/data/Verse20/SpineLocalisation/Verse20_training_heatmaps' #'/Users/andreasaspe/Documents/Data/Verse20/Verse20_training_heatmaps' #'/scratch/s174197/data/Verse20/Verse20_training_heatmaps' #'/Users/andreasaspe/Documents/Data/Verse20_training_heatmaps' #r'C:\Users\PC\Documents\Andreas_s174197\heatmaps'
+img_dir_training = '/Data/Verse20/SpineLocalisation/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20/Verse20_training_prep/img' #'/scratch/s174197/data/Verse20/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20_training_prep/img' #r'C:\Users\PC\Documents\Andreas_s174197\Preprocessed_data\img'
+heatmap_dir_training = '/Data/Verse20/SpineLocalisation/Verse20_training_prep/heatmaps'
+
+# img_dir_training = '/scratch/s174197/data/Verse20/SpineLocalisation/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20/Verse20_training_prep/img' #'/scratch/s174197/data/Verse20/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20_training_prep/img' #r'C:\Users\PC\Documents\Andreas_s174197\Preprocessed_data\img'
+# heatmap_dir_training = '/scratch/s174197/data/Verse20/SpineLocalisation/Verse20_training_heatmaps' #'/Users/andreasaspe/Documents/Data/Verse20/Verse20_training_heatmaps' #'/scratch/s174197/data/Verse20/Verse20_training_heatmaps' #'/Users/andreasaspe/Documents/Data/Verse20_training_heatmaps' #r'C:\Users\PC\Documents\Andreas_s174197\heatmaps'
+
 #Validation
-img_dir_validation = '/scratch/s174197/data/Verse20/SpineLocalisation/Verse20_validation_prep/img'
-heatmap_dir_validation = '/scratch/s174197/data/Verse20/SpineLocalisation/Verse20_validation_heatmaps'
+img_dir_validation ='/Data/Verse20/SpineLocalisation/Verse20_validation_prep/img'
+heatmap_dir_validation = '/Data/Verse20/SpineLocalisation/Verse20_validation_prep/heatmaps'
+
+# img_dir_validation = '/scratch/s174197/data/Verse20/SpineLocalisation/Verse20_validation_prep/img'
+# heatmap_dir_validation = '/scratch/s174197/data/Verse20/SpineLocalisation/Verse20_validation_heatmaps'
 #Checkpoint and wandb
-checkpoint_dir = '/scratch/s174197/data/Checkpoints/SpineLocalisation' #'/home/s174197/data/Checkpoints/SpineLocalisation' #'/Users/andreasaspe/Library/Mobile Documents/com~apple~CloudDocs/DTU/12.semester/Thesis/My_code/My_networks/Spine_Localisation/Checkpoints'
+checkpoint_dir = 'Data/Checkpoints/SpineLocalisation/NO_DATAAUG' #'/Users/andreasaspe/Library/Mobile Documents/com~apple~CloudDocs/DTU/12.semester/Thesis/My_code/My_networks/Spine_Localisation/Checkpoints'
+
 run_name = 'Only_rotation'
 description = 'Prøver med data augmentation igen'
 #For predition
-img_dir_test = '/scratch/s174197/data/Verse20/SpineLocalisation/Verse20_test_prep/img' #'/scratch/s174197/data/Verse20/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20_training_prep/img' #r'C:\Users\PC\Documents\Andreas_s174197\Preprocessed_data\img'
-heatmap_dir_test = '/scratch/s174197/data/Verse20/SpineLocalisation/Verse20_test_heatmaps' #'/scratch/s174197/data/Verse20/Verse20_training_heatmaps' #'/Users/andreasaspe/Documents/Data/Verse20_training_heatmaps' #r'C:\Users\PC\Documents\Andreas_s174197\heatmaps'
-output_parent_dir = '/scratch/s174197/data/Verse20/SpineLocalisation/Verse20_test_heatmaps_predictions' #Prediction directory
+img_dir_test = '/Data/Verse20/SpineLocalisation/Verse20_test_prep/img' #'/scratch/s174197/data/Verse20/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20_training_prep/img' #r'C:\Users\PC\Documents\Andreas_s174197\Preprocessed_data\img'
+heatmap_dir_test = '/Data/Verse20/SpineLocalisation/Verse20_test_heatmaps' #'/scratch/s174197/data/Verse20/Verse20_training_heatmaps' #'/Users/andreasaspe/Documents/Data/Verse20_training_heatmaps' #r'C:\Users\PC\Documents\Andreas_s174197\heatmaps'
+output_parent_dir = '/Data/Verse20/SpineLocalisation/Verse20_test_heatmaps_predictions' #Prediction directory
 
 
 #mac
@@ -60,25 +68,25 @@ batch_size = parameters_dict['batch_size']
 dropout = parameters_dict['dropout']
 transform = parameters_dict['transform']
 
-#Start wand.db
-wandb.init(
-    # set the wandb project where this run will be logged
-    project="New_SpineLocalisation",
-    entity='andreasaspe',
-    name=run_name,
-    notes = description,
+# #Start wand.db
+# wandb.init(
+#     # set the wandb project where this run will be logged
+#     project="New_SpineLocalisation",
+#     entity='andreasaspe',
+#     name=run_name,
+#     notes = description,
     
-    # track hyperparameters and run metadata
-    config={
-    "learning_rate": lr,
-    "epochs": num_epochs,
-    'weight_decay': wd,
-    'batch_size': batch_size,
-    'drop_out': dropout,
-    'transform': transform,
-    'run_name': run_name,
-    }
-)
+#     # track hyperparameters and run metadata
+#     config={
+#     "learning_rate": lr,
+#     "epochs": num_epochs,
+#     'weight_decay': wd,
+#     'batch_size': batch_size,
+#     'drop_out': dropout,
+#     'transform': transform,
+#     'run_name': run_name,
+#     }
+# )
 
 #Define model
 model = Unet3D()

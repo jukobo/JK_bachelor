@@ -1,19 +1,19 @@
 #General imports
 import os
-import sys
+# import sys
 from torch.utils.data import DataLoader
 import torch
 import torch.optim as optim
 import numpy as np
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 from tqdm import tqdm
-import torchvision.transforms as transforms
+# import torchvision.transforms as transforms
 from torch import linalg as LA
 
 #My own documents
 from my_plotting_functions import *
 from Create_dataset import LoadData
-from my_data_utils import Predict, gaussian_kernel_3d
+# from my_data_utils import Predict, gaussian_kernel_3d
 from VertebraeSegmentationNet import *
 #from VertebraeSegmentationNet_batchnormdropout import *
 

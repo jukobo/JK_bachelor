@@ -20,6 +20,7 @@ if [[ ! -d $SCRATCH ]]; then
   mkdir $SCRATCH
 fi
 
+source "C:\Users\julie\.conda"
 source ~/.bashrc
 module load CUDA/11.4
 conda activate bscenv

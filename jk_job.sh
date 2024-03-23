@@ -20,10 +20,9 @@ if [[ ! -d $SCRATCH ]]; then
   mkdir $SCRATCH
 fi
 
-source "C:\Users\julie\.conda"
 source ~/.bashrc
 module load CUDA/11.4
-conda activate bscenv
+source bscenv/bin/activate
 python VertebraeSegmentation/Verse/Training.py --no-mps 
 
 echo "Done: $(date +%F-%R:%S)"

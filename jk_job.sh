@@ -20,7 +20,7 @@ if [[ ! -d $SCRATCH ]]; then
   mkdir $SCRATCH
 fi
 
-source ~/.bashrc
+source ~/JK_bachelor/.bashrc
 module load CUDA/11.4
 conda activate bscenv
 python VertebraeSegmentation/Verse/Training.py --no-mps 

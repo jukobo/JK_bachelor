@@ -22,7 +22,7 @@ fi
 
 source ~/.bashrc
 module load CUDA/11.4
-source bscenv/bin/activate
+# source bscenv/bin/activate
 python VertebraeSegmentation/Verse/Training.py --no-mps 
 
 echo "Done: $(date +%F-%R:%S)"

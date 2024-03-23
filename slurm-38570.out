@@ -1,0 +1,98 @@
+\e[33mINFO: create_env.sh will create a virtual environment to use on the DTUs HPC cluster
+\e[33mWARN: Virtual environment about to be created without Bachelor_thesis_spine as basename, instead it will be created at /home/s214704/JK_bachelor\e[0m
+Retrieving notices: ...working... done
+Collecting package metadata (current_repodata.json): ...working... done
+Solving environment: ...working... failed with repodata from current_repodata.json, will retry with next repodata source.
+Collecting package metadata (repodata.json): ...working... done
+Solving environment: ...working... done
+
+## Package Plan ##
+
+  environment location: /home/s214704/.conda/envs/bachelor-env
+
+  added / updated specs:
+    - python=3.7
+
+
+The following packages will be downloaded:
+
+    package                    |            build
+    ---------------------------|-----------------
+    certifi-2022.12.7          |   py37h06a4308_0         150 KB
+    pip-22.3.1                 |   py37h06a4308_0         2.7 MB
+    python-3.7.16              |       h7a1cb2a_0        44.8 MB
+    ------------------------------------------------------------
+                                           Total:        47.7 MB
+
+The following NEW packages will be INSTALLED:
+
+  _libgcc_mutex      pkgs/main/linux-64::_libgcc_mutex-0.1-main 
+  _openmp_mutex      pkgs/main/linux-64::_openmp_mutex-5.1-1_gnu 
+  ca-certificates    pkgs/main/linux-64::ca-certificates-2024.3.11-h06a4308_0 
+  certifi            pkgs/main/linux-64::certifi-2022.12.7-py37h06a4308_0 
+  ld_impl_linux-64   pkgs/main/linux-64::ld_impl_linux-64-2.38-h1181459_1 
+  libffi             pkgs/main/linux-64::libffi-3.4.4-h6a678d5_0 
+  libgcc-ng          pkgs/main/linux-64::libgcc-ng-11.2.0-h1234567_1 
+  libgomp            pkgs/main/linux-64::libgomp-11.2.0-h1234567_1 
+  libstdcxx-ng       pkgs/main/linux-64::libstdcxx-ng-11.2.0-h1234567_1 
+  ncurses            pkgs/main/linux-64::ncurses-6.4-h6a678d5_0 
+  openssl            pkgs/main/linux-64::openssl-1.1.1w-h7f8727e_0 
+  pip                pkgs/main/linux-64::pip-22.3.1-py37h06a4308_0 
+  python             pkgs/main/linux-64::python-3.7.16-h7a1cb2a_0 
+  readline           pkgs/main/linux-64::readline-8.2-h5eee18b_0 
+  setuptools         pkgs/main/linux-64::setuptools-65.6.3-py37h06a4308_0 
+  sqlite             pkgs/main/linux-64::sqlite-3.41.2-h5eee18b_0 
+  tk                 pkgs/main/linux-64::tk-8.6.12-h1ccaba5_0 
+  wheel              pkgs/main/linux-64::wheel-0.38.4-py37h06a4308_0 
+  xz                 pkgs/main/linux-64::xz-5.4.6-h5eee18b_0 
+  zlib               pkgs/main/linux-64::zlib-1.2.13-h5eee18b_0 
+
+
+Proceed ([y]/n)? 
+
+Downloading and Extracting Packages
+certifi-2022.12.7    | 150 KB    |            |   0% 
+pip-22.3.1           | 2.7 MB    |            |   0% [A
+
+python-3.7.16        | 44.8 MB   |            |   0% [A[A
+
+python-3.7.16        | 44.8 MB   |            |   0% [A[A
+pip-22.3.1           | 2.7 MB    |            |   1% [Acertifi-2022.12.7    | 150 KB    | #          |  11% 
+
+python-3.7.16        | 44.8 MB   | 9          |  10% [A[A
+
+python-3.7.16        | 44.8 MB   | ###1       |  32% [A[A
+
+python-3.7.16        | 44.8 MB   | #####3     |  53% [A[Acertifi-2022.12.7    | 150 KB    | ########## | 100% 
+
+python-3.7.16        | 44.8 MB   | ######9    |  70% [A[Acertifi-2022.12.7    | 150 KB    | ########## | 100% 
+
+python-3.7.16        | 44.8 MB   | #########3 |  93% [A[A
+pip-22.3.1           | 2.7 MB    | ########## | 100% [A
+pip-22.3.1           | 2.7 MB    | ########## | 100% [A
+
+python-3.7.16        | 44.8 MB   | ########## | 100% [A[A                                                     
+                                                     [A
+
+                                                     [A[A
+Preparing transaction: ...working... done
+Verifying transaction: ...working... done
+Executing transaction: ...working... done
+#
+# To activate this environment, use
+#
+#     $ conda activate bachelor-env
+#
+# To deactivate an active environment, use
+#
+#     $ conda deactivate
+
+Defaulting to user installation because normal site-packages is not writeable
+Requirement already satisfied: pip in /opt/miniconda3/lib/python3.9/site-packages (23.0.1)
+Collecting pip
+  Downloading pip-24.0-py3-none-any.whl (2.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 7.7 MB/s eta 0:00:00
+Installing collected packages: pip
+Successfully installed pip-24.0
+\e[33mWARN: Virtual environment was not created with Bachelor_thesis_spine as basename, instead it was created at /home/s214704/JK_bachelor\e[0m
+DeprecationWarning: 'source deactivate' is deprecated. Use 'conda deactivate'.

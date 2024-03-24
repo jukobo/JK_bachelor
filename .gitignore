@@ -5,3 +5,4 @@ jk_test_38346.out
 jk_model_38400.out
 
 create_env.sh
+requirements.txt

@@ -22,7 +22,8 @@ fi
 
 source ~/JK_bachelor/.bashrc
 module load CUDA/11.4
-source bsc-env/bin/activate
+# source bsc-env/bin/activate
+conda bsc-env activate
 python VertebraeSegmentation/Verse/Training.py --no-mps 
 
 echo "Done: $(date +%F-%R:%S)"

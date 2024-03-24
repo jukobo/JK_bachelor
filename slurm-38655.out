@@ -1,0 +1,6 @@
+\e[33mINFO: create_env.sh will create a virtual environment to use on the DTUs HPC cluster
+\e[33mWARN: Virtual environment about to be created without Bachelor_thesis_spine as basename, instead it will be created at /home/s214704/JK_bachelor\e[0m
+Collecting package metadata (current_repodata.json): ...working... done
+Solving environment: ...working... failed with repodata from current_repodata.json, will retry with next repodata source.
+Collecting package metadata (repodata.json): ...working... done
+Solving environment: ...working... done

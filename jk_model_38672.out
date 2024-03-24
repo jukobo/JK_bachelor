@@ -1,0 +1,26 @@
+Node: comp-gpu07
+Start: 2024-03-24-18:10:14
+Working dir: /home/s214704/JK_bachelor
+
+/var/lib/slurm/slurmd/job38672/slurm_script: line 23: /home/s214704/JK_bachelor/.bashrc: No such file or directory
+
+CommandNotFoundError: Your shell has not been properly configured to use 'conda activate'.
+To initialize your shell, run
+
+    $ conda init <SHELL_NAME>
+
+Currently supported shells are:
+  - bash
+  - fish
+  - tcsh
+  - xonsh
+  - zsh
+  - powershell
+
+See 'conda init --help' for more information and options.
+
+IMPORTANT: You may need to close and restart your shell after running 'conda init'.
+
+
+Epoch nr.: 0
+  0%|          | 0/176 [00:00<?, ?it/s]

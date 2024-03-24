@@ -1,0 +1,10 @@
+Node: comp-gpu07
+Start: 2024-03-24-18:11:08
+Working dir: /home/s214704/JK_bachelor
+
+/var/lib/slurm/slurmd/job38673/slurm_script: line 23: /home/s214704/JK_bachelor/.bashrc: No such file or directory
+/opt/miniconda3/bin/conda: line 3: import: command not found
+/opt/miniconda3/bin/conda: line 6: syntax error near unexpected token `sys.argv'
+/opt/miniconda3/bin/conda: line 6: `if len(sys.argv) > 1 and sys.argv[1].startswith('shell.') and sys.path and sys.path[0] == '':'
+Epoch nr.: 0
+  0%|          | 0/176 [00:00<?, ?it/s]slurmstepd: error: *** JOB 38673 ON comp-gpu07 CANCELLED AT 2024-03-24T18:11:52 ***

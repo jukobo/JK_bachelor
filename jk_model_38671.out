@@ -1,0 +1,8 @@
+Node: comp-gpu07
+Start: 2024-03-24-18:09:01
+Working dir: /home/s214704/JK_bachelor
+
+/var/lib/slurm/slurmd/job38671/slurm_script: line 23: /home/s214704/JK_bachelor/.bashrc: No such file or directory
+/var/lib/slurm/slurmd/job38671/slurm_script: line 25: bsc-env/bin/activate: No such file or directory
+Epoch nr.: 0
+  0%|          | 0/176 [00:00<?, ?it/s]slurmstepd: error: *** JOB 38671 ON comp-gpu07 CANCELLED AT 2024-03-24T18:09:43 ***

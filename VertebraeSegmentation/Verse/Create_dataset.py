@@ -3,9 +3,9 @@
 import os
 import numpy as np
 from torch.utils.data import Dataset
-import nibabel as nib
+# import nibabel as nib
 import torch
-import torchvision.transforms.functional as F
+# import torchvision.transforms.functional as F
 import random
 import scipy
 import elasticdeform

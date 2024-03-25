@@ -1,20 +1,20 @@
 #General imports
 import os
-import sys
-from torch.utils.data import DataLoader
+# import sys
+# from torch.utils.data import DataLoader
 import torch
-import torch.optim as optim
+# import torch.optim as optim
 import numpy as np
 import matplotlib.pyplot as plt
 from os import listdir
-import nibabel as nib
+# import nibabel as nib
 #My own documents
 from my_plotting_functions import *
 from VertebraeSegmentationNet import *
-from Create_dataset import LoadData
+# from Create_dataset import LoadData
 from my_data_utils import *
-import importlib
-import pickle
+# import importlib
+# import pickle
 import cv2
 
 ######################### CONTROL PANEL #########################

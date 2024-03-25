@@ -28,21 +28,37 @@ parameters_dict = {
 }
 
 
-#For everything
+# OLD
+# #gpu-cluster
+# #Training
+# img_dir_training = 'Data/Verse20/VertebraeSegmentation/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20/Verse20_training_prep/img' #'/scratch/s174197/data/Verse20/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20_training_prep/img' #r'C:\Users\PC\Documents\Andreas_s174197\Preprocessed_data\img'
+# heatmap_dir_training = 'Data/Verse20/VertebraeSegmentation/Verse20_training_prep/heatmaps'
+# msk_dir_training = 'Data/Verse20/VertebraeSegmentation/Verse20_training_prep/msk'
+# #Validation
+# img_dir_validation ='Data/Verse20/VertebraeSegmentation/Verse20_validation_prep/img'
+# heatmap_dir_validation = 'Data/Verse20/VertebraeSegmentation/Verse20_validation_prep/heatmaps'
+# msk_dir_validation = 'Data/Verse20/VertebraeSegmentation/Verse20_validation_prep/msk'
+# run_name = 'NO_DATAAUG' #REMEBER TO CHANGE ABOVE FOLDER ALSO, In general change this to save to a different checkpoint 'Third_try_No_dropout_newinitialisation' #No underscore after this
+# description = 'Uden data-augmentation. Men husk at jeg har gjort y=y-20 i center and pad så preprocessing er også lidt anderledes!'
+# #Checkpoint
+# checkpoint_dir = 'Data/Checkpoints/VertebraeSegmentation/NO_DATAAUG'
+
+
+# New
 #gpu-cluster
 #Training
-img_dir_training = 'Data/Verse20/VertebraeSegmentation/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20/Verse20_training_prep/img' #'/scratch/s174197/data/Verse20/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20_training_prep/img' #r'C:\Users\PC\Documents\Andreas_s174197\Preprocessed_data\img'
-heatmap_dir_training = 'Data/Verse20/VertebraeSegmentation/Verse20_training_prep/heatmaps'
-msk_dir_training = 'Data/Verse20/VertebraeSegmentation/Verse20_training_prep/msk'
+
+img_dir_training = '/scratch/s214725/Data/Verse20/VertebraeSegmentation/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20/Verse20_training_prep/img' #'/scratch/s174197/data/Verse20/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20_training_prep/img' #r'C:\Users\PC\Documents\Andreas_s174197\Preprocessed_data\img'
+heatmap_dir_training = '/scratch/s214725/Data/Verse20/VertebraeSegmentation/Verse20_training_prep/heatmaps'
+msk_dir_training = '/scratch/s214725/Data/Verse20/VertebraeSegmentation/Verse20_training_prep/msk'
 #Validation
-img_dir_validation ='Data/Verse20/VertebraeSegmentation/Verse20_validation_prep/img'
-heatmap_dir_validation = 'Data/Verse20/VertebraeSegmentation/Verse20_validation_prep/heatmaps'
-msk_dir_validation = 'Data/Verse20/VertebraeSegmentation/Verse20_validation_prep/msk'
+img_dir_validation = '/scratch/s214725/Data/Verse20/VertebraeSegmentation/Verse20_validation_prep/img'
+heatmap_dir_validation = '/scratch/s214725/Data/Verse20/VertebraeSegmentation/Verse20_validation_prep/heatmaps'
+msk_dir_validation = '/scratch/s214725/Data/Verse20/VertebraeSegmentation/Verse20_validation_prep/msk'
 run_name = 'NO_DATAAUG' #REMEBER TO CHANGE ABOVE FOLDER ALSO, In general change this to save to a different checkpoint 'Third_try_No_dropout_newinitialisation' #No underscore after this
 description = 'Uden data-augmentation. Men husk at jeg har gjort y=y-20 i center and pad så preprocessing er også lidt anderledes!'
 #Checkpoint
-checkpoint_dir = 'Data/Checkpoints/VertebraeSegmentation/NO_DATAAUG' #'/Users/andreasaspe/Library/Mobile Documents/com~apple~CloudDocs/DTU/12.semester/Thesis/My_code/My_networks/Spine_Localisation/Checkpoints'
-# checkpoint_filename = 'First_try' #'Lower_learning_rate' #No underscore after this
+checkpoint_dir = '/scratch/s214725/Data/Checkpoints/VertebraeSegmentation/NO_DATAAUG'
 
 
 #Create checkpoint parent folder if it does not exist

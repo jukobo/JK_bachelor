@@ -57,9 +57,14 @@ class VAE(nn.Module):
     def __init__(self, dropout):
         super(VAE, self).__init__()
 
+        #Average pooling
+        self.avgpool = nn.AvgPool3d(kernel_size=2,stride=2)
+
 
     
     def forward(self, image):
+        layer1 = xxx
+        x = xxx
         output = None
         return output
     

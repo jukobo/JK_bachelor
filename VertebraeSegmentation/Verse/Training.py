@@ -58,7 +58,7 @@ msk_dir_validation = '/scratch/s214725/Data/Verse20/VertebraeSegmentation/Verse2
 run_name = 'NO_DATAAUG' #REMEBER TO CHANGE ABOVE FOLDER ALSO, In general change this to save to a different checkpoint 'Third_try_No_dropout_newinitialisation' #No underscore after this
 description = 'Uden data-augmentation. Men husk at jeg har gjort y=y-20 i center and pad så preprocessing er også lidt anderledes!'
 #Checkpoint
-checkpoint_dir = '/scratch/s214725/Data/Checkpoints/VertebraeSegmentation/NO_DATAAUG'
+checkpoint_dir = '/scratch/s214704/Data/Checkpoints/VertebraeSegmentation/NO_DATAAUG'
 
 
 #Create checkpoint parent folder if it does not exist

@@ -568,7 +568,8 @@ def spine_tools(cfg):
     base_dir = cfg.settings["base_dir"]
     id_list = cfg.settings["id_list"]
     id_list_file = os.path.join(base_dir, id_list)
-    all_scan_ids = np.loadtxt(str(id_list_file), delimiter=",", dtype=str)
+    # all_scan_ids = np.loadtxt(str(id_list_file), delimiter=",", dtype=str)
+    all_scan_ids = np.loadtxt(id_list_file, delimiter=",", dtype=str)
     print(f"Found {len(all_scan_ids)} scans")
 
     for idx in all_scan_ids:

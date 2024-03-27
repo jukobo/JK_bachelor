@@ -1,11 +1,11 @@
 {
-    "base_dir": "C:\\Users\\julie\\OneDrive\\Skrivebord\\Bachelor\\Data_Spinetools",
-    "image_dir": "C:\\Users\\julie\\OneDrive\\Skrivebord\\Bachelor\\Data_Spinetools\\Spine2024\\NIFTI",
-    "segmentation_dir": "C:\\Users\\julie\\OneDrive\\Skrivebord\\Bachelor\\Data_Spinetools\\Spine2024\\Segmentations",
-    "elastix_settings_dir": "C:\\Users\\julie\\OneDrive\\Skrivebord\\Bachelor\\Data_Spinetools\\Spine2024\\ElastixSettings",
+    "base_dir": "C:/Users/julie/OneDrive/Skrivebord/Bachelor/Data_Spinetools",
+    "image_dir": "C:/Users/julie/OneDrive/Skrivebord/Bachelor/Data_Spinetools/Spine2024/NIFTI",
+    "segmentation_dir": "C:/Users/julie/OneDrive/Skrivebord/Bachelor/Data_Spinetools/Spine2024/Segmentations",
+    "elastix_settings_dir": "C:/Users/julie/OneDrive/Skrivebord/Bachelor/Data_Spinetools/Spine2024/ElastixSettings",
 
     "template_id": "sub-verse752",
     "template_image": "sub-verse752_dir-ax_ct.nii.gz",
     "id_list": "spine_ids.csv",
-    "elastix_dir":  "C:\\Users\\julie\\OneDrive\\Skrivebord\\Bachelor\\JK_bachelor\\Spinetools\\elastix_dir"
+    "elastix_dir":  "C:/Users/julie/OneDrive/Skrivebord/Bachelor/JK_bachelor/Spinetools/elastix_dir"
 }

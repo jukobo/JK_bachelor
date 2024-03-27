@@ -1,26 +1,21 @@
-#General imports
 import os
-# import sys
-from torch.utils.data import DataLoader
 import torch
+import torch.nn as nn
 import torch.optim as optim
+from torch.utils.data import DataLoader
 import numpy as np
-# import matplotlib.pyplot as plt
 from tqdm import tqdm
-# import torchvision.transforms as transforms
-from torch import linalg as LA
 
-#My own documents
-from my_plotting_functions import *
-from Create_dataset import LoadData
-# from my_data_utils import Predict, gaussian_kernel_3d
-from VertebraeSegmentationNet import *
-#from VertebraeSegmentationNet_batchnormdropout import *
+
+
+from VAE import *
+
+
 
 #Define paramters
 parameters_dict = {
     'epochs': 3000,
-    'learning_rate': 1e-5, #1e-5, # 1e-8
+    'learning_rate': 1e-5,
     'weight_decay': 5e-4,
     'batch_size': 1,
     'dropout': 0.0,
@@ -28,37 +23,21 @@ parameters_dict = {
 }
 
 
-# OLD
-# #gpu-cluster
-# #Training
-# img_dir_training = 'Data/Verse20/VertebraeSegmentation/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20/Verse20_training_prep/img' #'/scratch/s174197/data/Verse20/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20_training_prep/img' #r'C:\Users\PC\Documents\Andreas_s174197\Preprocessed_data\img'
-# heatmap_dir_training = 'Data/Verse20/VertebraeSegmentation/Verse20_training_prep/heatmaps'
-# msk_dir_training = 'Data/Verse20/VertebraeSegmentation/Verse20_training_prep/msk'
-# #Validation
-# img_dir_validation ='Data/Verse20/VertebraeSegmentation/Verse20_validation_prep/img'
-# heatmap_dir_validation = 'Data/Verse20/VertebraeSegmentation/Verse20_validation_prep/heatmaps'
-# msk_dir_validation = 'Data/Verse20/VertebraeSegmentation/Verse20_validation_prep/msk'
-# run_name = 'NO_DATAAUG' #REMEBER TO CHANGE ABOVE FOLDER ALSO, In general change this to save to a different checkpoint 'Third_try_No_dropout_newinitialisation' #No underscore after this
-# description = 'Uden data-augmentation. Men husk at jeg har gjort y=y-20 i center and pad så preprocessing er også lidt anderledes!'
-# #Checkpoint
-# checkpoint_dir = 'Data/Checkpoints/VertebraeSegmentation/NO_DATAAUG'
 
-
-# New
 #gpu-cluster
 #Training
+img_dir_training = 'scratch/s214725/Data/Verse20/VertebraeSegmentation/Verse20_test_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20/Verse20_training_prep/img' #'/scratch/s174197/data/Verse20/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20_training_prep/img' #r'C:\Users\PC\Documents\Andreas_s174197\Preprocessed_data\img'
+heatmap_dir_training = 'scratch/s214725/Data/Verse20/VertebraeSegmentation/Verse20_test_prep/heatmaps'
+msk_dir_training = 'scratch/s214725/Data/Verse20/VertebraeSegmentation/Verse20_test_prep/msk'
 
-img_dir_training = '/scratch/s214725/Data/Verse20/VertebraeSegmentation/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20/Verse20_training_prep/img' #'/scratch/s174197/data/Verse20/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20_training_prep/img' #r'C:\Users\PC\Documents\Andreas_s174197\Preprocessed_data\img'
-heatmap_dir_training = '/scratch/s214725/Data/Verse20/VertebraeSegmentation/Verse20_training_prep/heatmaps'
-msk_dir_training = '/scratch/s214725/Data/Verse20/VertebraeSegmentation/Verse20_training_prep/msk'
 #Validation
-img_dir_validation = '/scratch/s214725/Data/Verse20/VertebraeSegmentation/Verse20_validation_prep/img'
-heatmap_dir_validation = '/scratch/s214725/Data/Verse20/VertebraeSegmentation/Verse20_validation_prep/heatmaps'
-msk_dir_validation = '/scratch/s214725/Data/Verse20/VertebraeSegmentation/Verse20_validation_prep/msk'
-run_name = 'NO_DATAAUG' #REMEBER TO CHANGE ABOVE FOLDER ALSO, In general change this to save to a different checkpoint 'Third_try_No_dropout_newinitialisation' #No underscore after this
-description = 'Uden data-augmentation. Men husk at jeg har gjort y=y-20 i center and pad så preprocessing er også lidt anderledes!'
+img_dir_validation ='scratch/s214725/Data/Verse20/VertebraeSegmentation/Verse20_validation_prep/img'
+heatmap_dir_validation = 'scratch/s214725/Data/Verse20/VertebraeSegmentation/Verse20_validation_prep/heatmaps'
+msk_dir_validation = 'scratch/s214725/Data/Verse20/VertebraeSegmentation/Verse20_validation_prep/msk'
+run_name = 'outlierdec' 
+
 #Checkpoint
-checkpoint_dir = '/scratch/s214704/Data/Checkpoints/VertebraeSegmentation/NO_DATAAUG'
+checkpoint_dir = 'scratch/s214725/Data/Checkpoints/Outlierdetection'
 
 
 #Create checkpoint parent folder if it does not exist
@@ -88,34 +67,18 @@ val_loader = DataLoader(VerSe_val, batch_size=batch_size,
 
 
 
-#Start wand.db
-# wandb.init(
-#     # set the wandb project where this run will be logged
-#     project="Bachelor project",
-    
-#     # track hyperparameters and run metadatxta
-#     config={
-#     "learning_rate": lr,
-#     "epochs": num_epochs,
-#     'weight_decay': wd,
-#     'batch_size': batch_size,
-#     'drop_out': dropout,
-#     'transform': transform,
-#     'run_name': run_name,
-#     }
-# )
-
-
 
 #Define model
-model = Unet3D(dropout).double()
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu') #device = torch.device('cpu')
+model = VAE(dropout).double()
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu') 
 model.to(device)
 
 #Define loss function and optimizer
-criterion = nn.BCEWithLogitsLoss()
-optimizer = optim.Adam(model.parameters(), lr = lr, weight_decay=wd) #Oprindeligt stod der 0.0001
-#optimizer = optim.SGD(params=model.parameters(), lr = lr, weight_decay=wd, momentum=0.1, nesterov=True)
+criterion = nn.BCEWithLogitsLoss() #????
+optimizer = optim.Adam(model.parameters(), lr = lr, weight_decay=wd) 
+
+
+
 
 
 train_loss = []
@@ -161,6 +124,7 @@ for epoch in range(num_epochs):
                     inputs, targets = inputs.to(device), targets.to(device)
                     output = model(inputs)
                     loss = criterion(output, targets)
+                    
                     # Save loss
                     train_loss_eval.append(loss.item())
             avg_loss_train = np.mean(train_loss_eval)
@@ -181,9 +145,6 @@ for epoch in range(num_epochs):
             print("Validation loss: "+str(avg_loss_val))
             val_loss.append(avg_loss_val)
 
-            #Log in wandb
-            # wandb.log({"Train_loss": avg_loss_train, "Validation_loss": avg_loss_val})
-
             #Save checkpoint
             checkpoint = {
                 'model_state_dict': model.state_dict(),
@@ -196,11 +157,5 @@ for epoch in range(num_epochs):
                 'transform': transform
             }
             torch.save(checkpoint, os.path.join(checkpoint_dir,str(run_name)+'_step'+str(step)+'_batchsize'+str(batch_size)+'_lr'+str(lr)+'_wd'+str(wd)+'.pth'))
-            # torch.save(checkpoint, os.path.join(checkpoint_dir,str(run_name)+'_batchsize'+str(batch_size)+'_lr'+str(lr)+'_wd'+str(wd)+'.pth'))
-
-
-
-
-print("Done")
-
+           
 

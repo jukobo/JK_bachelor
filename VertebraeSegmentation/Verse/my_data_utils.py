@@ -2,13 +2,13 @@ import torch
 import os
 import matplotlib.pyplot as plt
 from tqdm import tqdm
-from os import listdir
-import nibabel
-import plotly.graph_objects as go
+# from os import listdir
+# import nibabel
+# import plotly.graph_objects as go
 import numpy as np
-import matplotlib as mpl
+# import matplotlib as mpl
 import cc3d
-from time import sleep
+# from time import sleep
 import math
 import torch.nn as nn
 from copy import deepcopy

@@ -54,21 +54,65 @@ class LoadData(Dataset):
 
 
 class VAE(nn.Module):
-    def __init__(self, dropout):
+    # def __init__(self, dropout):
+    def __init__(self, dim, device=device): # dim is a list with the dimensions of input, hidden and latent space
         super(VAE, self).__init__()
 
-        #Average pooling
-        self.avgpool = nn.AvgPool3d(kernel_size=2,stride=2)
+        # #Average pooling
+        # self.avgpool = nn.AvgPool3d(kernel_size=2,stride=2)
 
-
+# Inspo fra https://medium.com/@rekalantar/variational-auto-encoder-vae-pytorch-tutorial-dce2d2fe0f5f
     
+        # Define dimensions
+        input_dim = dim[0]
+        hidden_dim = dim[1]
+        latent_dim = dim[2]
+
+        # Encoder
+        self.encoder = nn.Sequential(
+            nn.Linear(input_dim, hidden_dim),
+            nn.ReLU(),
+            nn.Linear(hidden_dim, latent_dim),
+            nn.ReLU(),
+        )
+
+        # Latent mean and variance
+        self.mean_layer = nn.Linear(latent_dim, 2)
+        self.var_layer = nn.Linear(latent_dim, 2)
+
+        # Decoder
+        self.decoder = nn.Sequential(
+            nn.Linear(2, latent_dim),
+            nn.ReLU(),
+            nn.Linear(latent_dim, hidden_dim),
+            nn.ReLU(),
+            nn.Linear(hidden_dim, input_dim),
+            nn.Sigmoid(),
+        )
+
+    def encoder(self, x):
+        x = self.encoder(x)
+        mean = self.mean_layer(x)
+        var = self.var_layer(x)
+        return mean, var
+    
+    def reparameterize(self, mean, var):
+        eps = torch.randn_like(var).to(device)
+        z = mean + var*eps
+        return z
+    
+    def decoder(self, z):
+        return self.decoder(z)
+
+
+
     def forward(self, image):
-        layer1 = xxx
-        x = xxx
-        output = None
-        return output
+        mean, var = self.encoder(image)
+        z = self.reparameterize(mean, var)
+        x_reconstructed = self.decoder(z)
+        return x_reconstructed, mean, var
     
-
+## Define model and optimizer
 
 if __name__ == "__main__":
     image = torch.rand((1,3,96,96,128)) #1 batch, 3 inputs, 96x96, depth 128

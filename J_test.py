@@ -110,6 +110,14 @@ class LoadData(Dataset):
 
         return inputs, msk, subject
 
+
+
+
+
+
+
+
+
 img_dir_training = 'Data/Verse20/VertebraeSegmentation/Verse20_training_prep/img'
 heatmap_dir_training = 'Data/Verse20/VertebraeSegmentation/Verse20_training_prep/heatmaps'
 msk_dir_training = 'Data/Verse20/VertebraeSegmentation/Verse20_training_prep/msk'
@@ -130,3 +138,82 @@ VerSe_train = LoadData(img_dir=img_dir_training, heatmap_dir=heatmap_dir_trainin
 c = "Data loaded"
 output.append(c)
 print(output)
+
+
+
+train_loss = []
+val_loss = []
+
+step = -1
+
+#Train loop
+for epoch in range(num_epochs):
+
+    print("Epoch nr.: "+str(epoch))
+    train_loss_batches = []
+    
+    #Train model
+    model.train()
+
+    #Batching through data
+    for inputs, targets, subject in tqdm(train_loader): #tqdm(train_loader)
+
+        #Send to device
+        inputs, targets = inputs.to(device), targets.to(device)
+
+        # Forward pass, compute gradients, perform one training step.
+        output = model(inputs) #Output
+        loss = criterion(output, targets)
+        optimizer.zero_grad() #Clean up gradients
+        loss.backward() #Compute gradients
+        optimizer.step () #Clean up gradients
+
+        #Update step
+        step+=1
+
+        #Do evaluation every 50 step
+        if step%50 == 0:
+            print("EVALUATION!")
+            model.eval() #Set to evaluation
+
+            #Training evaluation
+            train_loss_eval = []
+            with torch.no_grad():
+                for i in range(5): #10 random batches
+                    inputs, targets, _  = next(iter(train_loader_EVAL))
+                    inputs, targets = inputs.to(device), targets.to(device)
+                    output = model(inputs)
+                    loss = criterion(output, targets)
+                    
+                    # Save loss
+                    train_loss_eval.append(loss.item())
+            avg_loss_train = np.mean(train_loss_eval)
+            print("Train loss: "+str(avg_loss_train))
+            train_loss.append(avg_loss_train)
+
+            #Training evaluation
+            val_loss_eval = []
+            with torch.no_grad():
+                for i in range(5): #10 random batches
+                    inputs, targets, _  = next(iter(val_loader))
+                    inputs, targets = inputs.to(device), targets.to(device)
+                    output = model(inputs)
+                    loss = criterion(output, targets)
+                    # Save loss
+                    val_loss_eval.append(loss.item())
+            avg_loss_val = np.mean(val_loss_eval)
+            print("Validation loss: "+str(avg_loss_val))
+            val_loss.append(avg_loss_val)
+
+            #Save checkpoint
+            checkpoint = {
+                'model_state_dict': model.state_dict(),
+                'optimizer_state_dict': optimizer.state_dict(),
+                'epoch': epoch,
+                'train_loss': train_loss,
+                'val_loss': val_loss,
+                'parameters_dict': parameters_dict,
+                'run_name': run_name,
+                'transform': transform
+            }
+            torch.save(checkpoint, os.path.join(checkpoint_dir,str(run_name)+'_step'+str(step)+'_batchsize'+str(batch_size)+'_lr'+str(lr)+'_wd'+str(wd)+'.pth'))

@@ -6,8 +6,6 @@ from torch.utils.data import DataLoader
 import numpy as np
 from tqdm import tqdm
 
-
-
 from VAE import *
 
 
@@ -43,11 +41,11 @@ run_name = 'outlierdec'
 checkpoint_dir = os.path.join(path, 'Data/Checkpoints/Outlierdetection')
 
 
-#Create checkpoint parent folder if it does not exist
+## Create checkpoint parent folder if it does not exist
 os.makedirs(checkpoint_dir, exist_ok=True)
 
 
-#Unpack parameters
+## Unpack parameters
 num_epochs = parameters_dict['epochs']
 lr = parameters_dict['learning_rate']
 wd = parameters_dict['weight_decay']
@@ -56,11 +54,11 @@ dropout = parameters_dict['dropout']
 transform = parameters_dict['transform']
 
 
-#Load data
+## Loading data
 VerSe_train = LoadData(img_dir=img_dir_training, heatmap_dir=heatmap_dir_training, msk_dir = msk_dir_training,transform=transform)
 train_loader = DataLoader(VerSe_train, batch_size=batch_size,
                         shuffle=True, num_workers=0) #SET TO True!
-#Evaluation
+
 VerSe_train_EVAL = LoadData(img_dir=img_dir_training, heatmap_dir=heatmap_dir_training, msk_dir = msk_dir_training)
 train_loader_EVAL = DataLoader(VerSe_train_EVAL, batch_size=batch_size,
                         shuffle=True, num_workers=0) #SET TO True! - Random evaluation
@@ -70,95 +68,101 @@ val_loader = DataLoader(VerSe_val, batch_size=batch_size,
 
 
 
-
-#Define model
-model = VAE(dropout).double()
+## Define model
+# model = VAE(dropout).double()
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu') 
-model.to(device)
+model = VAE.to(device)
+print(model)
 
-#Define loss function and optimizer
-criterion = nn.BCEWithLogitsLoss() #????
-optimizer = optim.Adam(model.parameters(), lr = lr, weight_decay=wd) 
-
-
-
-
+optimizer = optim.Adam(model.parameters(), lr=lr)
 
 train_loss = []
 val_loss = []
-
 step = -1
 
-#Train loop
-for epoch in range(num_epochs):
 
-    print("Epoch nr.: "+str(epoch))
-    train_loss_batches = []
-    
-    #Train model
+## Train model
+def train(model, optimizer, epochs, device):
     model.train()
+    for epoch in range(epochs):
 
-    #Batching through data
-    for inputs, targets, subject in tqdm(train_loader): #tqdm(train_loader)
+        overall_loss = 0
 
-        #Send to device
-        inputs, targets = inputs.to(device), targets.to(device)
+        for batch_idx, (x, _, _) in enumerate(train_loader):
+            # x = x.view(batch_size, x_dim).to(device)
+            x = x.to(device)
 
-        # Forward pass, compute gradients, perform one training step.
-        output = model(inputs) #Output
-        loss = criterion(output, targets)
-        optimizer.zero_grad() #Clean up gradients
-        loss.backward() #Compute gradients
-        optimizer.step () #Clean up gradients
+            optimizer.zero_grad()
 
-        #Update step
-        step+=1
+            x_reconst, mu, var = model(x)
+            loss = loss_function(x, x_reconst, mu, var)
 
-        #Do evaluation every 50 step
-        if step%50 == 0:
-            print("EVALUATION!")
-            model.eval() #Set to evaluation
+            overall_loss += loss.item()
 
-            #Training evaluation
-            train_loss_eval = []
-            with torch.no_grad():
-                for i in range(5): #10 random batches
-                    inputs, targets, _  = next(iter(train_loader_EVAL))
-                    inputs, targets = inputs.to(device), targets.to(device)
-                    output = model(inputs)
-                    loss = criterion(output, targets)
-                    
-                    # Save loss
-                    train_loss_eval.append(loss.item())
-            avg_loss_train = np.mean(train_loss_eval)
-            print("Train loss: "+str(avg_loss_train))
-            train_loss.append(avg_loss_train)
+            loss. backward()
+            optimizer.step()
+    
+            # Update step
+            step+=1
 
-            #Training evaluation
-            val_loss_eval = []
-            with torch.no_grad():
-                for i in range(5): #10 random batches
-                    inputs, targets, _  = next(iter(val_loader))
-                    inputs, targets = inputs.to(device), targets.to(device)
-                    output = model(inputs)
-                    loss = criterion(output, targets)
-                    # Save loss
-                    val_loss_eval.append(loss.item())
-            avg_loss_val = np.mean(val_loss_eval)
-            print("Validation loss: "+str(avg_loss_val))
-            val_loss.append(avg_loss_val)
+            # Do evaluation every 50 step
+            if step%50 == 0:
+                print("EVALUATION!")
+                model.eval() #Set to evaluation
 
-            #Save checkpoint
-            checkpoint = {
-                'model_state_dict': model.state_dict(),
-                'optimizer_state_dict': optimizer.state_dict(),
-                'epoch': epoch,
-                'train_loss': train_loss,
-                'val_loss': val_loss,
-                'parameters_dict': parameters_dict,
-                'run_name': run_name,
-                'transform': transform
-            }
-            torch.save(checkpoint, os.path.join(checkpoint_dir,str(run_name)+'_step'+str(step)+'_batchsize'+str(batch_size)+'_lr'+str(lr)+'_wd'+str(wd)+'.pth'))
-           
+                #Training evaluation
+                train_loss_eval = []
+                with torch.no_grad():
+                    for i in range(5):
+                        inputs, _ , _  = next(iter(train_loader_EVAL))
+                        inputs = inputs.to(device)
+                        output, mu, var = model(inputs)
+                        loss = loss_function(x, output, mu, var)
+                        
+                        # Save loss
+                        train_loss_eval.append(loss.item())
+                avg_loss_train = np.mean(train_loss_eval)
+                print("Train loss: "+str(avg_loss_train))
+                train_loss.append(avg_loss_train)
+
+                #Training evaluation
+                val_loss_eval = []
+                with torch.no_grad():
+                    for i in range(5): #10 random batches
+                        inputs, _ , _  = next(iter(val_loader))
+                        inputs = inputs.to(device)
+                        output, mu, var = model(inputs)
+                        loss = loss_function(x, x_reconst, mu, var)
+                        # Save loss
+                        val_loss_eval.append(loss.item())
+                avg_loss_val = np.mean(val_loss_eval)
+                print("Validation loss: "+str(avg_loss_val))
+                val_loss.append(avg_loss_val)
+
+                #Save checkpoint
+                checkpoint = {
+                    'model_state_dict': model.state_dict(),
+                    'optimizer_state_dict': optimizer.state_dict(),
+                    'epoch': epoch,
+                    'train_loss': train_loss,
+                    'val_loss': val_loss,
+                    'parameters_dict': parameters_dict,
+                    'run_name': run_name,
+                    'transform': transform
+                }
+                torch.save(checkpoint, os.path.join(checkpoint_dir,str(run_name)+'_step'+str(step)+'_batchsize'+str(batch_size)+'_lr'+str(lr)+'_wd'+str(wd)+'.pth'))
+
+
+
+
+        print(f'Epoch {epoch+1}, Average loss: {overall_loss/len(train_loader)}')
+        print(f'Epoch {epoch+1}, Average loss: {overall_loss/batch_idx*batch_size}')
+    
+        
+
+    return overall_loss
+
+train(model, optimizer, num_epochs, device=device)
+
+
 

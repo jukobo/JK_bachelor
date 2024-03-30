@@ -5,7 +5,7 @@ from torch.utils.data import Dataset
 import os
 import numpy as np
 
-
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu') 
 
 
 class LoadData(Dataset):
@@ -50,7 +50,6 @@ class LoadData(Dataset):
         subject = self.images[index].split("_")[0]
 
         return inputs, msk, subject
-
 
 
 class VAE(nn.Module):
@@ -112,11 +111,20 @@ class VAE(nn.Module):
         x_reconstructed = self.decoder(z)
         return x_reconstructed, mean, var
     
-## Define model and optimizer
 
-if __name__ == "__main__":
-    image = torch.rand((1,3,96,96,128)) #1 batch, 3 inputs, 96x96, depth 128
-    model = VAE(0.0)
-    print(model)
-    #Call model
-    print(model(image).shape)
+def loss_function(x, x_reconstructed, mean, var):
+    loss = nn.functional.binary_cross_entropy(x_reconstructed, x, reduction='sum'),
+
+    # Kullback–Leibler (KL) divergence
+    kl_divergence = 0.5 * torch.sum(1 + var - mean**2 - var.exp())
+
+    return loss + kl_divergence
+
+
+## Hvad er dette???
+# if __name__ == "__main__":
+#     image = torch.rand((1,3,96,96,128)) #1 batch, 3 inputs, 96x96, depth 128
+#     model = VAE(0.0)
+#     print(model)
+#     #Call model
+#     print(model(image).shape)

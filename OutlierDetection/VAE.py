@@ -22,7 +22,7 @@ class LoadData(Dataset):
     def __getitem__(self, index):
         img_path = os.path.join(self.img_dir,self.images[index])
         msk_path = os.path.join(self.msk_dir,self.images[index].replace('img.npy','msk.npy'))
-        distfield_path = os.path.join(self.heatmap_dir,self.images[index].replace('img.npy','distfield.npy'))
+        distfield_path = os.path.join(self.distfield_dir,self.images[index].replace('img.npy','heatmap.npy'))
 
         #INPUTS
         #Load image

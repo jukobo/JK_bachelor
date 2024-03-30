@@ -27,7 +27,7 @@ path = 'scratch/s214725'
 #gpu-cluster
 #Training
 # img_dir_training = os.path.join(path, 'Data/Verse20/VertebraeSegmentation/Verse20_test_prep/img')
-img_dir_training = "C:/Users/julie/Bachelor_data/Verse207VertebraeSegmentation7Verse20_training_prep/img"
+img_dir_training = "C:/Users/julie/Bachelor_data/Verse20/VertebraeSegmentation/Verse20_training_prep/img"
 # heatmap_dir_training = os.path.join(path, 'Data/Verse20/VertebraeSegmentation/Verse20_test_prep/heatmaps')
 heatmap_dir_training = "C:/Users/julie/Bachelor_data/Verse20/VertebraeSegmentation/Verse20_training_prep/heatmaps"
 # msk_dir_training = os.path.join(path, 'Data/Verse20/VertebraeSegmentation/Verse20_test_prep/msk')
@@ -64,14 +64,14 @@ transform = parameters_dict['transform']
 
 
 ## Loading data
-VerSe_train = LoadData(img_dir=img_dir_training, heatmap_dir=heatmap_dir_training, msk_dir = msk_dir_training,transform=transform)
+VerSe_train = LoadData(img_dir=img_dir_training, msk_dir = msk_dir_training, distfield_dir=heatmap_dir_training) #, transform=transform
 train_loader = DataLoader(VerSe_train, batch_size=batch_size,
                         shuffle=True, num_workers=0) #SET TO True!
 
-VerSe_train_EVAL = LoadData(img_dir=img_dir_training, heatmap_dir=heatmap_dir_training, msk_dir = msk_dir_training)
+VerSe_train_EVAL = LoadData(img_dir=img_dir_training, msk_dir = msk_dir_training, distfield_dir=heatmap_dir_training)
 train_loader_EVAL = DataLoader(VerSe_train_EVAL, batch_size=batch_size,
                         shuffle=True, num_workers=0) #SET TO True! - Random evaluation
-VerSe_val = LoadData(img_dir=img_dir_validation, heatmap_dir=heatmap_dir_validation, msk_dir = msk_dir_validation)
+VerSe_val = LoadData(img_dir=img_dir_validation, msk_dir = msk_dir_validation, distfield_dir=heatmap_dir_validation)
 val_loader = DataLoader(VerSe_val, batch_size=batch_size,
                         shuffle=True, num_workers=0) #SET TO True! - Random evaluation
 
@@ -80,7 +80,7 @@ val_loader = DataLoader(VerSe_val, batch_size=batch_size,
 ## Define model
 # model = VAE(dropout).double()
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu') 
-model = VAE.to(device)
+model = VAE([784, 400, 200]).to(device) #NOTE insert dimensions here
 print(model)
 
 optimizer = optim.Adam(model.parameters(), lr=lr)

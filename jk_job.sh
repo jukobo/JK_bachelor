@@ -15,11 +15,6 @@ echo "Node: $(hostname)"
 echo "Start: $(date +%F-%R:%S)"
 echo -e "Working dir: $(pwd)\n"
 
-# SCRATCH=/scratch/$USER
-# if [[ ! -d $SCRATCH ]]; then
-#   mkdir $SCRATCH
-# fi
-
 source ~/JK_bachelor/.bashrc
 module load CUDA/11.4
 source bsc-env/bin/activate

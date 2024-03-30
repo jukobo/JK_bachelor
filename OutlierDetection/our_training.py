@@ -26,19 +26,28 @@ path = 'scratch/s214725'
 
 #gpu-cluster
 #Training
-img_dir_training = os.path.join(path, 'Data/Verse20/VertebraeSegmentation/Verse20_test_prep/img')
-heatmap_dir_training = os.path.join(path, 'Data/Verse20/VertebraeSegmentation/Verse20_test_prep/heatmaps')
-msk_dir_training = os.path.join(path, 'Data/Verse20/VertebraeSegmentation/Verse20_test_prep/msk')
+# img_dir_training = os.path.join(path, 'Data/Verse20/VertebraeSegmentation/Verse20_test_prep/img')
+img_dir_training = "C:/Users/julie/Bachelor_data/Verse207VertebraeSegmentation7Verse20_training_prep/img"
+# heatmap_dir_training = os.path.join(path, 'Data/Verse20/VertebraeSegmentation/Verse20_test_prep/heatmaps')
+heatmap_dir_training = "C:/Users/julie/Bachelor_data/Verse20/VertebraeSegmentation/Verse20_training_prep/heatmaps"
+# msk_dir_training = os.path.join(path, 'Data/Verse20/VertebraeSegmentation/Verse20_test_prep/msk')
+msk_dir_training = "C:/Users/julie/Bachelor_data/Verse20/VertebraeSegmentation/Verse20_training_prep/msk"
+
  #'/Users/andreasaspe/Documents/Data/Verse20/Verse20_training_prep/img' #'/scratch/s174197/data/Verse20/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20_training_prep/img' #r'C:\Users\PC\Documents\Andreas_s174197\Preprocessed_data\img'
 
 #Validation
-img_dir_validation = os.path.join(path, 'Data/Verse20/VertebraeSegmentation/Verse20_validation_prep/img')
-heatmap_dir_validation = os.path.join(path, 'Data/Verse20/VertebraeSegmentation/Verse20_validation_prep/heatmaps')
-msk_dir_validation = os.path.join(path, 'Data/Verse20/VertebraeSegmentation/Verse20_validation_prep/msk')
+# img_dir_validation = os.path.join(path, 'Data/Verse20/VertebraeSegmentation/Verse20_validation_prep/img')
+img_dir_validation = "C:/Users/julie/Bachelor_data/Verse20/VertebraeSegmentation/Verse20_validation_prep/img"
+# heatmap_dir_validation = os.path.join(path, 'Data/Verse20/VertebraeSegmentation/Verse20_validation_prep/heatmaps')
+heatmap_dir_validation = "C:/Users/julie/Bachelor_data/Verse20/VertebraeSegmentation/Verse20_validation_prep/heatmaps"
+# msk_dir_validation = os.path.join(path, 'Data/Verse20/VertebraeSegmentation/Verse20_validation_prep/msk')
+msk_dir_validation = "C:/Users/julie/Bachelor_data/Verse20/VertebraeSegmentation/Verse20_validation_prep/msk"
+
 run_name = 'outlierdec' 
 
 #Checkpoint
-checkpoint_dir = os.path.join(path, 'Data/Checkpoints/Outlierdetection')
+# checkpoint_dir = os.path.join(path, 'Data/Checkpoints/Outlierdetection')
+checkpoint_dir = "C:/Users/julie/Bachelor_data/Checkpoints/Outlierdetection"
 
 
 ## Create checkpoint parent folder if it does not exist

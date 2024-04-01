@@ -6,7 +6,7 @@ import shutil
 #Input directories
 dir_crops = 'Output/crops'  #dir_rawdata
 
-dir_destination = 'Data/Verse20/Outlier_detection/crops_img_mask_dist' 
+dir_destination = 'Data/Verse20/Outlier_detection/crops_img' 
  
 
 

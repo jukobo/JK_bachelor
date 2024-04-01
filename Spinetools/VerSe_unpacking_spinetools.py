@@ -46,10 +46,15 @@ for subject in scans:
         new_ending = 'img.nii.gz'
         name = filename_img[:-len(ending)]
         new_filename_img = name + new_ending
+
+        name_msk = filename_msk.split('_')[0]
+        new_ending = '_PREDICTIONafter.nii.gz'
+        new_filename_msk = name_msk + new_ending
+        
         # destination_dir_img = os.path.join(dir_destination,new_filename_img)
         #Get final directory of destination
         dir_destination_img = os.path.join(raw_dir_destination,new_filename_img)
-        dir_destination_msk = os.path.join(msk_dir_destination,filename_msk)
+        dir_destination_msk = os.path.join(msk_dir_destination,new_filename_msk)
         dir_destination_ctd = os.path.join(ctd_dir_destination,filename_ctd)
         #Move files
         shutil.move(source_img, dir_destination_img)

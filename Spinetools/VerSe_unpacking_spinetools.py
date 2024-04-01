@@ -17,7 +17,7 @@ dir_derivatives = 'Data/dataset-verse20training/derivatives'
 
 raw_dir_destination = 'Data/Verse20_training_unpacked_new/raw' 
 msk_dir_destination = 'Data/Verse20_training_unpacked_new/msk' 
-ctd_dir_destination = 'Data/Verse20_training_unpacked_new/ctd' 
+ctd_dir_destination = 'Data/Verse20/Outlier_detection/crops_img' 
 
 
 #Define list of scans
@@ -50,7 +50,7 @@ for subject in scans:
         name_msk = filename_msk.split('_')[0]
         new_ending = '_PREDICTIONafter.nii.gz'
         new_filename_msk = name_msk + new_ending
-        
+
         # destination_dir_img = os.path.join(dir_destination,new_filename_img)
         #Get final directory of destination
         dir_destination_img = os.path.join(raw_dir_destination,new_filename_img)

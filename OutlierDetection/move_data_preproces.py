@@ -6,7 +6,7 @@ import shutil
 #Input directories
 dir_crops = 'Output/crops'  #Output folder from Spinetools
 
-dir_destination = 'Data/Verse20/Outlier_detection/crops_img' 
+dir_destination = 'Data/Verse20/Outlier_detection/crops_training_unpacked' 
  
 
 

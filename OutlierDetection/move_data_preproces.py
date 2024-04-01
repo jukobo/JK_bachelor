@@ -1,11 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Mar 29 12:04:46 2023
-
-@author: s174197
-"""
-
 from os import listdir
 import os
 import shutil

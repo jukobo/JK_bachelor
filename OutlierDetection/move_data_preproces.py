@@ -4,7 +4,7 @@ import shutil
 
     
 #Input directories
-dir_crops = 'Output/crops'  #dir_rawdata
+dir_crops = 'Output/crops'  #Output folder from Spinetools
 
 dir_destination = 'Data/Verse20/Outlier_detection/crops_img' 
  

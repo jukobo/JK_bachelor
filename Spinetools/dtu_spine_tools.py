@@ -555,7 +555,7 @@ def spine_tools(cfg):
     """
     print("Running spine_tools")
     # Should be adapted to the specific segmentations
-    label_id = 22
+    label_id = 20 #L1
     template_id = cfg.settings["template_id"]
     template_image = cfg.settings["template_image"]
     print(f"Creating template with id {template_id} and label id {label_id}")

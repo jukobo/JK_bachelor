@@ -4,6 +4,7 @@ import torch.nn as nn
 from torch.utils.data import Dataset
 import os
 import numpy as np
+import matplotlib.pyplot as plt
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu') 
 
@@ -196,10 +197,14 @@ def loss_function_cla(x, x_classified):
 
     return loss
 
-## Hvad er dette???
-# if __name__ == "__main__":
-#     image = torch.rand((1,3,96,96,128)) #1 batch, 3 inputs, 96x96, depth 128
-#     model = VAE(0.0)
-#     print(model)
-#     #Call model
-#     print(model(image).shape)
+
+
+## Function to display tensor as image
+def display_tensor_as_image(tensor):
+    # Detach tensor from computation graph and convert to numpy array
+    tensor = tensor.detach().cpu().numpy() if tensor.requires_grad else tensor.cpu().numpy()
+    
+    # Assuming tensor is a numpy array
+    plt.imshow(tensor, cmap='gray')  # You can change the colormap as needed
+    plt.axis('off')  # Turn off axis
+    plt.show()

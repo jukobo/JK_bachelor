@@ -73,8 +73,11 @@ def train(model, optimizer, epochs, device):
             x_reconstructed, x_classified = model(x)
             loss_re = loss_function_re(x_reconstructed, x)
             loss_cla = loss_function_cla(x_classified, clas)
-            print(f"shapes = {x_classified.shape}, {clas.shape}")
+            print(f"Classification = {x_classified},", f"True = {clas}")
             print(f"Reconstruction loss = {loss_re},", f"Classification loss = {loss_cla}")
+
+            # display_tensor_as_image(x_reconstructed)
+
 
             loss = 0.5*loss_re + 0.5*loss_cla
             print(loss)
@@ -144,6 +147,4 @@ def train(model, optimizer, epochs, device):
     return overall_loss
 
 train(model, optimizer, num_epochs, device=device)
-
-
 

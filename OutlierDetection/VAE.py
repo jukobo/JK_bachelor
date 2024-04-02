@@ -121,6 +121,76 @@ def loss_function(x, x_reconstructed, mean, var):
     return loss + kl_divergence
 
 
+class AE(nn.Module):
+    # def __init__(self, dropout):
+    def __init__(self, dim, device=device): # dim is a list with the dimensions of input, hidden and latent space
+        super(AE, self).__init__()
+    
+        # Define dimensions
+        input_dim = dim[0]
+        hidden_dim_1 = dim[1]
+        hidden_dim_2 = dim[2]
+        latent_dim = dim[3]
+
+        # Encoder
+        self.encoder = nn.Sequential(
+            nn.Linear(input_dim, hidden_dim_1),
+            nn.ReLU(), #NOTE True??
+            nn.Linear(hidden_dim_1, hidden_dim_2),
+            nn.ReLU(),
+            nn.Linear(hidden_dim_2, latent_dim)
+        )
+
+
+        # Decoder (reconstruction)
+        self.decoder_re = nn.Sequential(
+            nn.Linear(latent_dim, hidden_dim_2),
+            nn.ReLU(),
+            nn.Linear(hidden_dim_2, hidden_dim_1),
+            nn.ReLU(),
+            nn.Linear(hidden_dim_1, input_dim),
+            nn.Sigmoid(), #NOTE  Tanh??
+        )
+
+        # Decoder (classification)
+        self.decoder_cla = nn.Sequential(
+            nn.Linear(latent_dim, hidden_dim_2),
+            nn.ReLU(),
+            nn.Linear(hidden_dim_2, hidden_dim_2//2),
+            nn.ReLU(),
+            nn.Linear(hidden_dim_2//2, 2),
+            nn.Sigmoid(), #NOTE  Tanh??
+        )
+
+
+    def encode(self, x):
+        return self.encoder(x)
+    
+    def decode_re(self, z):
+        return self.decoder_re(z)
+    
+    def decode_cla(self, z):
+        return self.decoder_cla(z)
+
+
+    def forward(self, image):
+        z = self.encoder(image)
+        x_reconstructed = self.decoder_re(z)
+        x_classified = self.decoder_cla(z)
+
+        return x_reconstructed, x_classified
+
+
+def loss_function_re(x, x_reconstructed):
+    loss = nn.MSELoss(x_reconstructed, x, reduction='sum'),
+
+    return loss
+
+def loss_function_cla(x, x_classified):
+    loss = nn.functional.binary_cross_entropy(x_classified, x, reduction='sum'),
+
+    return loss
+
 ## Hvad er dette???
 # if __name__ == "__main__":
 #     image = torch.rand((1,3,96,96,128)) #1 batch, 3 inputs, 96x96, depth 128

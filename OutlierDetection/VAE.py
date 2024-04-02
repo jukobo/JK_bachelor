@@ -156,9 +156,9 @@ class AE(nn.Module):
         self.decoder_cla = nn.Sequential(
             nn.Linear(latent_dim, hidden_dim_2),
             nn.ReLU(),
-            nn.Linear(hidden_dim_2, hidden_dim_2//2),
+            nn.Linear(hidden_dim_2, 150),
             nn.ReLU(),
-            nn.Linear(hidden_dim_2//2, 2),
+            nn.Linear(150, 2),
             nn.Sigmoid(), #NOTE  Tanh??
         )
 
@@ -170,24 +170,29 @@ class AE(nn.Module):
         return self.decoder_re(z)
     
     def decode_cla(self, z):
-        return self.decoder_cla(z)
+        out_temp = self.decoder_cla(z)
+        out = torch.mean(out_temp, dim=0, keepdim=True)
+
+        return out
 
 
     def forward(self, image):
-        z = self.encoder(image)
-        x_reconstructed = self.decoder_re(z)
-        x_classified = self.decoder_cla(z)
+        z = self.encode(image)
+        x_reconstructed = self.decode_re(z)
+        x_classified = self.decode_cla(z)
 
         return x_reconstructed, x_classified
 
 
 def loss_function_re(x, x_reconstructed):
-    loss = nn.MSELoss(x_reconstructed, x, reduction='sum'),
+    criterion = nn.MSELoss(reduction='sum')
+    loss = criterion(x_reconstructed, x)
 
     return loss
 
 def loss_function_cla(x, x_classified):
-    loss = nn.functional.binary_cross_entropy(x_classified, x, reduction='sum'),
+    loss_function_cla = nn.functional.binary_cross_entropy
+    loss = loss_function_cla(x_classified, x, reduction='sum')
 
     return loss
 

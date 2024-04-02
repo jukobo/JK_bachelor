@@ -16,14 +16,13 @@ img_1 = img.convert('L')
 img_1 = np.array(img_1)
 img_1 = np.resize(img_1, (256, 256))
 
-
 transform = transforms.ToTensor()
 
 # Apply the transformation to the image
 img_gray = transform(img_1)
 
-clas = [1,0] # 1 for normal, 0 for outlier
-
+clas = torch.tensor([[1.0,0.0]]) # 1 for normal, 0 for outlier
+# print(clas.size())
 
 #Define paramters
 parameters_dict = {
@@ -49,7 +48,7 @@ transform = parameters_dict['transform']
 ## Define model
 # model = VAE(dropout).double()
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu') 
-model = AE([img_gray.shape[0]*img_gray.shape[1], 800, 300, 200]).to(device) #NOTE insert dimensions here
+model = AE([img_1.shape[0], 800, 300, 200]).to(device) #NOTE insert dimensions here
 print(model)
 
 optimizer = optim.Adam(model.parameters(), lr=lr)
@@ -74,10 +73,11 @@ def train(model, optimizer, epochs, device):
             x_reconstructed, x_classified = model(x)
             loss_re = loss_function_re(x_reconstructed, x)
             loss_cla = loss_function_cla(x_classified, clas)
-            print(x_classified)
-            print(loss_re, loss_cla)
+            print(f"shapes = {x_classified.shape}, {clas.shape}")
+            print(f"Reconstruction loss = {loss_re},", f"Classification loss = {loss_cla}")
 
             loss = 0.5*loss_re + 0.5*loss_cla
+            print(loss)
 
             overall_loss += loss.item()
 

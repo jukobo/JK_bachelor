@@ -104,3 +104,9 @@ for subject in scans:
             print("Subject "+str(subject)+" has already been moved.")
         else:
             raise e
+
+
+dir_to_delete = 'Data/Output_spinetools'
+
+if os.path.exists(dir_to_delete):
+    shutil.rmtree(dir_to_delete)

@@ -21,7 +21,7 @@ from tqdm import tqdm
 #Define scans
 all_scans = 0 #Set to 1 if you want to preprocess all scans
 # list_of_subjects = ['sub-verse813'] #List of subjects 521, 820
-with open("OutlierDetection/Lists/list_of_subjects_training_VERSE", "rb") as fp:   # Unpickling
+with open("OutlierDetection/Lists_preproces/list_of_subjects_training_VERSE", "rb") as fp:   # Unpickling
     list_of_subjects = pickle.load(fp)
 sigma = 5 #Parameter for heatmaps
 

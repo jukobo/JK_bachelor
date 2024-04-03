@@ -159,7 +159,7 @@ for subject in tqdm(all_subjects):
 
     #Crop image and mask based on centroids!
     for ctd in ctd_resampled_reoriented[1:]:
-        if ctd[0] == 24:
+        if ctd[0] == 20:                        # NOTE: Change to right vertebra
             x = np.round(ctd[1]).astype(int)
             y = np.round(ctd[2]).astype(int)
             z = np.round(ctd[3]).astype(int)

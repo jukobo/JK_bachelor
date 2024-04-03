@@ -4,8 +4,8 @@ import shutil
 
     
 #Input directories
-# dir_crops = 'Data/Output_spinetools/crops'  #Output folder from Spinetools
-dir_crops = 'Data/Output_spinetools/dist_fields'  #Output folder from Spinetools
+dir_crops = 'Data/Output_spinetools/crops'  #Output folder from Spinetools
+# dir_crops = 'Data/Output_spinetools/dist_fields'  #Output folder from Spinetools
 
 
 dir_destination = 'Data/Verse20/Outlier_detection/crops_training_unpacked' 
@@ -43,8 +43,50 @@ for subject in scans:
             name = st[:-len(st.split('_')[-1])]
             subject = name + new_ending
 
-        # dist field
-        elif st.split('_')[-1]=='outlier.nii.gz':
+        
+       
+        #Get final directory of destination
+        dir_destination_img = os.path.join(dir_destination,subject)
+        dir_destination_dist = os.path.join(dir_destination,subject)
+        #Move files
+        shutil.move(source_img, dir_destination_img)
+        print("Subject "+str(subject)+" has been moved.")
+    
+    except shutil.Error as e:
+        if "already exists" in str(e):
+            print("Subject "+str(subject)+" has already been moved.")
+        else:
+            raise e
+
+
+
+
+# Move distfields
+
+dir_crops = 'Data/Output_spinetools/dist_fields'  #Output folder from Spinetools
+
+
+dir_destination = 'Data/Verse20/Outlier_detection/crops_training_unpacked' 
+ 
+
+
+#Define list of scans
+scans = [f for f in listdir(dir_crops)] #Remove file .DS_Store
+if not os.path.exists(dir_destination):
+   os.makedirs(dir_destination)
+
+#FOR LOOP START
+for subject in scans:
+    print("       SUBJECT: "+str(subject)+"\n")
+    try:
+        
+        st = str(subject)
+        #Get directory of source
+        source_img = os.path.join(dir_crops,subject)
+        
+        #Get new file names for image
+
+        if st.split('_')[-1]=='outlier.nii.gz':
             new_ending = 'outlier_distance_field.nii.gz'
             name = st[:-(len(st.split('_')[-1])+len(st.split('_')[-2])+1+len(st.split('_')[-3])+1)]
             subject = name + new_ending
@@ -62,4 +104,3 @@ for subject in scans:
             print("Subject "+str(subject)+" has already been moved.")
         else:
             raise e
-

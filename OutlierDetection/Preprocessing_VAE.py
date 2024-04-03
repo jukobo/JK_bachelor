@@ -108,7 +108,7 @@ for subject in tqdm(all_subjects):
 
     #LOAD Dist fields
     filename_ctd = [f for f in listdir(dir_data) if (f.startswith(subject) and f.endswith('field.nii.gz'))][0]
-    dist_list = nib.load(os.path.join(os.path.join(dir_data,filename_ctd)))
+    dist_nib = nib.load(os.path.join(os.path.join(dir_data,filename_ctd)))
 
     #Get info
     zooms = img_nib.header.get_zooms() #Voxel sizes
@@ -139,10 +139,15 @@ for subject in tqdm(all_subjects):
     #Centroids
     ctd_resampled = rescale_centroids(ctd_list, img_nib, vs)
     ctd_resampled_reoriented = reorient_centroids_to(ctd_resampled, img_resampled_reoriented)
+    #Distfield
+    dist_resampled = resample_nib(dist_nib, voxel_spacing=vs, order=0) # or resample based on img: resample_mask_to(msk_nib, img_iso)
+    dist_resampled_reoriented = reorient_to(dist_resampled, axcodes_to=New_orientation)
 
     #Load data
     data_img = np.asanyarray(img_resampled_reoriented.dataobj, dtype=img_resampled_reoriented.dataobj.dtype)
     data_msk = np.asanyarray(msk_resampled_reoriented.dataobj, dtype=msk_resampled_reoriented.dataobj.dtype)
+    data_dist = np.asanyarray(dist_resampled_reoriented.dataobj, dtype=dist_resampled_reoriented.dataobj.dtype)
+
 
     #Change hounsfield units
     data_img[data_img<HU_range_cutoff[0]] = HU_range_cutoff[0]
@@ -164,6 +169,8 @@ for subject in tqdm(all_subjects):
             #Crop image and mask
             data_img_temp, restrictions = center_and_pad(data=data_img, new_dim=new_dim, pad_value=-1,centroid=centroid)
             data_msk_temp, restrictions = center_and_pad(data=data_msk, new_dim=new_dim, pad_value=-1,centroid=centroid)
+            data_dist_temp, restrictions = center_and_pad(data=data_dist, new_dim=new_dim, pad_value=-1,centroid=centroid)
+
             #Extract values
             x_min_restrict, _, y_min_restrict, _, z_min_restrict, _ = restrictions
 
@@ -195,9 +202,13 @@ for subject in tqdm(all_subjects):
             img_filename = subject_ID + "_img.npy" #Input
             heatmap_filename = subject_ID + "_heatmap.npy" #Input
             msk_filename = subject_ID + "_msk.npy" #Target
+            dist_filename = subject_ID + "_dist_field.npy" #Target
+
             np.save(os.path.join(img_path,img_filename), data_img_temp)
             np.save(os.path.join(heatmap_path,heatmap_filename), heatmap)
             np.save(os.path.join(msk_path,msk_filename), data_msk_temp)
+            np.save(os.path.join(dist_path,dist_filename), data_dist_temp)
+
 
 
 #Save padding-directory

@@ -108,7 +108,7 @@ for subject in tqdm(all_subjects):
 
     #LOAD Dist fields
     filename_ctd = [f for f in listdir(dir_data) if (f.startswith(subject) and f.endswith('field.nii.gz'))][0]
-    ctd_list = load_centroids(os.path.join(os.path.join(dir_data,filename_ctd)))
+    dist_list = nib.load(os.path.join(os.path.join(dir_data,filename_ctd)))
 
     #Get info
     zooms = img_nib.header.get_zooms() #Voxel sizes
@@ -154,7 +154,7 @@ for subject in tqdm(all_subjects):
 
     #Crop image and mask based on centroids!
     for ctd in ctd_resampled_reoriented[1:]:
-        if 17 <= ctd[0] <= 24:
+        if ctd[0] == 24:
             x = np.round(ctd[1]).astype(int)
             y = np.round(ctd[2]).astype(int)
             z = np.round(ctd[3]).astype(int)

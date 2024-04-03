@@ -43,6 +43,11 @@ for subject in scans:
             name = st[:-len(st.split('_')[-1])]
             subject = name + new_ending
 
+        # dist field
+        elif st.split('_')[-1]=='outlier.nii.gz':
+            new_ending = 'outlier_distance_field.nii.gz'
+            name = st[:-(len(st.split('_')[-1])+len(st.split('_')[-2])+1+len(st.split('_')[-3])+1)]
+            subject = name + new_ending
         
        
         #Get final directory of destination

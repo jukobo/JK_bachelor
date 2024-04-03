@@ -21,7 +21,7 @@ from tqdm import tqdm
 #Define scans
 all_scans = 0 #Set to 1 if you want to preprocess all scans
 # list_of_subjects = ['sub-verse813'] #List of subjects 521, 820
-with open("Other_scripts/list_of_subjects_training_VERSE", "rb") as fp:   # Unpickling
+with open("OutlierDetection/Lists/list_of_subjects_training_VERSE", "rb") as fp:   # Unpickling
     list_of_subjects = pickle.load(fp)
 sigma = 5 #Parameter for heatmaps
 
@@ -104,6 +104,10 @@ for subject in tqdm(all_subjects):
 
     #LOAD CENTROIDS
     filename_ctd = [f for f in listdir(dir_data) if (f.startswith(subject) and f.endswith('json'))][0]
+    ctd_list = load_centroids(os.path.join(os.path.join(dir_data,filename_ctd)))
+
+    #LOAD Dist fields
+    filename_ctd = [f for f in listdir(dir_data) if (f.startswith(subject) and f.endswith('field.nii.gz'))][0]
     ctd_list = load_centroids(os.path.join(os.path.join(dir_data,filename_ctd)))
 
     #Get info

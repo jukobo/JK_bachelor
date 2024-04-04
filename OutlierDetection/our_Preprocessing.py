@@ -77,7 +77,6 @@ img_path = os.path.join(Output_folder,'img') #Create output-folders if it does n
 img_out_path = os.path.join(Output_folder,'img_outlier') #Create output-folders if it does not exist
 
 heatmap_path = os.path.join(Output_folder,'heatmaps') #Create output-folders if it does not exist
-heatmap_out_path = os.path.join(Output_folder,'heatmaps_outlier') #Create output-folders if it does not exist
 
 msk_path = os.path.join(Output_folder,'msk') #Create output-folders if it does not exist
 msk_out_path = os.path.join(Output_folder,'msk_outlier') #Create output-folders if it does not exist
@@ -92,7 +91,6 @@ if not os.path.exists(img_path):
 
 if not os.path.exists(heatmap_path):
     os.makedirs(heatmap_path)
-    os.makedirs(heatmap_out_path)
 
 if not os.path.exists(msk_path):
     os.makedirs(msk_path)

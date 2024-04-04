@@ -1,10 +1,12 @@
 import torch
-import torch.nn.functional as F
 import torch.nn as nn
 from torch.utils.data import Dataset
 import os
 import numpy as np
 import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+
+
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu') 
 
@@ -197,6 +199,19 @@ def loss_function_cla(x, x_classified):
 
     return loss
 
+
+
+def load_split_data(folder_healthy, folder_outlier):
+    folder_path_healthy = folder_healthy
+    file_names_healthy = os.listdir(folder_path_healthy)
+
+    folder_path_outlier= folder_outlier
+    file_names_outlier = os.listdir(folder_path_outlier)
+
+    healthy_A, outlier_A, healthy_B, outlier_B = train_test_split(file_names_healthy, file_names_outlier, test_size=0.2, random_state=42)
+
+
+    return healthy_A, outlier_B
 
 
 ## Function to display tensor as image

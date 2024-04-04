@@ -15,12 +15,23 @@ heatmap_dir_training = "C:/Users/julie/Bachelor_data/Verse20/VertebraeSegmentati
 msk_dir_training = "C:/Users/julie/Bachelor_data/Verse20/VertebraeSegmentation/Verse20_training_prep/msk"
 
 VerSe_train = LoadData(img_dir=img_dir_training, msk_dir = msk_dir_training, distfield_dir=heatmap_dir_training) #, transform=transform
-train_loader = DataLoader(VerSe_train, batch_size=1,
-                        shuffle=True, num_workers=0)
+train_loader = DataLoader(VerSe_train, batch_size=1, shuffle=True, num_workers=0)
 
 x, y, z = train_loader.dataset[10]
 # plt.imshow(x[0][75, :, :], cmap='gray')
 # plt.show()
+
+
+#Validation
+img_dir_validation = "C:/Users/julie/Bachelor_data/Verse20/VertebraeSegmentation/Verse20_validation_prep/img"
+heatmap_dir_validation = "C:/Users/julie/Bachelor_data/Verse20/VertebraeSegmentation/Verse20_validation_prep/heatmaps"
+msk_dir_validation = "C:/Users/julie/Bachelor_data/Verse20/VertebraeSegmentation/Verse20_validation_prep/msk"
+
+VerSe_train_EVAL = LoadData(img_dir=img_dir_training, msk_dir = msk_dir_training, distfield_dir=heatmap_dir_training)
+train_loader_EVAL = DataLoader(VerSe_train_EVAL, batch_size=1, shuffle=True, num_workers=0) 
+VerSe_val = LoadData(img_dir=img_dir_validation, msk_dir = msk_dir_validation, distfield_dir=heatmap_dir_validation)
+val_loader = DataLoader(VerSe_val, batch_size=1, shuffle=True, num_workers=0) 
+
 
 
 #Define paramters
@@ -51,6 +62,8 @@ print(model)
 optimizer = optim.Adam(model.parameters(), lr=lr)
 
 train_loss = []
+train_loss_re = []
+train_loss_cla = []
 val_loss = []
 
 ## Train model
@@ -71,14 +84,14 @@ def train(model, optimizer, epochs, device):
             x_reconstructed, x_classified = model(x)
             loss_re = loss_function_re(x_reconstructed, x)
             loss_cla = loss_function_cla(x_classified, clas)
-            print(" ")
-            print(f"Classification = {x_classified},", f"True = {clas}")
-            print(f"Reconstruction loss = {loss_re},", f"Classification loss = {loss_cla}")
+            # print(" ")
+            # print(f"Classification = {x_classified},", f"True = {clas}")
+            # print(f"Reconstruction loss = {loss_re},", f"Classification loss = {loss_cla}")
 
             loss = 0.5*loss_re + 0.5*loss_cla
-            print("")
-            print(f"Total loss = {loss}")
-            print("")
+            # print("")
+            # print(f"Total loss = {loss}")
+            # print("")
 
             overall_loss += loss.item()
 
@@ -99,11 +112,20 @@ def train(model, optimizer, epochs, device):
                     for i in range(5):
                         inputs, _ , _  = next(iter(train_loader_EVAL))
                         inputs = inputs.to(device)
-                        output, mu, var = model(inputs)
-                        loss = loss_function(x, output, mu, var)
+                        inputs = inputs[:, 0, 64, :, :].squeeze() # Dim is now 128x96
+
+                        x_reconstructed, x_classified = model(x)
+
+                        loss_re = loss_function_re(x_reconstructed, x)
+                        loss_cla = loss_function_cla(x_classified, clas)
                         
+                        loss = 0.5*loss_re + 0.5*loss_cla
+
                         # Save loss
+                        train_loss_re.append(loss_re.item())
+                        train_loss_cla.append(loss_cla.item())
                         train_loss_eval.append(loss.item())
+
                 avg_loss_train = np.mean(train_loss_eval)
                 print("Train loss: "+str(avg_loss_train))
                 train_loss.append(avg_loss_train)
@@ -114,26 +136,32 @@ def train(model, optimizer, epochs, device):
                     for i in range(5): #10 random batches
                         inputs, _ , _  = next(iter(val_loader))
                         inputs = inputs.to(device)
-                        output, mu, var = model(inputs)
-                        loss = loss_function(x, x_reconst, mu, var)
+                        inputs = inputs[:, 0, 64, :, :].squeeze() # Dim is now 128x96
+
+                        x_reconstructed, x_classified = model(x)
+                        loss_re = loss_function_re(x_reconstructed, x)
+                        loss_cla = loss_function_cla(x_classified, clas)
+                        
+                        loss = 0.5*loss_re + 0.5*loss_cla
+
                         # Save loss
                         val_loss_eval.append(loss.item())
                 avg_loss_val = np.mean(val_loss_eval)
                 print("Validation loss: "+str(avg_loss_val))
                 val_loss.append(avg_loss_val)
 
-                #Save checkpoint
-                checkpoint = {
-                    'model_state_dict': model.state_dict(),
-                    'optimizer_state_dict': optimizer.state_dict(),
-                    'epoch': epoch,
-                    'train_loss': train_loss,
-                    'val_loss': val_loss,
-                    'parameters_dict': parameters_dict,
-                    'run_name': run_name,
-                    'transform': transform
-                }
-                torch.save(checkpoint, os.path.join(checkpoint_dir,str(run_name)+'_step'+str(step)+'_batchsize'+str(batch_size)+'_lr'+str(lr)+'_wd'+str(wd)+'.pth'))
+                # #Save checkpoint
+                # checkpoint = {
+                #     'model_state_dict': model.state_dict(),
+                #     'optimizer_state_dict': optimizer.state_dict(),
+                #     'epoch': epoch,
+                #     'train_loss': train_loss,
+                #     'val_loss': val_loss,
+                #     'parameters_dict': parameters_dict,
+                #     'run_name': run_name,
+                #     'transform': transform
+                # }
+                # torch.save(checkpoint, os.path.join(checkpoint_dir,str(run_name)+'_step'+str(step)+'_batchsize'+str(batch_size)+'_lr'+str(lr)+'_wd'+str(wd)+'.pth'))
 
 
 

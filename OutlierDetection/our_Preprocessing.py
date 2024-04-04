@@ -19,7 +19,7 @@ from tqdm import tqdm
 #################### CONTROL PANEL ####################
 #######################################################
 #Define scans
-all_scans = 0 #Set to 1 if you want to preprocess all scans
+all_scans = 1 #Set to 1 if you want to preprocess all scans
 # list_of_subjects = ['sub-verse813'] #List of subjects 521, 820
 with open("OutlierDetection/Lists_preproces/list_of_subjects_training_VERSE", "rb") as fp:   # Unpickling
     list_of_subjects = pickle.load(fp)
@@ -35,7 +35,7 @@ new_dim = (128,128,96)
 ### GPU CLUSTER ###
 dir_data = 'Data/Verse20/Outlier_detection/crops_training_unpacked' #Overall folder. Defining specific below #'/scratch/s174197/data/Verse20/Verse20_test_unpacked' #'/Users/andreasaspe/Documents/Data/Verse20/Verse20_test_unpacked'
 #ONLY FOR SAVING TIME AND GETTING THE RIGHT SUBJECTS
-dir_data_localisation = 'Data/Verse20/Outlier_detection/crops_training_prep/img'
+dir_data_localisation = 'Data/Verse20_training_unpacked_new/raw' #list of images, rember to remove files, that spinetools haven't used
 #Outputs
 Output_folder = 'Data/Verse20/Outlier_detection/crops_training_prep'
 #Padding

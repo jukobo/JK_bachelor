@@ -6,14 +6,28 @@ import numpy as np
 
 from VAE import *
 
+#Define paramters
+parameters_dict = {
+    'epochs': 60,
+    'learning_rate': 1e-5,
+    'batch_size': 1,
+}
+
+## Unpack parameters
+num_epochs = parameters_dict['epochs']
+lr = parameters_dict['learning_rate']
+batch_size = parameters_dict['batch_size']
+
+
+
 
 ## Loading data
 img_dir_training = "C:/Users/julie/Bachelor_data/Verse20/VertebraeSegmentation/Verse20_training_prep/img"
 heatmap_dir_training = "C:/Users/julie/Bachelor_data/Verse20/VertebraeSegmentation/Verse20_training_prep/heatmaps"
 msk_dir_training = "C:/Users/julie/Bachelor_data/Verse20/VertebraeSegmentation/Verse20_training_prep/msk"
 
-VerSe_train = LoadData(img_dir=img_dir_training, msk_dir = msk_dir_training, distfield_dir=heatmap_dir_training) #, transform=transform
-train_loader = DataLoader(VerSe_train, batch_size=1, shuffle=True, num_workers=0)
+VerSe_train = LoadData(img_dir=img_dir_training, msk_dir = msk_dir_training, distfield_dir=heatmap_dir_training)
+train_loader = DataLoader(VerSe_train, batch_size=batch_size, shuffle=True, num_workers=0)
 
 x, y, z = train_loader.dataset[10]
 # plt.imshow(x[0][75, :, :], cmap='gray')
@@ -26,33 +40,14 @@ heatmap_dir_validation = "C:/Users/julie/Bachelor_data/Verse20/VertebraeSegmenta
 msk_dir_validation = "C:/Users/julie/Bachelor_data/Verse20/VertebraeSegmentation/Verse20_validation_prep/msk"
 
 VerSe_train_EVAL = LoadData(img_dir=img_dir_training, msk_dir = msk_dir_training, distfield_dir=heatmap_dir_training)
-train_loader_EVAL = DataLoader(VerSe_train_EVAL, batch_size=1, shuffle=True, num_workers=0) 
+train_loader_EVAL = DataLoader(VerSe_train_EVAL, batch_size=batch_size, shuffle=True, num_workers=0) 
 VerSe_val = LoadData(img_dir=img_dir_validation, msk_dir = msk_dir_validation, distfield_dir=heatmap_dir_validation)
-val_loader = DataLoader(VerSe_val, batch_size=1, shuffle=True, num_workers=0) 
+val_loader = DataLoader(VerSe_val, batch_size=batch_size, shuffle=True, num_workers=0) 
 
 
-
-#Define paramters
-parameters_dict = {
-    'epochs': 10,
-    'learning_rate': 1e-5,
-    'weight_decay': 5e-4,
-    'batch_size': 1,
-    'dropout': 0.0,
-    'transform': None
-}
-
-
-## Unpack parameters
-num_epochs = parameters_dict['epochs']
-lr = parameters_dict['learning_rate']
-wd = parameters_dict['weight_decay']
-batch_size = parameters_dict['batch_size']
-dropout = parameters_dict['dropout']
-transform = parameters_dict['transform']
 
 ## Define model
-model = AE2([96, 800, 300, 200]).double() #NOTE insert dimensions here
+model = AE2([96, 64, 32, 16]).double() #NOTE insert dimensions here
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu') 
 model.to(device)
 print(model)
@@ -67,6 +62,13 @@ def train(model, optimizer, epochs, device):
     model.train()
     step = -1
 
+    # Plotting the loss
+    fig, ax = plt.subplots()
+    ax.set_title('Model Loss')
+    ax.set_xlabel('Epoch')
+    ax.set_ylabel('Loss')
+    plt.ion()
+
     for epoch in range(epochs):
 
         overall_loss = 0
@@ -79,8 +81,6 @@ def train(model, optimizer, epochs, device):
 
             x_reconstructed = model(x)
             loss = loss_function_re(x_reconstructed, x)
-            # print(" ")
-            # print(f"Reconstruction loss = {loss_re},")
 
             overall_loss += loss.item()
 
@@ -91,7 +91,7 @@ def train(model, optimizer, epochs, device):
             step+=1
 
             # Do evaluation every 50 step
-            if step%1 == 0:
+            if step%50 == 0:
                 print("EVALUATION!")
                 model.eval() #Set to evaluation
 
@@ -145,13 +145,20 @@ def train(model, optimizer, epochs, device):
                 # torch.save(checkpoint, os.path.join(checkpoint_dir,str(run_name)+'_step'+str(step)+'_batchsize'+str(batch_size)+'_lr'+str(lr)+'_wd'+str(wd)+'.pth'))
 
 
+        ax.plot(epoch + 1, overall_loss/len(train_loader), marker='o', color='b')  # Update the plot with the current loss
+        plt.pause(0.1)
 
 
         print(f'Epoch {epoch+1}, Average loss: {overall_loss/len(train_loader)}')
-        print(f'Epoch {epoch+1}, Average loss: {overall_loss/batch_idx*batch_size}')
     
         
     return overall_loss
 
+plt.ioff() 
+plt.savefig('model_loss_plot.png')  # Save the plot as a PNG file
+plt.show()
+
+
 train(model, optimizer, num_epochs, device=device)
 
+display_tensor_as_image(x_reconstructed)

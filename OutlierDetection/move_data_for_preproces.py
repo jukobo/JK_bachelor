@@ -68,7 +68,7 @@ for subject in scans:
 
 # Move distfields
 
-dir_crops = 'Data/Output_spinetools/dist_fields'  #Output folder from Spinetools
+dir_dist = 'Data/Output_spinetools/dist_fields'  #Output folder from Spinetools
 
 
 dir_destination = 'Data/Verse20/Outlier_detection/crops_training_unpacked' 
@@ -76,7 +76,7 @@ dir_destination = 'Data/Verse20/Outlier_detection/crops_training_unpacked'
 
 
 #Define list of scans
-scans = [f for f in listdir(dir_crops)] #Remove file .DS_Store
+scans = [f for f in listdir(dir_dist)] #Remove file .DS_Store
 if not os.path.exists(dir_destination):
    os.makedirs(dir_destination)
 
@@ -87,7 +87,7 @@ for subject in scans:
         
         st = str(subject)
         #Get directory of source
-        source_img = os.path.join(dir_crops,subject)
+        source_img = os.path.join(dir_dist,subject)
         
         #Get new file names for image
 
@@ -98,10 +98,9 @@ for subject in scans:
         
        
         #Get final directory of destination
-        dir_destination_img = os.path.join(dir_destination,subject)
         dir_destination_dist = os.path.join(dir_destination,subject)
         #Move files
-        shutil.move(source_img, dir_destination_img)
+        shutil.move(source_img, dir_destination_dist)
         print("Subject "+str(subject)+" has been moved.")
     
     except shutil.Error as e:

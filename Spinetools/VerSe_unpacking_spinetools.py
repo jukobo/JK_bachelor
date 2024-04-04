@@ -21,7 +21,7 @@ ctd_dir_destination = 'Data/Verse20/Outlier_detection/crops_training_unpacked'
 
 
 #Define list of scans
-scans = [f for f in listdir(dir_rawdata) if f.startswith('sub')] #Remove file .DS_Store
+scans = [f for f in listdir(dir_rawdata) if f.startswith('sub-verse')] #Remove file .DS_Store
 #Create training folder if it does not exist
 if not os.path.exists(raw_dir_destination):
    os.makedirs(raw_dir_destination)

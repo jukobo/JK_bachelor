@@ -8,17 +8,17 @@ from VAE import *
 
 #Define paramters
 parameters_dict = {
-    'epochs': 60,
+    'epochs': 30,
     'learning_rate': 1e-5,
     'batch_size': 1,
+    'weight_decay': 5e-4,
 }
 
 ## Unpack parameters
 num_epochs = parameters_dict['epochs']
 lr = parameters_dict['learning_rate']
 batch_size = parameters_dict['batch_size']
-
-
+wd = parameters_dict['weight_decay']
 
 
 ## Loading data
@@ -47,12 +47,14 @@ val_loader = DataLoader(VerSe_val, batch_size=batch_size, shuffle=True, num_work
 
 
 ## Define model
-model = AE2([96, 64, 32, 16]).double() #NOTE insert dimensions here
+model = AE2([96, 64, 64, 32, 16]).double() #NOTE insert dimensions here
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu') 
 model.to(device)
 print(model)
 
-optimizer = optim.Adam(model.parameters(), lr=lr)
+# optimizer = optim.Adam(model.parameters(), lr=lr)
+optimizer = optim.AdamW(model.parameters(), lr=0.001)
+
 
 train_loss = []
 val_loss = []
@@ -105,6 +107,7 @@ def train(model, optimizer, epochs, device):
 
                         x_reconstructed = model(x)
 
+
                         loss = loss_function_re(x_reconstructed, x)
 
                         # Save loss
@@ -125,6 +128,10 @@ def train(model, optimizer, epochs, device):
                         x_reconstructed = model(x)
                         loss = loss_function_re(x_reconstructed, x)
                         
+                        # Save reconstructed images
+                        # numpy_array = x_reconstructed.cpu().numpy()
+                        # np.save(f'OutlierDetection/rec_data/reconstruction{epoch}{step}.npy', numpy_array)
+
                         # Save loss
                         val_loss_eval.append(loss.item())
                 avg_loss_val = np.mean(val_loss_eval)
@@ -149,16 +156,13 @@ def train(model, optimizer, epochs, device):
         plt.pause(0.1)
 
 
-        print(f'Epoch {epoch+1}, Average loss: {overall_loss/len(train_loader)}')
-    
-        
-    return overall_loss
+        print(f'Epoch {epoch+1}, Average loss: {overall_loss/len(train_loader)}')    
+
 
 plt.ioff() 
-plt.savefig('model_loss_plot.png')  # Save the plot as a PNG file
 plt.show()
-
+plt.savefig('model_loss_plot.png')  # Save the plot as a PNG file
 
 train(model, optimizer, num_epochs, device=device)
 
-display_tensor_as_image(x_reconstructed)
+

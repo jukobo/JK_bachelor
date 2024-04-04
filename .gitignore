@@ -10,3 +10,5 @@ requirements.txt
 
 # Data
 crop3.png
+
+OutlierDetection/rec_data/*

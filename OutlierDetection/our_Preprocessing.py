@@ -159,29 +159,29 @@ for subject in tqdm(all_subjects):
     #RESAMPLE AND REORIENT
     vs = (New_voxel_size,New_voxel_size,New_voxel_size)
     #Image
-    img_resampled = resample_nib(img_nib, voxel_spacing=vs, order=3) # NOTE: her er der problemer ved crops!
-    img_resampled_reoriented = reorient_to(img_resampled, axcodes_to=New_orientation)
+    # img_resampled = resample_nib(img_nib, voxel_spacing=vs, order=3) # NOTE: her er der problemer ved crops!
+    img_resampled_reoriented = reorient_to(img_nib, axcodes_to=New_orientation)
 
-    img_out_resampled = resample_nib(img_out_nib, voxel_spacing=vs, order=3)
-    img_out_resampled_reoriented = reorient_to(img_out_resampled, axcodes_to=New_orientation)
+    # img_out_resampled = resample_nib(img_out_nib, voxel_spacing=vs, order=3)
+    img_out_resampled_reoriented = reorient_to(img_out_nib, axcodes_to=New_orientation)
     
     #Mask
-    msk_resampled = resample_nib(msk_nib, voxel_spacing=vs, order=0) # or resample based on img: resample_mask_to(msk_nib, img_iso)
-    msk_resampled_reoriented = reorient_to(msk_resampled, axcodes_to=New_orientation)
+    # msk_resampled = resample_nib(msk_nib, voxel_spacing=vs, order=0) # or resample based on img: resample_mask_to(msk_nib, img_iso)
+    msk_resampled_reoriented = reorient_to(msk_nib, axcodes_to=New_orientation)
 
-    msk_out_resampled = resample_nib(msk_out_nib, voxel_spacing=vs, order=0) # or resample based on img: resample_mask_to(msk_nib, img_iso)
-    msk_out_resampled_reoriented = reorient_to(msk_out_resampled, axcodes_to=New_orientation)
+    # msk_out_resampled = resample_nib(msk_out_nib, voxel_spacing=vs, order=0) # or resample based on img: resample_mask_to(msk_nib, img_iso)
+    msk_out_resampled_reoriented = reorient_to(msk_out_nib, axcodes_to=New_orientation)
     
     #Centroids
     ctd_resampled = rescale_centroids(ctd_list, img_nib, vs)
     ctd_resampled_reoriented = reorient_centroids_to(ctd_resampled, img_resampled_reoriented)
 
     #Distfield
-    dist_resampled = resample_nib(dist_nib, voxel_spacing=vs, order=0) # or resample based on img: resample_mask_to(msk_nib, img_iso)
-    dist_resampled_reoriented = reorient_to(dist_resampled, axcodes_to=New_orientation)
+    # dist_resampled = resample_nib(dist_nib, voxel_spacing=vs, order=0) # or resample based on img: resample_mask_to(msk_nib, img_iso)
+    dist_resampled_reoriented = reorient_to(dist_nib, axcodes_to=New_orientation)
 
-    dist_out_resampled = resample_nib(dist_out_nib, voxel_spacing=vs, order=0) # or resample based on img: resample_mask_to(msk_nib, img_iso)
-    dist_out_resampled_reoriented = reorient_to(dist_out_resampled, axcodes_to=New_orientation)
+    # dist_out_resampled = resample_nib(dist_out_nib, voxel_spacing=vs, order=0) # or resample based on img: resample_mask_to(msk_nib, img_iso)
+    dist_out_resampled_reoriented = reorient_to(dist_out_nib, axcodes_to=New_orientation)
 
     #Load data
     data_img = np.asanyarray(img_resampled_reoriented.dataobj, dtype=img_resampled_reoriented.dataobj.dtype)

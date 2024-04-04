@@ -15,8 +15,8 @@ import shutil
 dir_rawdata = 'Data/dataset-verse20training/rawdata' 
 dir_derivatives = 'Data/dataset-verse20training/derivatives' 
 
-raw_dir_destination = 'Data/Verse20_training_unpacked_new/raw' 
-msk_dir_destination = 'Data/Verse20_training_unpacked_new/msk' 
+raw_dir_destination = 'Data/Verse20_training_unpacked_spinetools/raw' 
+msk_dir_destination = 'Data/Verse20_training_unpacked_spinetools/msk' 
 ctd_dir_destination = 'Data/Verse20/Outlier_detection/crops_training_unpacked' 
 
 

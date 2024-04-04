@@ -187,6 +187,52 @@ class AE(nn.Module):
         return x_reconstructed, x_classified
 
 
+class AE2(nn.Module):
+    # def __init__(self, dropout):
+    def __init__(self, dim, device=device): # dim is a list with the dimensions of input, hidden and latent space
+        super(AE2, self).__init__()
+    
+        # Define dimensions
+        input_dim = dim[0]
+        hidden_dim_1 = dim[1]
+        hidden_dim_2 = dim[2]
+        latent_dim = dim[3]
+
+        # Encoder
+        self.encoder = nn.Sequential(
+            nn.Linear(input_dim, hidden_dim_1),
+            nn.ReLU(), #NOTE True??
+            nn.Linear(hidden_dim_1, hidden_dim_2),
+            nn.ReLU(),
+            nn.Linear(hidden_dim_2, latent_dim)
+        )
+
+
+        # Decoder
+        self.decoder = nn.Sequential(
+            nn.Linear(latent_dim, hidden_dim_2),
+            nn.ReLU(),
+            nn.Linear(hidden_dim_2, hidden_dim_1),
+            nn.ReLU(),
+            nn.Linear(hidden_dim_1, input_dim),
+            nn.Sigmoid(), #NOTE  Tanh??
+        )
+
+    def encode(self, x):
+        return self.encoder(x)
+    
+    def decode(self, z):
+        return self.decoder(z)
+
+
+    def forward(self, image):
+        z = self.encode(image)
+        x_reconstructed = self.decode(z)
+
+        return x_reconstructed
+
+
+
 def loss_function_re(x, x_reconstructed):
     criterion = nn.MSELoss(reduction='sum')
     loss = criterion(x_reconstructed, x)

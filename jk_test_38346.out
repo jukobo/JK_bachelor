@@ -1,9 +1,0 @@
-Node: comp-gpu03
-Start: 2024-03-22-09:50:54
-Working dir: /home/s214704/JK_bachelor
-
-/var/lib/slurm/slurmd/job38346/slurm_script: line 25: bscenv/bin/activate: No such file or directory
-[4]
-[4, 12]
-[4, 12, 'Data loaded']
-Done: 2024-03-22-09:51:03

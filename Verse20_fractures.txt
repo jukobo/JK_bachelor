@@ -1,0 +1,60 @@
+This is a list of verse_ID and subject_ID for those how have fractures on L1
+
+Test
+verse_ID 12 subject_ID 12
+verse_ID 20 subject_ID 20
+verse_ID 40 subject_ID 40
+verse_ID 59 subject_ID 59
+verse_ID 66 subject_ID 66
+verse_ID 70 subject_ID 70
+verse_ID 81 subject_ID 81
+verse_ID 83 subject_ID 83
+verse_ID 85 subject_ID 85
+verse_ID 131 subject_ID 131
+verse_ID 144 subject_ID 144 xxx
+verse_ID 147 subject_ID 147
+verse_ID 149 subject_ID 149
+verse_ID 271 subject_ID 271
+
+Training
+verse_ID 4 subject_ID 4
+verse_ID 5 subject_ID 5
+verse_ID 7 subject_ID 7
+verse_ID 9 subject_ID 9
+verse_ID 31 subject_ID 31
+verse_ID 33 subject_ID 33
+verse_ID 56 subject_ID 56 xxx
+verse_ID 60 subject_ID 60
+verse_ID 61 subject_ID 61
+verse_ID 68 subject_ID 68
+verse_ID 82 subject_ID 82
+verse_ID 91 subject_ID 91
+verse_ID 97 subject_ID 97
+verse_ID 122 subject_ID 122
+verse_ID 152 subject_ID 152
+verse_ID 259 subject_ID 405
+verse_ID 265 subject_ID 408
+verse_ID 266 subject_ID 409
+verse_ID 267 subject_ID 410
+
+Validation
+verse_ID 10 subject_ID 10
+verse_ID 13 subject_ID 13
+verse_ID 23 subject_ID 23
+verse_ID 24 subject_ID 24
+verse_ID 26 subject_ID 26
+verse_ID 30 subject_ID 30
+verse_ID 78 subject_ID 78
+verse_ID 80 subject_ID 80
+verse_ID 93 subject_ID 93
+verse_ID 124 subject_ID 124
+verse_ID 125 subject_ID 125
+verse_ID 150 subject_ID 150
+verse_ID 153 subject_ID 153
+verse_ID 155 subject_ID 400
+verse_ID 264 subject_ID 264
+verse_ID 290 subject_ID 412
+
+
+
+

@@ -90,7 +90,7 @@ if not os.path.exists(dist_path):
 
 
 
-####### NEEED TO BE CHANGED FROM HERE AND DOWN ########
+
 
 for subject in tqdm(all_subjects):
     #sub-verse813-23

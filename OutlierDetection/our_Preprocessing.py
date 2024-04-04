@@ -74,19 +74,33 @@ padding_specifications = {}
 
 #Create folders for saving data
 img_path = os.path.join(Output_folder,'img') #Create output-folders if it does not exist
+img_out_path = os.path.join(Output_folder,'img_outlier') #Create output-folders if it does not exist
+
 heatmap_path = os.path.join(Output_folder,'heatmaps') #Create output-folders if it does not exist
+heatmap_out_path = os.path.join(Output_folder,'heatmaps_outlier') #Create output-folders if it does not exist
+
 msk_path = os.path.join(Output_folder,'msk') #Create output-folders if it does not exist
+msk_out_path = os.path.join(Output_folder,'msk_outlier') #Create output-folders if it does not exist
+
 dist_path = os.path.join(Output_folder,'dist_field') #Create output-folders if it does not exist
+dist_out_path = os.path.join(Output_folder,'dist_field_outlier') #Create output-folders if it does not exist
 
 # Creates paths if not exist
 if not os.path.exists(img_path):
     os.makedirs(img_path)
+    os.makedirs(img_out_path)
+
 if not os.path.exists(heatmap_path):
     os.makedirs(heatmap_path)
+    os.makedirs(heatmap_out_path)
+
 if not os.path.exists(msk_path):
     os.makedirs(msk_path)
+    os.makedirs(msk_out_path)
+
 if not os.path.exists(dist_path):
     os.makedirs(dist_path)
+    os.makedirs(dist_out_path)
 
 
 
@@ -95,19 +109,29 @@ if not os.path.exists(dist_path):
 for subject in tqdm(all_subjects):
     #sub-verse813-23
     #LOAD IMAGE
-    filename_img = [f for f in listdir(dir_data) if (f.startswith(subject) and f.endswith('img.nii.gz'))][0]
+    filename_img = [f for f in listdir(dir_data) if (f.startswith(subject) and f.endswith('crop_img.nii.gz'))][0]
     img_nib = nib.load(os.path.join(dir_data,filename_img))
+
+    
+    filename_img_out = [f for f in listdir(dir_data) if (f.startswith(subject) and f.endswith('outlier_img.nii.gz'))][0]
+    img_out_nib = nib.load(os.path.join(dir_data,filename_img_out))
 
     #LOAD MASK
     filename_msk = [f for f in listdir(dir_data) if (f.startswith(subject) and f.endswith('msk.nii.gz'))][0]
     msk_nib = nib.load(os.path.join(dir_data,filename_msk))
+
+    filename_msk_out = [f for f in listdir(dir_data) if (f.startswith(subject) and f.endswith('outlier_msk.nii.gz'))][0]
+    msk_out_nib = nib.load(os.path.join(dir_data,filename_msk_out))
 
     #LOAD CENTROIDS
     filename_ctd = [f for f in listdir(dir_data) if (f.startswith(subject) and f.endswith('json'))][0]
     ctd_list = load_centroids(os.path.join(os.path.join(dir_data,filename_ctd)))
 
     #LOAD Dist fields
-    filename_ctd = [f for f in listdir(dir_data) if (f.startswith(subject) and f.endswith('field.nii.gz'))][0]
+    filename_dist = [f for f in listdir(dir_data) if (f.startswith(subject) and f.endswith('distance_field.nii.gz'))][0]
+    dist_nib = nib.load(os.path.join(os.path.join(dir_data,filename_dist)))
+
+    filename_ctd = [f for f in listdir(dir_data) if (f.startswith(subject) and f.endswith('outlier_distance_field.nii.gz'))][0]
     dist_nib = nib.load(os.path.join(os.path.join(dir_data,filename_ctd)))
 
     #Get info
@@ -200,14 +224,29 @@ for subject in tqdm(all_subjects):
 
             #Define filenames and save data
             img_filename = subject_ID + "_img.npy" #Input
+            img_out_filename = subject_ID + "outlier_img.npy"
             heatmap_filename = subject_ID + "_heatmap.npy" #Input
-            msk_filename = subject_ID + "_msk.npy" #Target
-            dist_filename = subject_ID + "_dist_field.npy" #Target
+            heatmap_out_filename = subject_ID + "outlier_heatmap.npy" #Input
 
+            msk_filename = subject_ID + "_msk.npy" 
+            msk_out_filename = subject_ID + "outlier_msk.npy" 
+
+            dist_filename = subject_ID + "_dist_field.npy"
+            dist_out_filename = subject_ID + "outlier_dist_field.npy" 
+
+            # save files
             np.save(os.path.join(img_path,img_filename), data_img_temp)
+            np.save(os.path.join(img_out_path,img_out_filename), xxx)
+
             np.save(os.path.join(heatmap_path,heatmap_filename), heatmap)
+            np.save(os.path.join(heatmap_out_path,heatmap_out_filename), xxx)
+
             np.save(os.path.join(msk_path,msk_filename), data_msk_temp)
+            np.save(os.path.join(msk_out_path,msk_out_filename), xxx)
+
             np.save(os.path.join(dist_path,dist_filename), data_dist_temp)
+            np.save(os.path.join(dist_out_path,dist_out_filename), xxx)
+
 
 
 

@@ -434,7 +434,7 @@ def draw_shape_on_numpy_image(img_np, center, shape, value, std_dev=None):
     standard deviation = std_dev
     """
     if shape == 1:
-        radius = random.randint(30, 50)
+        radius = random.randint(40, 50)
         # Create a meshgrid for the image
         x, y, z = np.ogrid[0:img_np.shape[0], 0:img_np.shape[1], 0:img_np.shape[2]]
         dist = np.sqrt((x - center[0]) ** 2 + (y - center[1]) ** 2 + (z - center[2]) ** 2)
@@ -448,8 +448,7 @@ def draw_shape_on_numpy_image(img_np, center, shape, value, std_dev=None):
             img_np[dist < radius] = value
     
     elif shape == 2:
-        size = random.randint(20, 30)
-
+        size = random.randint(30, 40)
         start = [max(0, center[0] - size), max(0, center[1] - size), max(0, center[2] - size)]
         end = [min(img_np.shape[0], center[0] + size), min(img_np.shape[1], center[1] + size), min(img_np.shape[2], center[2] + size)]
         img_np[start[0]:end[0], start[1]:end[1], start[2]:end[2]] = value

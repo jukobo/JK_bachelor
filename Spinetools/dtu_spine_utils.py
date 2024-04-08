@@ -448,9 +448,10 @@ def draw_shape_on_numpy_image(img_np, center, shape, value, std_dev=None):
             img_np[dist < radius] = value
     
     elif shape == 2:
-        size = random.randint(30, 40)
-        start = [max(0, center[0] - size), max(0, center[1] - size), max(0, center[2] - size)]
-        end = [min(img_np.shape[0], center[0] + size), min(img_np.shape[1], center[1] + size), min(img_np.shape[2], center[2] + size)]
+        size = 40
+        half_size = size // 2
+        start = [max(0, center[0] - half_size), max(0, center[1] - half_size), max(0, center[2] - half_size)]
+        end = [min(img_np.shape[0], center[0] + half_size), min(img_np.shape[1], center[1] + half_size), min(img_np.shape[2], center[2] + half_size)]
         img_np[start[0]:end[0], start[1]:end[1], start[2]:end[2]] = value
     else:
         raise ValueError("Unsupported shape")

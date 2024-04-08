@@ -196,14 +196,17 @@ class AE2(nn.Module):
         input_dim = dim[0]
         hidden_dim_1 = dim[1]
         hidden_dim_2 = dim[2]
+        # hidden_dim_3 = dim[3]
         latent_dim = dim[3]
 
         # Encoder
         self.encoder = nn.Sequential(
             nn.Linear(input_dim, hidden_dim_1),
-            nn.ReLU(), #NOTE True??
+            nn.ReLU(), 
             nn.Linear(hidden_dim_1, hidden_dim_2),
             nn.ReLU(),
+            # nn.Linear(hidden_dim_2, hidden_dim_3),
+            # nn.ReLU(),
             nn.Linear(hidden_dim_2, latent_dim)
         )
 
@@ -212,10 +215,12 @@ class AE2(nn.Module):
         self.decoder = nn.Sequential(
             nn.Linear(latent_dim, hidden_dim_2),
             nn.ReLU(),
+            # nn.Linear(hidden_dim_3, hidden_dim_2),
+            # nn.ReLU(),
             nn.Linear(hidden_dim_2, hidden_dim_1),
             nn.ReLU(),
             nn.Linear(hidden_dim_1, input_dim),
-            nn.Sigmoid(), #NOTE  Tanh??
+            nn.Sigmoid()
         )
 
     def encode(self, x):
@@ -234,7 +239,7 @@ class AE2(nn.Module):
 
 
 def loss_function_re(x, x_reconstructed):
-    criterion = nn.MSELoss(reduction='sum')
+    criterion = nn.MSELoss() #reduction='sum'
     loss = criterion(x_reconstructed, x)
 
     return loss

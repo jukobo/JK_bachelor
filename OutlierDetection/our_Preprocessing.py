@@ -12,6 +12,8 @@ import torch
 import pickle
 from copy import deepcopy
 from tqdm import tqdm
+import SimpleITK as sitk
+from scipy import ndimage
 
 
 
@@ -83,6 +85,8 @@ msk_out_path = os.path.join(Output_folder,'msk_outlier') #Create output-folders 
 dist_path = os.path.join(Output_folder,'dist_field') #Create output-folders if it does not exist
 dist_out_path = os.path.join(Output_folder,'dist_field_outlier') #Create output-folders if it does not exist
 
+heatmap_path = os.path.join(Output_folder,'heatmaps') #Create output-folders if it does not exist
+
 # Creates paths if not exist
 if not os.path.exists(img_path):
     os.makedirs(img_path)
@@ -95,6 +99,9 @@ if not os.path.exists(msk_path):
 if not os.path.exists(dist_path):
     os.makedirs(dist_path)
     os.makedirs(dist_out_path)
+
+if not os.path.exists(heatmap_path):
+    os.makedirs(heatmap_path)
 
 
 for subject in tqdm(all_subjects):
@@ -199,21 +206,30 @@ for subject in tqdm(all_subjects):
     #Crop image and mask based on centroids!
     for ctd in ctd_resampled_reoriented[1:]:
         if ctd[0] == 20:                        # NOTE: Change to right vertebra
-            # x = np.round(ctd[1]).astype(int)
-            # y = np.round(ctd[2]).astype(int)
-            # z = np.round(ctd[3]).astype(int)
+            label_id = ctd[0]
+            segm_name = os.path.join(dir_data,filename_msk)
+            img = sitk.ReadImage(segm_name)
+            segm_np = sitk.GetArrayFromImage(img)
+            if np.sum(segm_np == label_id) == 0:
+                print(f"Label {label_id} not found in {segm_name}")
+
+            com_np = ndimage.center_of_mass(segm_np == label_id)
+            com_itk = [com_np[2], com_np[1], com_np[0]]
+            x = np.round(com_itk[0]).astype(int)
+            y = np.round(com_itk[1]+40).astype(int)  # NOTE: tilføjet ekstra for at få hele vertebra body med
+            z = np.round(com_itk[2]).astype(int)
             
-            # centroid = (x,y,z)
+            centroid = (x,y,z)
 
             #Crop image and mask
-            data_img_temp, restrictions = center_and_pad(data=data_img, new_dim=new_dim, pad_value=-1)
-            data_img_out_temp, restrictions = center_and_pad(data=data_img_out, new_dim=new_dim, pad_value=-1)
+            data_img_temp, restrictions = center_and_pad(data=data_img, new_dim=new_dim, pad_value=-1, centroid=centroid)
+            data_img_out_temp, restrictions = center_and_pad(data=data_img_out, new_dim=new_dim, pad_value=-1, centroid=centroid)
 
-            data_msk_temp, restrictions = center_and_pad(data=data_msk, new_dim=new_dim, pad_value=-1)
-            data_msk_out_temp, restrictions = center_and_pad(data=data_msk_out, new_dim=new_dim, pad_value=-1)
+            data_msk_temp, restrictions = center_and_pad(data=data_msk, new_dim=new_dim, pad_value=-1, centroid=centroid)
+            data_msk_out_temp, restrictions = center_and_pad(data=data_msk_out, new_dim=new_dim, pad_value=-1, centroid=centroid)
 
-            data_dist_temp, restrictions = center_and_pad(data=data_dist, new_dim=new_dim, pad_value=-1)
-            data_dist_out_temp, restrictions = center_and_pad(data=data_dist_out, new_dim=new_dim, pad_value=-1)
+            data_dist_temp, restrictions = center_and_pad(data=data_dist, new_dim=new_dim, pad_value=-1, centroid=centroid)
+            data_dist_out_temp, restrictions = center_and_pad(data=data_dist_out, new_dim=new_dim, pad_value=-1, centroid=centroid)
 
 
             #Extract values
@@ -227,6 +243,22 @@ for subject in tqdm(all_subjects):
             subject_ID = subject + '-' + str(ctd[0])
             padding_specifications.update({subject_ID: restrictions}) #Burde jeg sige minus her?
 
+            #Apply transformation to centroid coordinates (cropping and padding)
+            x+=x_min_restrict #PLUS, because we are applying changes. Not reverting.
+            y+=y_min_restrict #PLUS, because we are applying changes. Not reverting.
+            z+=z_min_restrict #PLUS, because we are applying changes. Not reverting.
+
+            #Generate heatmap
+            origins = (x,y,z) #Convert for cropping and padding
+            meshgrid_dim = new_dim
+            heatmap = gaussian_kernel_3d_new(origins,meshgrid_dim,gamma = 1,sigma = sigma)
+            #Normalize
+            heatmap = (heatmap - heatmap.min()) / (heatmap.max() - heatmap.min())
+
+            #Thresholding
+            heatmap[heatmap < 0.001] = 0
+
+
             #Define filenames and save data
             img_filename = subject_ID + "_img.npy" #Input
             img_out_filename = subject_ID + "outlier_img.npy"
@@ -237,6 +269,8 @@ for subject in tqdm(all_subjects):
             dist_filename = subject_ID + "_dist_field.npy"
             dist_out_filename = subject_ID + "outlier_dist_field.npy" 
 
+            heatmap_filename = subject_ID + "_heatmap.npy" #Input
+
             # save files
             np.save(os.path.join(img_path,img_filename), data_img_temp)
             np.save(os.path.join(img_out_path,img_out_filename), data_img_out_temp)
@@ -246,6 +280,8 @@ for subject in tqdm(all_subjects):
 
             np.save(os.path.join(dist_path,dist_filename), data_dist_temp)
             np.save(os.path.join(dist_out_path,dist_out_filename), data_dist_out_temp)
+
+            np.save(os.path.join(heatmap_path,heatmap_filename), heatmap)
 
 
 

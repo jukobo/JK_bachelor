@@ -263,7 +263,7 @@ def create_outlier(settings, scan_id, label_id):
     outlier_p = [pidx[2], pidx[1], pidx[0]]
     # Radius in Pixels
     # Inside create_outlier function
-    Type = random.randint(1, 3)
+    Type = random.randint(1, 2)
     print(Type)
      
     # generates different radius
@@ -580,15 +580,15 @@ def spine_tools(cfg):
     all_scan_ids = np.loadtxt(str(id_list_file), delimiter=",", dtype=str)
     print(f"Found {len(all_scan_ids)} scans")
 
-    for idx in all_scan_ids:
-        scan_id = idx[0].strip()
-        scan_image = idx[1].strip()
-        print(f"Processing scan {scan_id} with image {scan_image}")
-        extract_crop_around_vertebra(cfg.settings, scan_id, scan_image, label_id)
-        extract_label_surfaces(cfg.settings, scan_id, label_id=label_id, on_crop=True)
-        compute_distance_fields(cfg.settings, scan_id=scan_id, label_id=label_id, on_crop=True)
-        # register_segmentations(cfg.settings, template_id=template_id, target_id=scan_id, label_id=label_id,
-        #                        on_outlier=False)
+    # for idx in all_scan_ids:
+    #     scan_id = idx[0].strip()
+    #     scan_image = idx[1].strip()
+    #     print(f"Processing scan {scan_id} with image {scan_image}")
+    #     extract_crop_around_vertebra(cfg.settings, scan_id, scan_image, label_id)
+    #     extract_label_surfaces(cfg.settings, scan_id, label_id=label_id, on_crop=True)
+    #     compute_distance_fields(cfg.settings, scan_id=scan_id, label_id=label_id, on_crop=True)
+    #     # register_segmentations(cfg.settings, template_id=template_id, target_id=scan_id, label_id=label_id,
+    #     #                        on_outlier=False)
 
     # Now create outliers
     for idx in all_scan_ids:

@@ -434,28 +434,25 @@ def draw_shape_on_numpy_image(img_np, center, shape, value, std_dev=None):
     standard deviation = std_dev
     """
     if shape == 1:
-        size = random.randint(20, 30)
+        radius = random.randint(30, 50)
+        # Create a meshgrid for the image
         x, y, z = np.ogrid[0:img_np.shape[0], 0:img_np.shape[1], 0:img_np.shape[2]]
         dist = np.sqrt((x - center[0]) ** 2 + (y - center[1]) ** 2 + (z - center[2]) ** 2)
+
         if std_dev is not None:
             value = np.random.normal(value, std_dev, img_np.shape)
             gauss_sigma = 1
-            value = ndi.gaussian_filter(value, sigma=gauss_sigma)
-            img_np[dist < size] = value[dist < size]
+            value = filters.gaussian(value, sigma=gauss_sigma)
+            img_np[dist < radius] = value[dist < radius]
         else:
-            img_np[dist < size] = value
+            img_np[dist < radius] = value
+    
     elif shape == 2:
         size = random.randint(20, 30)
 
         start = [max(0, center[0] - size), max(0, center[1] - size), max(0, center[2] - size)]
         end = [min(img_np.shape[0], center[0] + size), min(img_np.shape[1], center[1] + size), min(img_np.shape[2], center[2] + size)]
         img_np[start[0]:end[0], start[1]:end[1], start[2]:end[2]] = value
-    elif shape == 3:
-        # Generate a random polygon using OpenCV
-        color = int(value) if isinstance(value, (int, np.integer)) else tuple(map(int, value))
-        # Generate a random polygon using OpenCV
-        points = np.random.randint(0, img_np.shape[0], (6, 2))  # Adjust the number of points as needed
-        cv2.fillPoly(img_np, [points], color)
     else:
         raise ValueError("Unsupported shape")
     

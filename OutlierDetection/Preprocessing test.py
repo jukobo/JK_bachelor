@@ -1,4 +1,5 @@
 
+
 import os
 import nibabel as nib
 import nibabel.orientations as nio
@@ -44,6 +45,7 @@ Padding_output_filename = 'pad_training' # NOTE: Remember to change!
 
 
 
+
 #Define rescale and reorientation parameters
 New_orientation = ('L', 'A', 'S')
 New_voxel_size = 1 # [mm]
@@ -74,63 +76,28 @@ padding_specifications = {}
 
 #Create folders for saving data
 img_path = os.path.join(Output_folder,'img') #Create output-folders if it does not exist
-img_out_path = os.path.join(Output_folder,'img_outlier') #Create output-folders if it does not exist
-
 heatmap_path = os.path.join(Output_folder,'heatmaps') #Create output-folders if it does not exist
-
 msk_path = os.path.join(Output_folder,'msk') #Create output-folders if it does not exist
-msk_out_path = os.path.join(Output_folder,'msk_outlier') #Create output-folders if it does not exist
-
-dist_path = os.path.join(Output_folder,'dist_field') #Create output-folders if it does not exist
-dist_out_path = os.path.join(Output_folder,'dist_field_outlier') #Create output-folders if it does not exist
-
-# Creates paths if not exist
 if not os.path.exists(img_path):
     os.makedirs(img_path)
-    os.makedirs(img_out_path)
-
 if not os.path.exists(heatmap_path):
     os.makedirs(heatmap_path)
-
 if not os.path.exists(msk_path):
     os.makedirs(msk_path)
-    os.makedirs(msk_out_path)
-
-if not os.path.exists(dist_path):
-    os.makedirs(dist_path)
-    os.makedirs(dist_out_path)
-
-
-
 
 
 for subject in tqdm(all_subjects):
-    #sub-verse813-23
     #LOAD IMAGE
-    filename_img = [f for f in listdir(dir_data) if (f.startswith(subject) and f.endswith('crop_img.nii.gz'))][0]
+    filename_img = [f for f in listdir(dir_data) if (f.startswith(subject) and f.endswith('img.nii.gz'))][0]
     img_nib = nib.load(os.path.join(dir_data,filename_img))
-
-    
-    # filename_img_out = [f for f in listdir(dir_data) if (f.startswith(subject) and f.endswith('outlier_img.nii.gz'))][0]
-    # img_out_nib = nib.load(os.path.join(dir_data,filename_img_out))
 
     #LOAD MASK
     filename_msk = [f for f in listdir(dir_data) if (f.startswith(subject) and f.endswith('msk.nii.gz'))][0]
     msk_nib = nib.load(os.path.join(dir_data,filename_msk))
 
-    # filename_msk_out = [f for f in listdir(dir_data) if (f.startswith(subject) and f.endswith('outlier_msk.nii.gz'))][0]
-    # msk_out_nib = nib.load(os.path.join(dir_data,filename_msk_out))
-
     #LOAD CENTROIDS
     filename_ctd = [f for f in listdir(dir_data) if (f.startswith(subject) and f.endswith('json'))][0]
     ctd_list = load_centroids(os.path.join(os.path.join(dir_data,filename_ctd)))
-
-    #LOAD Dist fields
-    filename_dist = [f for f in listdir(dir_data) if (f.startswith(subject) and f.endswith('distance_field.nii.gz'))][0]
-    dist_nib = nib.load(os.path.join(os.path.join(dir_data,filename_dist)))
-
-    # filename_dist_out = [f for f in listdir(dir_data) if (f.startswith(subject) and f.endswith('outlier_distance_field.nii.gz'))][0]
-    # dist_out_nib = nib.load(os.path.join(os.path.join(dir_data,filename_dist_out)))
 
     #Get info
     zooms = img_nib.header.get_zooms() #Voxel sizes
@@ -144,70 +111,41 @@ for subject in tqdm(all_subjects):
     #Gaussian smoothing
     #Get data
     data_img = np.asanyarray(img_nib.dataobj, dtype=img_nib.dataobj.dtype)
-    # data_img_out = np.asanyarray(img_out_nib.dataobj, dtype=img_out_nib.dataobj.dtype)
-
     #Smooth
     sigma_smooth = [0.75/zooms[0],0.75/zooms[1],0.75/zooms[2]]
     data_img = gaussian_filter(data_img, sigma=sigma_smooth)
-    # data_img_out = gaussian_filter(data_img_out, sigma=sigma_smooth)
-
     #Save as Nifti file
     img_nib = nib.Nifti1Image(data_img, img_nib.affine)
-    # img_out_nib = nib.Nifti1Image(data_img_out, img_out_nib.affine)
+    
 
 
     #RESAMPLE AND REORIENT
     vs = (New_voxel_size,New_voxel_size,New_voxel_size)
     #Image
-    # img_resampled = resample_nib(img_nib, voxel_spacing=vs, order=3) # NOTE: her er der problemer ved crops!
+    # img_resampled = resample_nib(img_nib, voxel_spacing=vs, order=3)
     img_resampled_reoriented = reorient_to(img_nib, axcodes_to=New_orientation)
-
-    # img_out_resampled = resample_nib(img_out_nib, voxel_spacing=vs, order=3)
-    # img_out_resampled_reoriented = reorient_to(img_out_nib, axcodes_to=New_orientation)
-    
     #Mask
     # msk_resampled = resample_nib(msk_nib, voxel_spacing=vs, order=0) # or resample based on img: resample_mask_to(msk_nib, img_iso)
     msk_resampled_reoriented = reorient_to(msk_nib, axcodes_to=New_orientation)
-
-    # msk_out_resampled = resample_nib(msk_out_nib, voxel_spacing=vs, order=0) # or resample based on img: resample_mask_to(msk_nib, img_iso)
-    # msk_out_resampled_reoriented = reorient_to(msk_out_nib, axcodes_to=New_orientation)
-    
     #Centroids
     ctd_resampled = rescale_centroids(ctd_list, img_nib, vs)
     ctd_resampled_reoriented = reorient_centroids_to(ctd_resampled, img_resampled_reoriented)
 
-    #Distfield
-    # dist_resampled = resample_nib(dist_nib, voxel_spacing=vs, order=0) # or resample based on img: resample_mask_to(msk_nib, img_iso)
-    dist_resampled_reoriented = reorient_to(dist_nib, axcodes_to=New_orientation)
-
-    # dist_out_resampled = resample_nib(dist_out_nib, voxel_spacing=vs, order=0) # or resample based on img: resample_mask_to(msk_nib, img_iso)
-    # dist_out_resampled_reoriented = reorient_to(dist_out_nib, axcodes_to=New_orientation)
-
     #Load data
     data_img = np.asanyarray(img_resampled_reoriented.dataobj, dtype=img_resampled_reoriented.dataobj.dtype)
     data_msk = np.asanyarray(msk_resampled_reoriented.dataobj, dtype=msk_resampled_reoriented.dataobj.dtype)
-    data_dist = np.asanyarray(dist_resampled_reoriented.dataobj, dtype=dist_resampled_reoriented.dataobj.dtype)
-
-    # data_img_out = np.asanyarray(img_out_resampled_reoriented.dataobj, dtype=img_out_resampled_reoriented.dataobj.dtype)
-    # data_msk_out = np.asanyarray(msk_out_resampled_reoriented.dataobj, dtype=msk_out_resampled_reoriented.dataobj.dtype)
-    # data_dist_out = np.asanyarray(dist_out_resampled_reoriented.dataobj, dtype=dist_out_resampled_reoriented.dataobj.dtype)
-
 
     #Change hounsfield units
     data_img[data_img<HU_range_cutoff[0]] = HU_range_cutoff[0]
     data_img[data_img>HU_range_cutoff[1]] = HU_range_cutoff[1]
 
-    # data_img_out[data_img_out<HU_range_cutoff[0]] = HU_range_cutoff[0]
-    # data_img_out[data_img_out>HU_range_cutoff[1]] = HU_range_cutoff[1]
-
     #Normalize HU
     data_img = (HU_range_normalize[1]-HU_range_normalize[0])*(data_img - data_img.min()) / (data_img.max() - data_img.min()) + HU_range_normalize[0]
-    # data_img_out = (HU_range_normalize[1]-HU_range_normalize[0])*(data_img_out - data_img_out.min()) / (data_img_out.max() - data_img_out.min()) + HU_range_normalize[0]
 
 
     #Crop image and mask based on centroids!
     for ctd in ctd_resampled_reoriented[1:]:
-        if ctd[0] == 20:                        # NOTE: Change to right vertebra
+        if  ctd[0] == 20:
             x = np.round(ctd[1]).astype(int)
             y = np.round(ctd[2]).astype(int)
             z = np.round(ctd[3]).astype(int)
@@ -216,22 +154,12 @@ for subject in tqdm(all_subjects):
 
             #Crop image and mask
             data_img_temp, restrictions = center_and_pad(data=data_img, new_dim=new_dim, pad_value=-1,centroid=centroid)
-            # data_img_out_temp, restrictions = center_and_pad(data=data_img_out, new_dim=new_dim, pad_value=-1,centroid=centroid)
-
             data_msk_temp, restrictions = center_and_pad(data=data_msk, new_dim=new_dim, pad_value=-1,centroid=centroid)
-            # data_msk_out_temp, restrictions = center_and_pad(data=data_msk_out, new_dim=new_dim, pad_value=-1,centroid=centroid)
-
-            data_dist_temp, restrictions = center_and_pad(data=data_dist, new_dim=new_dim, pad_value=-1,centroid=centroid)
-            # data_dist_out_temp, restrictions = center_and_pad(data=data_dist_out, new_dim=new_dim, pad_value=-1,centroid=centroid)
-
-
             #Extract values
             x_min_restrict, _, y_min_restrict, _, z_min_restrict, _ = restrictions
 
             #Remove all other masks than the relevant one and convert to binary
             data_msk_temp = np.where(data_msk_temp == ctd[0],1,0)
-            # data_msk_out_temp = np.where(data_msk_out_temp == ctd[0],1,0)
-
             
             # show_slices_dim1(data_img_temp, subject)
             # show_mask_dim1(data_img_temp, data_msk_temp)
@@ -256,29 +184,11 @@ for subject in tqdm(all_subjects):
 
             #Define filenames and save data
             img_filename = subject_ID + "_img.npy" #Input
-            img_out_filename = subject_ID + "outlier_img.npy"
-
             heatmap_filename = subject_ID + "_heatmap.npy" #Input
-
-            msk_filename = subject_ID + "_msk.npy" 
-            msk_out_filename = subject_ID + "outlier_msk.npy" 
-
-            dist_filename = subject_ID + "_dist_field.npy"
-            dist_out_filename = subject_ID + "outlier_dist_field.npy" 
-
-            # save files
+            msk_filename = subject_ID + "_msk.npy" #Target
             np.save(os.path.join(img_path,img_filename), data_img_temp)
-            # np.save(os.path.join(img_out_path,img_out_filename), data_img_out_temp)
-
             np.save(os.path.join(heatmap_path,heatmap_filename), heatmap)
-
             np.save(os.path.join(msk_path,msk_filename), data_msk_temp)
-            # np.save(os.path.join(msk_out_path,msk_out_filename), data_msk_out_temp)
-
-            np.save(os.path.join(dist_path,dist_filename), data_dist_temp)
-            # np.save(os.path.join(dist_out_path,dist_out_filename), data_dist_out_temp)
-
-
 
 
 #Save padding-directory
@@ -286,5 +196,6 @@ if not os.path.exists(Padding_output_directory): #Create the directory if it doe
     os.makedirs(Padding_output_directory)
 with open(os.path.join(Padding_output_directory,Padding_output_filename), 'wb') as f:
     pickle.dump(padding_specifications, f)
+
 
 

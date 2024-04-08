@@ -198,7 +198,7 @@ def extract_crop_around_vertebra(settings, scan_id, scan_image, label_id):
     # Compute the crop around the center of mass
     # The crop is defined in physical coordinates
     crop_center = [com_phys[0], com_phys[1], com_phys[2]]
-    voxel_side_length = 1  #NOTE ændret
+    voxel_side_length = 0.5  #NOTE ændret
 
     try:
         img_ct = sitk.ReadImage(scan_name)

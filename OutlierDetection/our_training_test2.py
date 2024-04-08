@@ -8,10 +8,10 @@ from VAE import *
 
 #Define paramters
 parameters_dict = {
-    'epochs': 30,
-    'learning_rate': 1e-5,
-    'batch_size': 1,
-    'weight_decay': 5e-4,
+    'epochs': 50,
+    'learning_rate': 1e-4,
+    'batch_size': 1, #Noget galt når batch size ændres til mere end 1
+    'weight_decay': 1e-5,
 }
 
 ## Unpack parameters
@@ -45,15 +45,14 @@ VerSe_val = LoadData(img_dir=img_dir_validation, msk_dir = msk_dir_validation, d
 val_loader = DataLoader(VerSe_val, batch_size=batch_size, shuffle=True, num_workers=0) 
 
 
-
 ## Define model
-model = AE2([96, 64, 64, 32, 16]).double() #NOTE insert dimensions here
+model = AE2([96*128, 512, 256, 128]).double() #NOTE insert dimensions here
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu') 
 model.to(device)
 print(model)
 
-# optimizer = optim.Adam(model.parameters(), lr=lr)
-optimizer = optim.AdamW(model.parameters(), lr=0.001)
+optimizer = optim.Adam(model.parameters(), lr=lr, weight_decay=wd)
+# optimizer = optim.AdamW(model.parameters(), lr=lr, weight_decay=wd)
 
 
 train_loss = []
@@ -66,7 +65,7 @@ def train(model, optimizer, epochs, device):
 
     # Plotting the loss
     fig, ax = plt.subplots()
-    ax.set_title('Model Loss')
+    ax.set_title(f'Model Loss, batch_size={batch_size}, lr={lr}, wd={wd}')
     ax.set_xlabel('Epoch')
     ax.set_ylabel('Loss')
     plt.ion()
@@ -77,15 +76,14 @@ def train(model, optimizer, epochs, device):
 
         for batch_idx, (x, _, _) in enumerate(train_loader): #NOTE insert data loader here
             x = x.to(device)
-            x = x[:, 0, 64, :, :].squeeze() # Dim is now 128x96
-
-            optimizer.zero_grad()
+            x = x[:, 0, 64, :, :].squeeze().reshape(batch_size, 128*96) # Dim is now 128x96
 
             x_reconstructed = model(x)
-            loss = loss_function_re(x_reconstructed, x)
 
+            loss = loss_function_re(x_reconstructed, x)
             overall_loss += loss.item()
 
+            optimizer.zero_grad()
             loss. backward()
             optimizer.step()
     
@@ -103,12 +101,11 @@ def train(model, optimizer, epochs, device):
                     for i in range(5):
                         inputs, _ , _  = next(iter(train_loader_EVAL))
                         inputs = inputs.to(device)
-                        inputs = inputs[:, 0, 64, :, :].squeeze() # Dim is now 128x96
+                        inputs = inputs[:, 0, 64, :, :].squeeze().reshape(batch_size, 128*96) # Dim is now 128x96
 
-                        x_reconstructed = model(x)
+                        x_reconstructed = model(inputs)
 
-
-                        loss = loss_function_re(x_reconstructed, x)
+                        loss = loss_function_re(x_reconstructed, inputs)
 
                         # Save loss
                         train_loss_eval.append(loss.item())
@@ -123,14 +120,15 @@ def train(model, optimizer, epochs, device):
                     for i in range(5): #10 random batches
                         inputs, _ , _  = next(iter(val_loader))
                         inputs = inputs.to(device)
-                        inputs = inputs[:, 0, 64, :, :].squeeze() # Dim is now 128x96
+                        inputs = inputs[:, 0, 64, :, :].squeeze().reshape(batch_size, 128*96) # Dim is now 128x96
 
-                        x_reconstructed = model(x)
-                        loss = loss_function_re(x_reconstructed, x)
+                        x_reconstructed = model(inputs)
+                        loss = loss_function_re(x_reconstructed, inputs)
                         
                         # Save reconstructed images
-                        # numpy_array = x_reconstructed.cpu().numpy()
-                        # np.save(f'OutlierDetection/rec_data/reconstruction{epoch}{step}.npy', numpy_array)
+                        numpy_array = x_reconstructed.cpu().numpy()
+                        numpy_array = numpy_array.reshape(128, 96)
+                        np.save(f'OutlierDetection/rec_data/reconstruction{epoch}{step}.npy', numpy_array)
 
                         # Save loss
                         val_loss_eval.append(loss.item())
@@ -159,9 +157,19 @@ def train(model, optimizer, epochs, device):
         print(f'Epoch {epoch+1}, Average loss: {overall_loss/len(train_loader)}')    
 
 
-plt.ioff() 
-plt.show()
-plt.savefig('model_loss_plot.png')  # Save the plot as a PNG file
+    plt.ioff() 
+    plt.show()
+    fig.savefig('model_loss_plot.png')  # Save the plot as a PNG file
+
+    fig2, ax2 = plt.subplots()
+    ax2.plot(train_loss, label='Training loss')
+    ax2.plot(val_loss, label='Validation loss')
+    ax2.legend()
+    ax2.set_xlabel('Epoch')
+    ax2.set_ylabel('Loss')
+    ax2.set_title('Training and Validation Loss')
+    fig2.show()
+    fig2.savefig('train_val_loss_plot.png')
 
 train(model, optimizer, num_epochs, device=device)
 

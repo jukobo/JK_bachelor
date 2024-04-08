@@ -12,6 +12,7 @@ import argparse
 from dtu_spine_config import DTUConfig
 import dtu_spine_utils as dsu
 from scipy import ndimage
+import random
 
 
 def extract_label_surfaces(settings, scan_id, label_id, on_crop, on_outlier=False):
@@ -261,12 +262,18 @@ def create_outlier(settings, scan_id, label_id):
     pidx = img_ct.TransformPhysicalPointToIndex(p)
     outlier_p = [pidx[2], pidx[1], pidx[0]]
     # Radius in Pixels
-    radius = 50
+    # Inside create_outlier function
+    Type = random.randint(1, 3)
+    print(Type)
+     
+    # generates different radius
     # estimate mean and standard deviation of full image to be able to sample from a normal distribution
     mean = np.mean(img_np)
     std = np.std(img_np)
     print(f"Creating outlier with mean {mean} and std {std}")
-    img_np_outlier = dsu.draw_sphere_on_numpy_image(img_np, outlier_p, radius, value=mean, std_dev=std)
+    # img_np_outlier = dsu.draw_sphere_on_numpy_image(img_np, outlier_p, radius, value=mean, std_dev=std)
+    img_np_outlier = dsu.draw_shape_on_numpy_image(img_np, outlier_p, Type, value=mean, std_dev=std)
+
 
     # now put voxels values back into ITK and save
     img_o = sitk.GetImageFromArray(img_np_outlier)
@@ -279,7 +286,9 @@ def create_outlier(settings, scan_id, label_id):
     pidx = img_label.TransformPhysicalPointToIndex(p)
     outlier_p = [pidx[2], pidx[1], pidx[0]]
     img_np = sitk.GetArrayFromImage(img_label)
-    img_np_outlier = dsu.draw_sphere_on_numpy_image(img_np, outlier_p, radius, 0)
+    # img_np_outlier = dsu.draw_sphere_on_numpy_image(img_np, outlier_p, radius, 0)
+    img_np_outlier = dsu.draw_shape_on_numpy_image(img_np, outlier_p, Type, 0)
+
 
     # now put voxels values back into ITK and save
     img_o = sitk.GetImageFromArray(img_np_outlier)

@@ -78,7 +78,6 @@ padding_specifications = {}
 img_path = os.path.join(Output_folder,'img') #Create output-folders if it does not exist
 img_out_path = os.path.join(Output_folder,'img_outlier') #Create output-folders if it does not exist
 
-
 msk_path = os.path.join(Output_folder,'msk') #Create output-folders if it does not exist
 msk_out_path = os.path.join(Output_folder,'msk_outlier') #Create output-folders if it does not exist
 

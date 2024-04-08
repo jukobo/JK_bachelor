@@ -48,7 +48,7 @@ Padding_output_filename = 'pad_training' # NOTE: Remember to change!
 
 #Define rescale and reorientation parameters
 New_orientation = ('L', 'A', 'S')
-New_voxel_size = 1 # [mm]
+New_voxel_size = 0.5 # [mm]
 
 #Preprocessing
 HU_range_normalize = [-1, 1]
@@ -122,10 +122,10 @@ for subject in tqdm(all_subjects):
     #RESAMPLE AND REORIENT
     vs = (New_voxel_size,New_voxel_size,New_voxel_size)
     #Image
-    # img_resampled = resample_nib(img_nib, voxel_spacing=vs, order=3)
+    img_resampled = resample_nib(img_nib, voxel_spacing=vs, order=3)
     img_resampled_reoriented = reorient_to(img_nib, axcodes_to=New_orientation)
     #Mask
-    # msk_resampled = resample_nib(msk_nib, voxel_spacing=vs, order=0) # or resample based on img: resample_mask_to(msk_nib, img_iso)
+    msk_resampled = resample_nib(msk_nib, voxel_spacing=vs, order=0) # or resample based on img: resample_mask_to(msk_nib, img_iso)
     msk_resampled_reoriented = reorient_to(msk_nib, axcodes_to=New_orientation)
     #Centroids
     ctd_resampled = rescale_centroids(ctd_list, img_nib, vs)
@@ -153,8 +153,8 @@ for subject in tqdm(all_subjects):
             centroid = (x,y,z)
 
             #Crop image and mask
-            data_img_temp, restrictions = center_and_pad(data=data_img, new_dim=new_dim, pad_value=-1,centroid=centroid)
-            data_msk_temp, restrictions = center_and_pad(data=data_msk, new_dim=new_dim, pad_value=-1,centroid=centroid)
+            data_img_temp, restrictions = center_and_pad(data=data_img, new_dim=new_dim, pad_value=-1)
+            data_msk_temp, restrictions = center_and_pad(data=data_msk, new_dim=new_dim, pad_value=-1)
             #Extract values
             x_min_restrict, _, y_min_restrict, _, z_min_restrict, _ = restrictions
 

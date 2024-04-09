@@ -201,7 +201,7 @@ class AE2(nn.Module):
 
         # Encoder
         self.encoder = nn.Sequential(
-            nn.Linear(input_dim, hidden_dim_1),
+            nn.Linear(input_dim, hidden_dim_1), #3D?
             nn.ReLU(), 
             nn.Linear(hidden_dim_1, hidden_dim_2),
             nn.ReLU(),

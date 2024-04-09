@@ -8,6 +8,12 @@ jk_model_38400.out
 create_env.sh
 requirements.txt
 
+slum-38655.out
+
+# Models
+NO_DATAAUG_step21850_batchsize1_lr1e-05_wd0.0005.pth
+NO_DATAAUG_step22000_batchsize1_lr1e-05_wd0.0005.pth
+
 # Data
 crop3.png
 

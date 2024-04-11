@@ -65,7 +65,7 @@ os.makedirs(checkpoint_dir2, exist_ok=True)
 
 
 ## Define model
-model = AE2D([x.size()[-1], 512, 256, 128]).double() #NOTE insert dimensions here
+model = AE2D([x.size()[-1], 128, 64, 32]).double() #NOTE insert dimensions here
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu') 
 model.to(device)
 print(model)

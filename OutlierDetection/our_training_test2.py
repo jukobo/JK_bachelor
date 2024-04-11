@@ -261,9 +261,11 @@ def train2D(model, optimizer, epochs, device):
                         loss = loss_function_re(x_reconstructed, inputs)
                         
                         # Save reconstructed images
-                        numpy_array = x_reconstructed.cpu().numpy()
-                        # print(f"np shape: {numpy_array.shape}")
-                        np.save(f'OutlierDetection/rec_data/reconstruction{epoch}{step}.npy', numpy_array)
+                        # numpy_array = x_reconstructed.cpu().numpy()
+                        # # print(f"np shape: {numpy_array.shape}")
+                        # dir_temp = "/scratch/s214704/Data/Checkpoints/VertebraeSegmentation/ref_data"
+                        # np.save(os.path.join(dir_temp, 'ref_data'+'reconstruction'+str(epoch)+str(step)+'.npy'), numpy_array)
+                        # np.save(f'OutlierDetection/rec_data/reconstruction{epoch}{step}.npy', numpy_array)
 
                         # Save loss
                         val_loss_eval.append(loss.item())

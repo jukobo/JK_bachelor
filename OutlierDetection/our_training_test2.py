@@ -8,7 +8,7 @@ from VAE import *
 
 #Define paramters
 parameters_dict = {
-    'epochs': 100,
+    'epochs': 50,
     'learning_rate': 1e-5,
     'batch_size': 1, #Noget galt når batch size ændres til mere end 1
     'weight_decay': 5e-4,
@@ -55,10 +55,14 @@ VerSe_val = LoadData(img_dir=img_dir_validation, msk_dir = msk_dir_validation, d
 val_loader = DataLoader(VerSe_val, batch_size=batch_size, shuffle=True, num_workers=0) 
 
 run_name = 'Test_AE2'
+run_name2 = 'rec_img'
 
 checkpoint_dir = '/scratch/s214704/Data/Checkpoints/VertebraeSegmentation/Test_AE2'
+checkpoint_dir2 = '/scratch/s214704/Data/Checkpoints/VertebraeSegmentation/rec_img'
 #Create checkpoint parent folder if it does not exist
 os.makedirs(checkpoint_dir, exist_ok=True)
+os.makedirs(checkpoint_dir2, exist_ok=True)
+
 
 ## Define model
 model = AE2D([x.size()[-1], 512, 256, 128]).double() #NOTE insert dimensions here
@@ -261,11 +265,13 @@ def train2D(model, optimizer, epochs, device):
                         loss = loss_function_re(x_reconstructed, inputs)
                         
                         # Save reconstructed images
-                        # numpy_array = x_reconstructed.cpu().numpy()
+                        numpy_array = x_reconstructed.cpu().numpy()
                         # # print(f"np shape: {numpy_array.shape}")
                         # dir_temp = "/scratch/s214704/Data/Checkpoints/VertebraeSegmentation/ref_data"
                         # np.save(os.path.join(dir_temp, 'ref_data'+'reconstruction'+str(epoch)+str(step)+'.npy'), numpy_array)
                         # np.save(f'OutlierDetection/rec_data/reconstruction{epoch}{step}.npy', numpy_array)
+                        torch.save(numpy_array, os.path.join(checkpoint_dir2,str(run_name2)+'_step'+str(step)+'_batchsize'+str(batch_size)+'_lr'+str(lr)+'_wd'+str(wd)+'.npy'))
+
 
                         # Save loss
                         val_loss_eval.append(loss.item())

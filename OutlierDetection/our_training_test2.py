@@ -8,8 +8,8 @@ from VAE import *
 
 #Define paramters
 parameters_dict = {
-    'epochs': 50,
-    'learning_rate': 1e-4,
+    'epochs': 100,
+    'learning_rate': 1e-5,
     'batch_size': 1, #Noget galt når batch size ændres til mere end 1
     'weight_decay': 5e-4,
 }

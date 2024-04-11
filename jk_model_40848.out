@@ -1,0 +1,6 @@
+Node: comp-gpu02
+Start: 2024-04-11-12:14:07
+Working dir: /home/s214704/JK_bachelor
+
+/var/lib/slurm/slurmd/job40848/slurm_script: line 23: /home/s214704/JK_bachelor/.bashrc: No such file or directory
+/var/lib/slurm/slurmd/job40848/slurm_script: line 25: bsc-env/bin/activate: No such file or directory

@@ -8,7 +8,7 @@ from VAE import *
 
 #Define paramters
 parameters_dict = {
-    'epochs': 50,
+    'epochs': 100,
     'learning_rate': 1e-5,
     'batch_size': 1, #Noget galt når batch size ændres til mere end 1
     'weight_decay': 5e-4,
@@ -279,17 +279,17 @@ def train2D(model, optimizer, epochs, device):
                 print("Validation loss: "+str(avg_loss_val))
                 val_loss.append(avg_loss_val)
 
-                #Save checkpoint
-                checkpoint = {
-                    'model_state_dict': model.state_dict(),
-                    'optimizer_state_dict': optimizer.state_dict(),
-                    'epoch': epoch,
-                    'train_loss': train_loss,
-                    'val_loss': val_loss,
-                    'parameters_dict': parameters_dict,
-                    'run_name': run_name,
-                }
-                torch.save(checkpoint, os.path.join(checkpoint_dir,str(run_name)+'_step'+str(step)+'_batchsize'+str(batch_size)+'_lr'+str(lr)+'_wd'+str(wd)+'.pth'))
+                # #Save checkpoint
+                # checkpoint = {
+                #     'model_state_dict': model.state_dict(),
+                #     'optimizer_state_dict': optimizer.state_dict(),
+                #     'epoch': epoch,
+                #     'train_loss': train_loss,
+                #     'val_loss': val_loss,
+                #     'parameters_dict': parameters_dict,
+                #     'run_name': run_name,
+                # }
+                # torch.save(checkpoint, os.path.join(checkpoint_dir,str(run_name)+'_step'+str(step)+'_batchsize'+str(batch_size)+'_lr'+str(lr)+'_wd'+str(wd)+'.pth'))
 
 
         ax.plot(epoch + 1, overall_loss/len(train_loader), marker='o', color='b')  # Update the plot with the current loss

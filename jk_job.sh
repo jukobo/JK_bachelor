@@ -3,7 +3,7 @@
 #SBATCH --job-name=jk_model
 #SBATCH --output=jk_model_%J.out
 #SBATCH --cpus-per-task=4
-#SBATCH --time=7-00:00:00
+#SBATCH --time=1-05:00:00
 #SBATCH --mem=32gb
 #SBATCH --gres=gpu:Turing:1
 #SBATCH --mail-user=s214704@dtu.dk
@@ -23,6 +23,8 @@ fi
 source ~/JK_bachelor/.bashrc
 module load CUDA/11.4
 source bsc-env/bin/activate
-python VertebraeSegmentation/Verse/Training.py --no-mps 
+# python VertebraeSegmentation/Verse/Training.py --no-mps 
+python OutlierDetection/our_training_test2.py --no-mps 
+
 
 echo "Done: $(date +%F-%R:%S)"

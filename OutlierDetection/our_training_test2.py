@@ -54,9 +54,9 @@ train_loader_EVAL = DataLoader(VerSe_train_EVAL, batch_size=batch_size, shuffle=
 VerSe_val = LoadData(img_dir=img_dir_validation, msk_dir = msk_dir_validation, distfield_dir=heatmap_dir_validation)
 val_loader = DataLoader(VerSe_val, batch_size=batch_size, shuffle=True, num_workers=0) 
 
-run_name = 'NO_DATAAUG' #REMEBER TO CHANGE ABOVE FOLDER ALSO, In general change this to save to a different checkpoint 'Third_try_No_dropout_newinitialisation' #No underscore after this
+run_name = 'Test_AE2'
 
-checkpoint_dir = '/scratch/s214704/Data/Checkpoints/VertebraeSegmentation/NO_DATAAUG'
+checkpoint_dir = '/scratch/s214704/Data/Checkpoints/VertebraeSegmentation/Test_AE2'
 #Create checkpoint parent folder if it does not exist
 os.makedirs(checkpoint_dir, exist_ok=True)
 

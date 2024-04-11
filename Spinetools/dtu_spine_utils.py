@@ -427,14 +427,14 @@ import scipy.ndimage as ndi
 import cv2
 import random
 
-def draw_shape_on_numpy_image(img_np, center, shape, value, std_dev=None):
+def draw_shape_on_numpy_image(img_np, center, shape, radius, value, std_dev=None):
     """
     Draw a shape (sphere, square, blob) on a numpy image.
     If std_dev is given, the shape is drawn with values following a Gaussian distribution with mean = value and
     standard deviation = std_dev
     """
     if shape == 1:
-        radius = random.randint(40, 50)
+        "Sphere"
         # Create a meshgrid for the image
         x, y, z = np.ogrid[0:img_np.shape[0], 0:img_np.shape[1], 0:img_np.shape[2]]
         dist = np.sqrt((x - center[0]) ** 2 + (y - center[1]) ** 2 + (z - center[2]) ** 2)
@@ -448,11 +448,25 @@ def draw_shape_on_numpy_image(img_np, center, shape, value, std_dev=None):
             img_np[dist < radius] = value
     
     elif shape == 2:
-        size = 40
+        "Square"
+        size = 30
         half_size = size // 2
         start = [max(0, center[0] - half_size), max(0, center[1] - half_size), max(0, center[2] - half_size)]
         end = [min(img_np.shape[0], center[0] + half_size), min(img_np.shape[1], center[1] + half_size), min(img_np.shape[2], center[2] + half_size)]
         img_np[start[0]:end[0], start[1]:end[1], start[2]:end[2]] = value
+    
+    elif shape == 3:
+        "Cylinder"
+        length = 150
+
+        # Create a meshgrid for the image
+        x, y, z = np.ogrid[0:img_np.shape[0], 0:img_np.shape[1], 0:img_np.shape[2]]
+        # Calculate the distance from the center along the x and y axes
+        dist_xy = np.sqrt((x - center[0]) ** 2 + (y - center[1]) ** 2)
+        # Define the condition for points inside the cylinder
+        in_cylinder = (dist_xy < radius) & (z >= center[2] - length // 2) & (z < center[2] + length // 2)
+        # Assign the value to points inside the cylinder
+        img_np[in_cylinder] = value
     else:
         raise ValueError("Unsupported shape")
     

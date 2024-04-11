@@ -157,7 +157,7 @@ def extract_crop_around_vertebra(settings, scan_id, scan_image, label_id):
     """
     print("Extracting crop around vertebra")
     # Side length in mm
-    crop_side_length = 120
+    crop_side_length = 80 # NOTE: chage for more focus on specific vertebra
     base_dir = settings["base_dir"]
     image_dir = settings["image_dir"]
     surface_dir = os.path.join(base_dir, "surfaces")
@@ -191,7 +191,7 @@ def extract_crop_around_vertebra(settings, scan_id, scan_image, label_id):
     # Do the transpose of the coordinates (SimpleITK vs. numpy)
     com_itk = [com_np[2], com_np[1], com_np[0]]
     # Transform the index to physical coordinates
-    com_phys = img.TransformIndexToPhysicalPoint([int(com_itk[0]), int(com_itk[1]), int(com_itk[2])])
+    com_phys = img.TransformIndexToPhysicalPoint([int(com_itk[0]), int(com_itk[1]+40), int(com_itk[2])]) # NOTE: added ekstra for focus on body
     with open(com_name, 'w') as f:
         f.write(f"{com_phys[0]} {com_phys[1]} {com_phys[2]}\n")
     # print(com_phys)
@@ -263,8 +263,10 @@ def create_outlier(settings, scan_id, label_id):
     outlier_p = [pidx[2], pidx[1], pidx[0]]
     # Radius in Pixels
     # Inside create_outlier function
-    Type = random.randint(1, 2)
+    Type = random.randint(1, 3)
     print(Type)
+    radius = random.randint(10, 20) 
+
      
     # generates different radius
     # estimate mean and standard deviation of full image to be able to sample from a normal distribution
@@ -272,7 +274,7 @@ def create_outlier(settings, scan_id, label_id):
     std = np.std(img_np)
     print(f"Creating outlier with mean {mean} and std {std}")
     # img_np_outlier = dsu.draw_sphere_on_numpy_image(img_np, outlier_p, radius, value=mean, std_dev=std)
-    img_np_outlier = dsu.draw_shape_on_numpy_image(img_np, outlier_p, Type, value=mean, std_dev=std)
+    img_np_outlier = dsu.draw_shape_on_numpy_image(img_np, outlier_p, Type, radius, value=mean, std_dev=std)
 
 
     # now put voxels values back into ITK and save
@@ -287,7 +289,7 @@ def create_outlier(settings, scan_id, label_id):
     outlier_p = [pidx[2], pidx[1], pidx[0]]
     img_np = sitk.GetArrayFromImage(img_label)
     # img_np_outlier = dsu.draw_sphere_on_numpy_image(img_np, outlier_p, radius, 0)
-    img_np_outlier = dsu.draw_shape_on_numpy_image(img_np, outlier_p, Type, 0)
+    img_np_outlier = dsu.draw_shape_on_numpy_image(img_np, outlier_p, Type, radius, 0)
 
 
     # now put voxels values back into ITK and save

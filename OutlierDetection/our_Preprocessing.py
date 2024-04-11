@@ -215,7 +215,7 @@ for subject in tqdm(all_subjects):
             com_np = ndimage.center_of_mass(segm_np == label_id)
             com_itk = [com_np[2], com_np[1], com_np[0]]
             x = np.round(com_itk[0]).astype(int)
-            y = np.round(com_itk[1]).astype(int)
+            y = np.round(com_itk[1]+ 40).astype(int) # NOTE: Added ekstra to focus on vertebra body
             z = np.round(com_itk[2]).astype(int)
             
             centroid = (x,y,z)

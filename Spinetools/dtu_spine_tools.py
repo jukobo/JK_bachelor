@@ -157,7 +157,7 @@ def extract_crop_around_vertebra(settings, scan_id, scan_image, label_id):
     """
     print("Extracting crop around vertebra")
     # Side length in mm
-    crop_side_length = 80 # NOTE: chage for more focus on specific vertebra
+    crop_side_length = 120 
     base_dir = settings["base_dir"]
     image_dir = settings["image_dir"]
     surface_dir = os.path.join(base_dir, "surfaces")
@@ -191,7 +191,7 @@ def extract_crop_around_vertebra(settings, scan_id, scan_image, label_id):
     # Do the transpose of the coordinates (SimpleITK vs. numpy)
     com_itk = [com_np[2], com_np[1], com_np[0]]
     # Transform the index to physical coordinates
-    com_phys = img.TransformIndexToPhysicalPoint([int(com_itk[0]), int(com_itk[1]+40), int(com_itk[2])]) # NOTE: added ekstra for focus on body
+    com_phys = img.TransformIndexToPhysicalPoint([int(com_itk[0]), int(com_itk[1]), int(com_itk[2])])
     with open(com_name, 'w') as f:
         f.write(f"{com_phys[0]} {com_phys[1]} {com_phys[2]}\n")
     # print(com_phys)

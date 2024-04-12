@@ -52,7 +52,7 @@ New_voxel_size = 0.5 # [mm]
 
 #Preprocessing
 HU_range_normalize = [-1, 1]
-HU_range_cutoff = [-200, 1000] #Define HU range. Only takes effekt if HU_cutoff is set to 1
+HU_range_cutoff = [-200, 1200] #Define HU range. Only takes effekt if HU_cutoff is set to 1
 #######################################################
 #######################################################
 #######################################################

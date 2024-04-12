@@ -6,9 +6,11 @@ import numpy as np
 
 from VAE import *
 
+n = 10
+
 #Define paramters
 parameters_dict = {
-    'epochs': 100,
+    'epochs': 6000,
     'learning_rate': 1e-5,
     'batch_size': 1, #Noget galt når batch size ændres til mere end 1
     'weight_decay': 5e-4,
@@ -22,31 +24,27 @@ wd = parameters_dict['weight_decay']
 
 
 ## Loading data
-# img_dir_training = "C:/Users/julie/Bachelor_data/Verse20/VertebraeSegmentation/Verse20_training_prep/img"
-# heatmap_dir_training = "C:/Users/julie/Bachelor_data/Verse20/VertebraeSegmentation/Verse20_training_prep/heatmaps"
-# msk_dir_training = "C:/Users/julie/Bachelor_data/Verse20/VertebraeSegmentation/Verse20_training_prep/msk"
-img_dir_training = '/scratch/s214725/Data/Verse20/VertebraeSegmentation/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20/Verse20_training_prep/img' #'/scratch/s174197/data/Verse20/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20_training_prep/img' #r'C:\Users\PC\Documents\Andreas_s174197\Preprocessed_data\img'
-heatmap_dir_training = '/scratch/s214725/Data/Verse20/VertebraeSegmentation/Verse20_training_prep/heatmaps'
-msk_dir_training = '/scratch/s214725/Data/Verse20/VertebraeSegmentation/Verse20_training_prep/msk'
+img_dir_training = "C:/Users/julie/Bachelor_data/Verse20/VertebraeSegmentation/Verse20_training_prep/img"
+heatmap_dir_training = "C:/Users/julie/Bachelor_data/Verse20/VertebraeSegmentation/Verse20_training_prep/heatmaps"
+msk_dir_training = "C:/Users/julie/Bachelor_data/Verse20/VertebraeSegmentation/Verse20_training_prep/msk"
+# img_dir_training = '/scratch/s214725/Data/Verse20/VertebraeSegmentation/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20/Verse20_training_prep/img' #'/scratch/s174197/data/Verse20/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20_training_prep/img' #r'C:\Users\PC\Documents\Andreas_s174197\Preprocessed_data\img'
+# heatmap_dir_training = '/scratch/s214725/Data/Verse20/VertebraeSegmentation/Verse20_training_prep/heatmaps'
+# msk_dir_training = '/scratch/s214725/Data/Verse20/VertebraeSegmentation/Verse20_training_prep/msk'
 
 
 VerSe_train = LoadData(img_dir=img_dir_training, msk_dir = msk_dir_training, distfield_dir=heatmap_dir_training)
 train_loader = DataLoader(VerSe_train, batch_size=batch_size, shuffle=True, num_workers=0)
 
-x, y, z = train_loader.dataset[10]
-# print(x.shape)
-# print(x.size()[-1])
-# plt.imshow(x[0][75, :, :], cmap='gray')
-# plt.show()
-
+input_train, y, z = train_loader.dataset[n]
+print(input_train.shape)
 
 #Validation
-# img_dir_validation = "C:/Users/julie/Bachelor_data/Verse20/VertebraeSegmentation/Verse20_validation_prep/img"
-# heatmap_dir_validation = "C:/Users/julie/Bachelor_data/Verse20/VertebraeSegmentation/Verse20_validation_prep/heatmaps"
-# msk_dir_validation = "C:/Users/julie/Bachelor_data/Verse20/VertebraeSegmentation/Verse20_validation_prep/msk"
-img_dir_validation = '/scratch/s214725/Data/Verse20/VertebraeSegmentation/Verse20_validation_prep/img'
-heatmap_dir_validation = '/scratch/s214725/Data/Verse20/VertebraeSegmentation/Verse20_validation_prep/heatmaps'
-msk_dir_validation = '/scratch/s214725/Data/Verse20/VertebraeSegmentation/Verse20_validation_prep/msk'
+img_dir_validation = "C:/Users/julie/Bachelor_data/Verse20/VertebraeSegmentation/Verse20_validation_prep/img"
+heatmap_dir_validation = "C:/Users/julie/Bachelor_data/Verse20/VertebraeSegmentation/Verse20_validation_prep/heatmaps"
+msk_dir_validation = "C:/Users/julie/Bachelor_data/Verse20/VertebraeSegmentation/Verse20_validation_prep/msk"
+# img_dir_validation = '/scratch/s214725/Data/Verse20/VertebraeSegmentation/Verse20_validation_prep/img'
+# heatmap_dir_validation = '/scratch/s214725/Data/Verse20/VertebraeSegmentation/Verse20_validation_prep/heatmaps'
+# msk_dir_validation = '/scratch/s214725/Data/Verse20/VertebraeSegmentation/Verse20_validation_prep/msk'
 
 
 VerSe_train_EVAL = LoadData(img_dir=img_dir_training, msk_dir = msk_dir_training, distfield_dir=heatmap_dir_training)
@@ -54,18 +52,24 @@ train_loader_EVAL = DataLoader(VerSe_train_EVAL, batch_size=batch_size, shuffle=
 VerSe_val = LoadData(img_dir=img_dir_validation, msk_dir = msk_dir_validation, distfield_dir=heatmap_dir_validation)
 val_loader = DataLoader(VerSe_val, batch_size=batch_size, shuffle=True, num_workers=0) 
 
-run_name = 'Test_AE2'
-run_name2 = 'rec_img'
+input_train_EVAL, y, z = train_loader.dataset[n]
+print(input_train_EVAL.shape)
 
-checkpoint_dir = '/scratch/s214704/Data/Checkpoints/VertebraeSegmentation/Test_AE2'
-checkpoint_dir2 = '/scratch/s214704/Data/Checkpoints/VertebraeSegmentation/rec_img'
-#Create checkpoint parent folder if it does not exist
-os.makedirs(checkpoint_dir, exist_ok=True)
-os.makedirs(checkpoint_dir2, exist_ok=True)
+input_val, y, z = train_loader.dataset[n]
+print(input_val.shape)
+
+# run_name = 'Test_AE2'
+# run_name2 = 'rec_img'
+
+# checkpoint_dir = '/scratch/s214704/Data/Checkpoints/VertebraeSegmentation/Test_AE2'
+# checkpoint_dir2 = '/scratch/s214704/Data/Checkpoints/VertebraeSegmentation/rec_img'
+# #Create checkpoint parent folder if it does not exist
+# os.makedirs(checkpoint_dir, exist_ok=True)
+# os.makedirs(checkpoint_dir2, exist_ok=True)
 
 
 ## Define model
-model = AE2D([x.size()[-1], 128, 64, 32]).double() #NOTE insert dimensions here
+model = AE2D([96, 128, 64, 32]).double() #NOTE insert dimensions here
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu') 
 model.to(device)
 print(model)
@@ -73,7 +77,7 @@ print(model)
 optimizer = optim.Adam(model.parameters(), lr=lr, weight_decay=wd)
 # optimizer = optim.AdamW(model.parameters(), lr=lr, weight_decay=wd)
 
-
+o_loss = []
 train_loss = []
 val_loss = []
 
@@ -199,25 +203,25 @@ def train2D(model, optimizer, epochs, device):
     fig, ax = plt.subplots()
     ax.set_title(f'Model Loss, batch_size={batch_size}, lr={lr}, wd={wd}')
     ax.set_xlabel('Epoch')
-    ax.set_ylabel('Loss')
-    #plt.ion()
+    ax.set_ylabel('Avg. training loss')
+    ax.set_xticks(np.arange(0, num_epochs, step=500))
+    # plt.ion()
 
     for epoch in range(epochs):
 
         overall_loss = 0
 
-        for batch_idx, (x, _, _) in enumerate(train_loader): #NOTE insert data loader here
+        # for batch_idx, (x, _) in enumerate(train_loader.dataset[n]): #NOTE insert data loader here
+        for batch_idx in range(1):
+            x = input_train[0]
             x = x.to(device)
-            x = x[:, 0, :, :, :].squeeze(dim=0) # Dim is now 128x96
-            # x = x.view(-1, 96)
-            # x = x.permute(0, 3, 1, 2)
-            # print(x.shape)
-            # print(x.size())
+            x = x[64, :, :].squeeze(dim=0) # Dim is now 128x96
 
             x_reconstructed = model(x)
 
             loss = loss_function_re(x_reconstructed, x)
             overall_loss += loss.item()
+            o_loss.append(overall_loss)
 
             optimizer.zero_grad()
             loss. backward()
@@ -227,18 +231,21 @@ def train2D(model, optimizer, epochs, device):
             step+=1
 
             # Do evaluation every 50 step
-            if step%50 == 0:
+            if step%100 == 0:
                 print("EVALUATION!")
                 model.eval() #Set to evaluation
 
                 #Training evaluation
                 train_loss_eval = []
                 with torch.no_grad():
-                    for i in range(5):
-                        inputs, _ , _  = next(iter(train_loader_EVAL))
+                    # for i in range(5):
+                    for i in range(1):
+                        # inputs, _   = next(iter(train_loader_EVAL.dataset[n]))
+                        inputs = input_train_EVAL[0]
+                        inputs = inputs[64, :, :].squeeze(dim=0) # Dim is now 128x96
                         inputs = inputs.to(device)
-                        inputs = inputs[:, 0, :, :, :].squeeze(dim=0) # Dim is now 128x96
-                        # inputs = inputs[:, 0, 64, :, :].squeeze().reshape(batch_size, 128*96) # Dim is now 128x96
+                        # inputs = inputs.to(device)
+                        # inputs = inputs[:, 0, :, :, :].squeeze(dim=0) # Dim is now 128x96
 
                         x_reconstructed = model(inputs)
                         # print(x_reconstructed.shape)
@@ -255,11 +262,14 @@ def train2D(model, optimizer, epochs, device):
                 #Training evaluation
                 val_loss_eval = []
                 with torch.no_grad():
-                    for i in range(5): #10 random batches
-                        inputs, _ , _  = next(iter(val_loader))
+                    # for i in range(5): #10 random batches
+                    for i in range(1):
+                        inputs = input_train[0]
+                        # inputs, _  = next(iter(val_loader.dataset[n]))
+                        inputs = inputs[64, :, :].squeeze(dim=0) # Dim is now 128x96
                         inputs = inputs.to(device)
-                        inputs = inputs[:, 0, :, :, :].squeeze(dim=0) # Dim is now 128x96
-                        # inputs = inputs[:, 0, 64, :, :].squeeze().reshape(batch_size, 128*96) # Dim is now 128x96
+                        # inputs = inputs.to(device)
+                        # inputs = inputs[:, 0, :, :, :].squeeze(dim=0) # Dim is now 128x96
 
                         x_reconstructed = model(inputs)
                         loss = loss_function_re(x_reconstructed, inputs)
@@ -269,8 +279,9 @@ def train2D(model, optimizer, epochs, device):
                         # # print(f"np shape: {numpy_array.shape}")
                         # dir_temp = "/scratch/s214704/Data/Checkpoints/VertebraeSegmentation/ref_data"
                         # np.save(os.path.join(dir_temp, 'ref_data'+'reconstruction'+str(epoch)+str(step)+'.npy'), numpy_array)
-                        # np.save(f'OutlierDetection/rec_data/reconstruction{epoch}{step}.npy', numpy_array)
-                        torch.save(numpy_array, os.path.join(checkpoint_dir2,str(run_name2)+'_step'+str(step)+'_batchsize'+str(batch_size)+'_lr'+str(lr)+'_wd'+str(wd)+'.npy'))
+                        np.save(f'OutlierDetection/rec_data2/reconstruction{epoch}.npy', numpy_array)
+                        # np.save(f'OutlierDetection/rec_data2/reconstruction{epoch}{step}.npy', numpy_array)
+                        # torch.save(numpy_array, os.path.join(checkpoint_dir2,str(run_name2)+'_step'+str(step)+'_batchsize'+str(batch_size)+'_lr'+str(lr)+'_wd'+str(wd)+'.npy'))
 
 
                         # Save loss
@@ -292,24 +303,27 @@ def train2D(model, optimizer, epochs, device):
                 # torch.save(checkpoint, os.path.join(checkpoint_dir,str(run_name)+'_step'+str(step)+'_batchsize'+str(batch_size)+'_lr'+str(lr)+'_wd'+str(wd)+'.pth'))
 
 
-        ax.plot(epoch + 1, overall_loss/len(train_loader), marker='o', color='b')  # Update the plot with the current loss
-        #plt.pause(0.1)
+        # ax.plot(epoch + 1, overall_loss/len(train_loader), linestyle='-', color='b')  # Update the plot with the current loss
+        # plt.pause(0.1)
 
 
-        print(f'Epoch {epoch+1}, Average loss: {overall_loss/len(train_loader)}')    
+        # print(f'Epoch {epoch+1}, Average loss: {overall_loss/len(train_loader)}')    
 
 
-    #plt.ioff() 
-    plt.show()
+    # plt.ioff() 
+    ax.plot(list(range(1, num_epochs+1, 1)), o_loss, color='b')  # Update the plot with the current loss
+    # plt.show()
     fig.savefig('model_loss_plot.png')  # Save the plot as a PNG file
 
     fig2, ax2 = plt.subplots()
-    ax2.plot(train_loss, label='Training loss')
-    ax2.plot(val_loss, label='Validation loss')
+    x_axis = list(range(100, num_epochs+1, 100))
+    ax2.plot(x_axis, train_loss, label='Training loss')
+    ax2.plot(x_axis, val_loss, label='Validation loss', linestyle='dashed')
+    ax2.set_xticks(np.arange(0, num_epochs, step=500))
     ax2.legend()
     ax2.set_xlabel('Epoch')
     ax2.set_ylabel('Loss')
-    ax2.set_title('Training and Validation Loss')
+    ax2.set_title('Avg. evaluation and validation loss')
     fig2.show()
     fig2.savefig('train_val_loss_plot.png')
 

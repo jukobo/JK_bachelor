@@ -249,11 +249,15 @@ class AE2D(nn.Module):
         # hidden_dim_3 = dim[3]
         latent_dim = dim[3]
 
+        do = 0.2
+
         # Encoder
         self.encoder = nn.Sequential(
             nn.Linear(input_dim, hidden_dim_1), #3D?
+            nn.Dropout2d(p=do),
             nn.ReLU(), 
             nn.Linear(hidden_dim_1, hidden_dim_2),
+            nn.Dropout2d(p=do),
             nn.ReLU(),
             # nn.Linear(hidden_dim_2, hidden_dim_3),
             # nn.ReLU(),
@@ -264,10 +268,12 @@ class AE2D(nn.Module):
         # Decoder
         self.decoder = nn.Sequential(
             nn.Linear(latent_dim, hidden_dim_2),
+            nn.Dropout2d(p=do),
             nn.ReLU(),
             # nn.Linear(hidden_dim_3, hidden_dim_2),
             # nn.ReLU(),
             nn.Linear(hidden_dim_2, hidden_dim_1),
+            nn.Dropout2d(p=do),
             nn.ReLU(),
             nn.Linear(hidden_dim_1, input_dim),
             nn.Sigmoid()

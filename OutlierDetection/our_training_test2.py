@@ -10,8 +10,8 @@ n = 10
 
 #Define paramters
 parameters_dict = {
-    'epochs': 70000,
-    'learning_rate': 1e-6,
+    'epochs': 6000,
+    'learning_rate': 1e-5,
     'batch_size': 1, #Noget galt når batch size ændres til mere end 1
     'weight_decay': 5e-4 #1e-6
 }
@@ -213,7 +213,7 @@ def train2D(model, optimizer, epochs, device):
             step+=1
 
             # Do evaluation every 50 step
-            if step%500 == 0:
+            if step%100 == 0:
                 print("EVALUATION!")
                 model.eval() #Set to evaluation
 
@@ -286,10 +286,10 @@ def train2D(model, optimizer, epochs, device):
     ax.set_title(f'Model Loss, batch_size={batch_size}, lr={lr}, wd={wd}')
     ax.set_xlabel('Epoch')
     ax.set_ylabel('Avg. loss')
-    ax.set_xticks(np.arange(0, num_epochs, step=10000))
+    ax.set_xticks(np.arange(0, num_epochs, step=500))
 
     ax.plot(list(range(1, num_epochs+1, 1)), o_loss, label='Training loss', color='b')  # Update the plot with the current loss
-    ax.plot(list(range(500, num_epochs+1, 500)), val_loss, label='Validation loss', color='r')
+    ax.plot(list(range(100, num_epochs+1, 100)), val_loss, label='Validation loss', color='r')
     
     ax.legend()
     # plt.show()

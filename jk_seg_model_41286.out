@@ -1,0 +1,7 @@
+Node: comp-gpu03
+Start: 2024-04-15-19:34:58
+Working dir: /home/s214725/JK_bachelor
+
+/var/lib/slurm/slurmd/job41286/slurm_script: line 23: source: /home/s214725/JK_bachelor/: is a directory
+/var/lib/slurm/slurmd/job41286/slurm_script: line 26: python: command not found
+Done: 2024-04-15-19:34:58

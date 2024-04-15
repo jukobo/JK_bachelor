@@ -20,7 +20,7 @@ if [[ ! -d $SCRATCH ]]; then
   mkdir $SCRATCH
 fi
 
-source ~/JK_bachelor/.bashrc
+source ~/JK_bachelor/
 module load CUDA/11.4
 # source bsc-env/bin/activate
 python VertebraeSegmentation/Verse/Predict_mask_titans.py --no-mps 

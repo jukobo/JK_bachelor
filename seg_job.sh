@@ -1,12 +1,12 @@
 #!/bin/bash	
 
-#SBATCH --job-name=jk_model
-#SBATCH --output=jk_model_%J.out
-#SBATCH --cpus-per-task=4
+#SBATCH --job-name=jk_seg_model
+#SBATCH --output=jk_seg_model_%J.out
+#SBATCH --cpus-per-task=2
 #SBATCH --time=1-05:00:00
 #SBATCH --mem=32gb
 #SBATCH --gres=gpu:Turing:1
-#SBATCH --mail-user=s214704@dtu.dk
+#SBATCH --mail-user=s214725@dtu.dk
 #SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --export=ALL
 

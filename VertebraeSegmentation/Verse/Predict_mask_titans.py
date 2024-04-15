@@ -37,21 +37,16 @@ data_type = 'test'
 
 
 #Define directories
-dir_data_original = '/scratch/s214725/data/Verse20/Verse20_'+data_type+'_unpacked'
-dir_data_stage3 = '/scratch/s214725/data/Verse20/VertebraeSegmentation/Verse20_'+data_type+'_prep_NOPADDING' #'/zhome/bb/f/127616/Documents/Thesis/Rawdata_training'
-checkpoint_dir_stage3 = '/scratch/s214725/data/Best_checkpoints/VertebraeSegmentation/FIXED_DATAAUG_rotation_step13250_batchsize1_lr1e-05_wd0.0005.pth' #FIXED_DATAAUG_rotation_step13300_batchsize1_lr1e-05_wd0.0005.pth' #only_elastic2_again_step33650_batchsize1_lr1e-05_wd0.0005.pth' #FIXED_DATAAUG_rotation_step11950_batchsize1_lr1e-05_wd0.0005.pth' #only_elastic2_again_step33650_batchsize1_lr1e-05_wd0.0005.pth' #'/scratch/s174197/data/Checkpoints/VertebraeSegmentation/Only_rotation_batchsize1_lr1e-05_wd0.0005.pth'
+dir_data_original = '/scratch/s214725/Data/Verse20/Verse20_'+data_type+'_unpacked'
+dir_data_stage3 = '/scratch/s214725/Data/Verse20/VertebraeSegmentation/Verse20_'+data_type+'_prep_NOPADDING' #'/zhome/bb/f/127616/Documents/Thesis/Rawdata_training'
+checkpoint_dir_stage3 = '/scratch/s214725/Data/Verse20/VertebraeSegmentation/NO_DATAAUG_step22000_batchsize1_lr1e-05_wd0.0005.pth' #FIXED_DATAAUG_rotation_step13300_batchsize1_lr1e-05_wd0.0005.pth' #only_elastic2_again_step33650_batchsize1_lr1e-05_wd0.0005.pth' #FIXED_DATAAUG_rotation_step11950_batchsize1_lr1e-05_wd0.0005.pth' #only_elastic2_again_step33650_batchsize1_lr1e-05_wd0.0005.pth' #'/scratch/s174197/data/Checkpoints/VertebraeSegmentation/Only_rotation_batchsize1_lr1e-05_wd0.0005.pth'
 predictions_folder = '/scratch/s214725/data/Verse20/Predictions_from_titans'
-# dir_segmentations = '/scratch/s174197/data/Verse20/Predictions_segmentations'
 
 #Define rescale and reorientation parameters
 New_orientation = ('L', 'A', 'S')
 New_voxel_size = 8 # [mm]
 
-#For stage 2
-dim1_new = 96
-dim2_new = 96
-dim3_new = 128
-pad_value = -1
+
 #######################################################
 #######################################################
 #######################################################
@@ -65,15 +60,12 @@ dir_stage3_heatmaps = os.path.join(dir_data_stage3,'heatmaps')
 
 
 #Create outputfolders if they dont exist
-dir_pred_stage1 = os.path.join(predictions_folder,'SpineLocalisation',data_type)
 if do_batchnorm == 0:
-    dir_pred_stage2 = os.path.join(predictions_folder,'VertebraeLocalisation2',data_type)
     dir_pred_stage3 = os.path.join(predictions_folder,'VertebraeSegmentation',data_type)
     dir_FULL_SEGMENTATIONS_GT = os.path.join(predictions_folder,'FULL_SEGMENTATIONS_GT_onlyelastic',data_type)
     dir_FULL_SEGMENTATIONS_before = os.path.join(predictions_folder,'FULL_SEGMENTATIONS_beforeCCA_onlyelastic',data_type)
     dir_FULL_SEGMENTATIONS_after = os.path.join(predictions_folder,'FULL_SEGMENTATIONS_afterCCA_onlyelastic',data_type)
 else:
-    dir_pred_stage2 = os.path.join(predictions_folder,'VertebraeLocalisation2_batchnorm',data_type)
     dir_pred_stage3 = os.path.join(predictions_folder,'VertebraeSegmentation_batchnorm',data_type)
     dir_FULL_SEGMENTATIONS_GT = os.path.join(predictions_folder,'FULL_SEGMENTATIONS_batchnorm_GT_evenbetterrotation',data_type)
     dir_FULL_SEGMENTATIONS_before = os.path.join(predictions_folder,'FULL_SEGMENTATIONS_batchnorm_beforeCCA_evenbetterrotation',data_type)
@@ -107,12 +99,6 @@ else:
 goon = False
 for subject in tqdm(all_subjects):  
     print(subject)
-
-    # if subject == 'sub-verse809':
-    #     goon = True
-    
-    # if not goon:
-    #     continue
 
 
     ################ Load original image ################

@@ -1,0 +1,8 @@
+Node: comp-gpu07
+Start: 2024-04-15-19:27:57
+Working dir: /home/s214725/JK_bachelor
+
+/var/lib/slurm/slurmd/job41275/slurm_script: line 23: /home/s214725/JK_bachelor/.bashrc: No such file or directory
+/var/lib/slurm/slurmd/job41275/slurm_script: line 25: bsc-env/bin/activate: No such file or directory
+/var/lib/slurm/slurmd/job41275/slurm_script: line 26: python: command not found
+Done: 2024-04-15-19:27:57

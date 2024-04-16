@@ -276,7 +276,8 @@ class AE2D(nn.Module):
             nn.Dropout2d(p=do),
             nn.ReLU(),
             nn.Linear(hidden_dim_1, input_dim),
-            nn.Sigmoid()
+            nn.Tanh()
+            # nn.Sigmoid()
         )
 
     def encode(self, x):

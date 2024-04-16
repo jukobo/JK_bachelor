@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from VAE import *
 
-no = 69500
+no = 15000
 file = f'OutlierDetection/rec_data2/reconstruction{no}.npy'
 x = np.load(file)
 print(x.shape)

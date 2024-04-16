@@ -286,7 +286,7 @@ def train2D(model, optimizer, epochs, device):
     ax.set_title(f'Model Loss, batch_size={batch_size}, lr={lr}, wd={wd}')
     ax.set_xlabel('Epoch')
     ax.set_ylabel('Avg. loss')
-    ax.set_xticks(np.arange(0, num_epochs, step=1000))
+    ax.set_xticks(np.arange(0, num_epochs, step=2000))
 
     ax.plot(list(range(1, num_epochs+1, 1)), o_loss, label='Training loss', color='b')  # Update the plot with the current loss
     ax.plot(list(range(500, num_epochs+1, 500)), val_loss, label='Validation loss', color='r')

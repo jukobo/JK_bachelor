@@ -40,7 +40,7 @@ data_type = 'test'
 dir_data_original = '/scratch/s214725/Data/Verse20/Verse20_'+data_type+'_unpacked'
 dir_data_stage3 = '/scratch/s214725/Data/Verse20/VertebraeSegmentation/Verse20_'+data_type+'_prep_NOPADDING' #'/zhome/bb/f/127616/Documents/Thesis/Rawdata_training'
 checkpoint_dir_stage3 = '/scratch/s214725/Data/Verse20/VertebraeSegmentation/NO_DATAAUG_step22000_batchsize1_lr1e-05_wd0.0005.pth' #FIXED_DATAAUG_rotation_step13300_batchsize1_lr1e-05_wd0.0005.pth' #only_elastic2_again_step33650_batchsize1_lr1e-05_wd0.0005.pth' #FIXED_DATAAUG_rotation_step11950_batchsize1_lr1e-05_wd0.0005.pth' #only_elastic2_again_step33650_batchsize1_lr1e-05_wd0.0005.pth' #'/scratch/s174197/data/Checkpoints/VertebraeSegmentation/Only_rotation_batchsize1_lr1e-05_wd0.0005.pth'
-predictions_folder = '/scratch/s214725/data/Verse20/Predictions_from_titans'
+predictions_folder = '/scratch/s214725/Data/Verse20/Predictions_from_titans'
 
 #Define rescale and reorientation parameters
 New_orientation = ('L', 'A', 'S')

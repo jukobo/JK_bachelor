@@ -20,7 +20,7 @@ from my_data_utils import *
 data_type = 'traning'
 
 all_scans = 0 #Set to 1 if you want to preprocess all scans
-with open("../../list_of_subjects_"+data_type+"_VERSE", "rb") as fp:   # Unpickling
+with open("../../../list_of_subjects_"+data_type+"_VERSE", "rb") as fp:   # Unpickling
     list_of_subjects = pickle.load(fp)
 # list_of_subjects = ['sub-verse507'] #List of subjects 521
 

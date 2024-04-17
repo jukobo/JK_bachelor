@@ -42,6 +42,11 @@ dir_data_stage3 = '/scratch/s214725/Data/Verse20/VertebraeSegmentation/Verse20_'
 checkpoint_dir_stage3 = '/scratch/s214725/Data/Verse20/VertebraeSegmentation/NO_DATAAUG_step22000_batchsize1_lr1e-05_wd0.0005.pth' #FIXED_DATAAUG_rotation_step13300_batchsize1_lr1e-05_wd0.0005.pth' #only_elastic2_again_step33650_batchsize1_lr1e-05_wd0.0005.pth' #FIXED_DATAAUG_rotation_step11950_batchsize1_lr1e-05_wd0.0005.pth' #only_elastic2_again_step33650_batchsize1_lr1e-05_wd0.0005.pth' #'/scratch/s174197/data/Checkpoints/VertebraeSegmentation/Only_rotation_batchsize1_lr1e-05_wd0.0005.pth'
 predictions_folder = '/scratch/s214725/Data/Verse20/Predictions_from_titans'
 
+
+# ctd
+dir_data_ctd = '/scratch/s214725/Data/Verse20/Verse20_test_unpacked'
+
+
 #Define rescale and reorientation parameters
 New_orientation = ('L', 'A', 'S')
 New_voxel_size = 8 # [mm]
@@ -106,6 +111,10 @@ for subject in tqdm(all_subjects):
     img_nib_original = nib.load(os.path.join(dir_data_original,filename_img))
     img_nib_original = reorient_to(img_nib_original, axcodes_to=New_orientation) #REORIENT
 
+
+    #LOAD CENTROIDS
+    filename_ctd = [f for f in listdir(dir_data_ctd) if (f.startswith(subject) and f.endswith('json'))][0]
+    ctd_list = load_centroids(os.path.join(os.path.join(dir_data_ctd,filename_ctd)))
 
     #Define zooms and shape
     original_zooms = img_nib_original.header.get_zooms()

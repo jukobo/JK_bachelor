@@ -24,7 +24,7 @@ source ~/JK_bachelor/.bashrc
 module load CUDA/11.4
 source bsc-env/bin/activate
 # python VertebraeSegmentation/Verse/Predict_mask_titans.py --no-mps 
-python VertebraeSegmentation/Verse/Predict_mask_titans.py --no-mps 
+python SpineLocalisation/Verse/Preprocessing_NOPADDING.py --no-mps 
 
 
 

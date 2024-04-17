@@ -20,7 +20,7 @@ from my_data_utils import *
 data_type = 'traning'
 
 all_scans = 0 #Set to 1 if you want to preprocess all scans
-with open("/home/s174197/Thesis/MY_CODE/Other_scripts/list_of_subjects_"+data_type+"_VERSE", "rb") as fp:   # Unpickling
+with open("../../list_of_subjects_"+data_type+"_VERSE", "rb") as fp:   # Unpickling
     list_of_subjects = pickle.load(fp)
 # list_of_subjects = ['sub-verse507'] #List of subjects 521
 
@@ -40,8 +40,8 @@ new_dim  = (64,64,128)
 
 #Define directories
 #Cluster
-dir_data = '/scratch/s174197/data/Verse20/Verse20_'+data_type+'_unpacked' #'/scratch/s174197/data/Verse20/Verse20_training_unpacked' #'/Users/andreasaspe/Documents/Data/Verse20/Verse20_test_unpacked' #'/scratch/s174197/data/Verse20/Verse20_test_unpacked' #'/scratch/s174197/data/Verse20/Verse20_test_unpacked' #'/Users/andreasaspe/Documents/Data/Verse20_training' #r'C:\Users\PC\Documents\Andreas_s174197\dataset-verse20training_unpacked' #'/zhome/bb/f/127616/Documents/Thesis/Rawdata_training'
-Output_folder = '/scratch/s174197/data/Verse20/SpineLocalisation/Verse20_'+data_type+'_prep_NOPADDING' #'/scratch/s174197/data/Verse20/Verse20_test_prep' #'/Users/andreasaspe/Documents/Data/Verse20_training_prep' #r'C:\Users\PC\Documents\Andreas_s174197\Preprocessed_data' #"/Users/andreasaspe/Documents/Data/Preprocessed_data"
+dir_data = '/scratch/s214725/Data/Verse20/Verse20_'+data_type+'_unpacked' #'/scratch/s174197/data/Verse20/Verse20_training_unpacked' #'/Users/andreasaspe/Documents/Data/Verse20/Verse20_test_unpacked' #'/scratch/s174197/data/Verse20/Verse20_test_unpacked' #'/scratch/s174197/data/Verse20/Verse20_test_unpacked' #'/Users/andreasaspe/Documents/Data/Verse20_training' #r'C:\Users\PC\Documents\Andreas_s174197\dataset-verse20training_unpacked' #'/zhome/bb/f/127616/Documents/Thesis/Rawdata_training'
+Output_folder = '/scratch/s214725/Data/Verse20/SpineLocalisation/Verse20_'+data_type+'_prep_NOPADDING' #'/scratch/s174197/data/Verse20/Verse20_test_prep' #'/Users/andreasaspe/Documents/Data/Verse20_training_prep' #r'C:\Users\PC\Documents\Andreas_s174197\Preprocessed_data' #"/Users/andreasaspe/Documents/Data/Preprocessed_data"
 #######################################################
 #######################################################
 #######################################################

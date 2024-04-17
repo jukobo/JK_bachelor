@@ -17,7 +17,7 @@ from my_data_utils import *
 #################### CONTROL PANEL ####################
 #######################################################
 #Define scans
-data_type = 'test'
+data_type = 'traning'
 
 all_scans = 0 #Set to 1 if you want to preprocess all scans
 with open("/home/s174197/Thesis/MY_CODE/Other_scripts/list_of_subjects_"+data_type+"_VERSE", "rb") as fp:   # Unpickling

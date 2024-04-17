@@ -1,7 +1,7 @@
 #!/bin/bash	
 
 #SBATCH --job-name=jk_seg_model
-#SBATCH --output=jk_seg_model_%J.out
+#SBATCH --output=jk_spine_model_%J.out
 #SBATCH --cpus-per-task=2
 #SBATCH --time=1-05:00:00
 #SBATCH --mem=32gb

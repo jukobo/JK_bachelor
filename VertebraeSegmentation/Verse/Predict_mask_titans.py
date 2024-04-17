@@ -19,7 +19,7 @@ from data_utilities import *
 from SpineLocalisationNet import SpineLocalisationNet
 # from new_VertebraeLocalisationNet import Vert[[[ebraeLocalisationNet
 from new_VertebraeLocalisationNet_batchnormdropout import VertebraeLocalisationNet
-from VertebraeSegmentationNet import VertebraeSegmentationNet
+from predict_VertebraeSegmentationNet import VertebraeSegmentationNet
 # from VertebraeSegmentationNet_batchnormdropout import VertebraeSegmentationNet
 
 #######################################################

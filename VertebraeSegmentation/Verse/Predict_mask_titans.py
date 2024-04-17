@@ -140,7 +140,7 @@ for subject in tqdm(all_subjects):
     #Rescale centroids HVIS NOGET FUCKER OP, SÅ ER DET MÅSKE FORDI JEG SKAL SORTERE CENTROIDS I RESCALECENTROIDS_VERSE. Tror dog at jeg allerede har gjort det tidligere i pipeline.
     new_zooms = original_zooms
     old_zooms = (2,2,2)
-    ctd_list = RescaleCentroids_verse(new_zooms, old_zooms, ctd_list, restrictions)
+    ctd_list = RescaleCentroids_verse(new_zooms, old_zooms, ctd_list)
     #Rescale to (1,1,1)
     old_zooms = original_zooms
     new_zooms = (1,1,1)

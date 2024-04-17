@@ -17,7 +17,7 @@ from my_data_utils import *
 #################### CONTROL PANEL ####################
 #######################################################
 #Define scans
-data_type = 'validation'
+data_type = 'test'
 
 all_scans = 1 #Set to 1 if you want to preprocess all scans
 # with open("/home/s214725/JK_bachelor/list_of_subjects_"+data_type+"_VERSE", "rb") as fp:   # Unpickling

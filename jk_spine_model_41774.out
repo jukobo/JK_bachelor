@@ -1,0 +1,7 @@
+Node: comp-gpu07
+Start: 2024-04-17-18:09:07
+Working dir: /home/s214725/JK_bachelor
+
+/var/lib/slurm/slurmd/job41774/slurm_script: line 23: /home/s214725/JK_bachelor/.bashrc: No such file or directory
+/var/lib/slurm/slurmd/job41774/slurm_script: line 25: bsc-env/bin/activate: No such file or directory
+  0%|          | 0/73 [00:00<?, ?it/s]  1%|▏         | 1/73 [00:04<05:40,  4.74s/it]  3%|▎         | 2/73 [00:10<06:02,  5.11s/it]  4%|▍         | 3/73 [00:15<06:07,  5.25s/it]  5%|▌         | 4/73 [00:19<05:39,  4.92s/it]  7%|▋         | 5/73 [00:25<05:52,  5.19s/it]  8%|▊         | 6/73 [00:34<07:22,  6.61s/it] 10%|▉         | 7/73 [00:39<06:39,  6.05s/it] 11%|█         | 8/73 [00:45<06:27,  5.96s/it] 12%|█▏        | 9/73 [00:52<06:36,  6.20s/it] 14%|█▎        | 10/73 [00:58<06:20,  6.04s/it] 15%|█▌        | 11/73 [01:24<12:50, 12.43s/it]

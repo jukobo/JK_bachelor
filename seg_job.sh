@@ -23,7 +23,6 @@ fi
 
 source ~/JK_bachelor/.bashrc
 module load CUDA/11.4
-# python VertebraeSegmentation/Verse/Predict_mask_titans.py --no-mps 
 python SpineLocalisation/Verse/Preprocessing_NOPADDING.py --no-mps 
 
 

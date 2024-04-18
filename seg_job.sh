@@ -6,7 +6,7 @@
 #SBATCH --time=1-05:00:00
 #SBATCH --mem=8gb
 #SBATCH --gres=gpu:2
-#SBATCH --nodelist=comp-gpu04
+#SBATCH --nodelist=comp-gpu01
 #SBATCH --mail-user=s214725@dtu.dk
 #SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --export=ALL

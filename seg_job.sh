@@ -1,6 +1,6 @@
 #!/bin/bash	
 
-#SBATCH --job-name=jk_spine_model
+#SBATCH --job-name=jk_prep_stage2_spine_model
 #SBATCH --output=jk_prep_stage2_spine_model_%J.out
 #SBATCH --cpus-per-task=2
 #SBATCH --time=1-05:00:00

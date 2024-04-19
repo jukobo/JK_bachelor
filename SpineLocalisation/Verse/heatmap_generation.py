@@ -27,8 +27,8 @@ def gaussian_kernel_3d_new(origins, meshgrid_dim, gamma = 1, sigma=1):
     return heatmap
 
 #Dir_data er hovedmappen. Så definerer jeg img, msk og ctd længere nede selv.
-dir_data = '/scratch/s174197/data/Verse20/SpineLocalisation/Verse20_test_prep' #"/Users/andreasaspe/Documents/Data/Verse20/Verse20_training_prep" #"/Users/andreasaspe/Documents/Data/Verse20_training_prep" #r'C:\Users\PC\Documents\Andreas_s174197\Preprocessed_data' #PARENT FOLDER #'/zhome/bb/f/127616/Documents/Thesis/Preprocessed_data/'
-Output_folder = '/scratch/s174197/data/Verse20/SpineLocalisation/Verse20_test_heatmaps' #"/Users/andreasaspe/Documents/Data/Verse20_training_heatmaps" #r'C:\Users\PC\Documents\Andreas_s174197\heatmaps' #"/zhome/bb/f/127616/Documents/Thesis/Heatmaps/"
+dir_data = '/scratch/s214725/Data/Verse20/SpineLocalisation/Verse20_validation_prep' #"/Users/andreasaspe/Documents/Data/Verse20/Verse20_training_prep" #"/Users/andreasaspe/Documents/Data/Verse20_training_prep" #r'C:\Users\PC\Documents\Andreas_s174197\Preprocessed_data' #PARENT FOLDER #'/zhome/bb/f/127616/Documents/Thesis/Preprocessed_data/'
+Output_folder = '/scratch/s214725/Data/Verse20/SpineLocalisation/Verse20_validation_heatmaps' #"/Users/andreasaspe/Documents/Data/Verse20_training_heatmaps" #r'C:\Users\PC\Documents\Andreas_s174197\heatmaps' #"/zhome/bb/f/127616/Documents/Thesis/Heatmaps/"
 
 #Create output-folder if it does not exist
 if not os.path.exists(Output_folder):

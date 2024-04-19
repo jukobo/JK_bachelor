@@ -31,21 +31,16 @@ list_of_subjects = ['sub-verse500'] #sub-verse820, 'sub-verse824' is edge case. 
 #Type
 data_type = 'test' #Training, validation or test
 #Raw data
-dir_data = '/scratch/s174197/data/Verse20/Verse20_'+data_type+'_unpacked' #'/scratch/s174197/data/Verse20/Verse20_test_unpacked' #'/Users/andreasaspe/Documents/Data/Verse20/Verse20_test_unpacked'
+dir_data = '/scratch/s214725/Data/Verse20/Verse20_'+data_type+'_unpacked' #'/scratch/s174197/data/Verse20/Verse20_test_unpacked' #'/Users/andreasaspe/Documents/Data/Verse20/Verse20_test_unpacked'
 #SpineLocalisation folders
-dir_heatmap = '/scratch/s174197/data/Verse20/SpineLocalisation/Verse20_'+data_type+'_heatmaps' #'/Users/andreasaspe/Documents/Data/Verse20/SpineLocalisation/Verse20_test_predictions' #'/scratch/s174197/data/Verse20/Verse20_test_predictions'  #'/Users/andreasaspe/Documents/Data/Verse20/Verse20_test_predictions' #'/scratch/s174197/data/Verse20/Verse20_test_unpacked' #'/scratch/s174197/data/Verse20/Verse20_test_unpacked' #'/Users/andreasaspe/Documents/Data/Verse20_training' #r'C:\Users\PC\Documents\Andreas_s174197\dataset-verse20training_unpacked' #'/zhome/bb/f/127616/Documents/Thesis/Rawdata_training'
-dir_padding_specifications = '/scratch/s174197/data/Verse20/SpineLocalisation/Padding_specifications/pad_'+data_type
+dir_heatmap = '/scratch/s214725/Data/Verse20/SpineLocalisation/Verse20_'+data_type+'_heatmaps' #'/Users/andreasaspe/Documents/Data/Verse20/SpineLocalisation/Verse20_test_predictions' #'/scratch/s174197/data/Verse20/Verse20_test_predictions'  #'/Users/andreasaspe/Documents/Data/Verse20/Verse20_test_predictions' #'/scratch/s174197/data/Verse20/Verse20_test_unpacked' #'/scratch/s174197/data/Verse20/Verse20_test_unpacked' #'/Users/andreasaspe/Documents/Data/Verse20_training' #r'C:\Users\PC\Documents\Andreas_s174197\dataset-verse20training_unpacked' #'/zhome/bb/f/127616/Documents/Thesis/Rawdata_training'
+dir_padding_specifications = '/scratch/s214725/Data/Verse20/SpineLocalisation/Padding_specifications/pad_'+data_type
 #Output folders
-Output_folder = '/scratch/s174197/data/Verse20/VertebraeLocalisation2/Verse20_'+data_type+'_prep' #'/scratch/s174197/data/Verse20/Verse20_test_prep' #'/Users/andreasaspe/Documents/Data/Verse20_training_prep' #r'C:\Users\PC\Documents\Andreas_s174197\Preprocessed_data' #"/Users/andreasaspe/Documents/Data/Preprocessed_data"
-Output_folder_heatmaps = '/scratch/s174197/data/Verse20/VertebraeLocalisation2/Verse20_'+data_type+'_heatmaps'
-Padding_output_directory = '/scratch/s174197/data/Verse20/VertebraeLocalisation2/Padding_specifications'
+Output_folder = '/scratch/s214725/Data/Verse20/VertebraeLocalisation/Verse20_'+data_type+'_prep' #'/scratch/s174197/data/Verse20/Verse20_test_prep' #'/Users/andreasaspe/Documents/Data/Verse20_training_prep' #r'C:\Users\PC\Documents\Andreas_s174197\Preprocessed_data' #"/Users/andreasaspe/Documents/Data/Preprocessed_data"
+Output_folder_heatmaps = '/scratch/s214725/Data/Verse20/VertebraeLocalisation/Verse20_'+data_type+'_heatmaps'
+Padding_output_directory = '/scratch/s214725/Data/Verse20/VertebraeLocalisation/Padding_specifications'
 Padding_output_filename = 'pad_'+data_type
 
-### MAC ### ?
-# dir_heatmap = '/Users/andreasaspe/Documents/Data/Verse20/SpineLocalisation/Verse20_training_heatmaps' #'/scratch/s174197/data/Verse20/Verse20_test_predictions'  #'/Users/andreasaspe/Documents/Data/Verse20/Verse20_test_predictions' #'/scratch/s174197/data/Verse20/Verse20_test_unpacked' #'/scratch/s174197/data/Verse20/Verse20_test_unpacked' #'/Users/andreasaspe/Documents/Data/Verse20_training' #r'C:\Users\PC\Documents\Andreas_s174197\dataset-verse20training_unpacked' #'/zhome/bb/f/127616/Documents/Thesis/Rawdata_training'
-# dir_data = '/Users/andreasaspe/Documents/Data/Verse20/Verse20_training_unpacked'
-# Output_folder = '/Users/andreasaspe/Documents/Data/VertebraeLocalisation/ONLYONESAMPLE_Verse20_training_prep' #r'C:\Users\PC\Documents\Andreas_s174197\Preprocessed_data' #"/Users/andreasaspe/Documents/Data/Preprocessed_data"
-# dir_padding_specifications = '/Users/andreasaspe/Documents/Data/Verse20/SpineLocalisation/Padding_specifications/pad_training'
 
 #Define rescale and reorientation parameters
 New_orientation = ('L', 'A', 'S')

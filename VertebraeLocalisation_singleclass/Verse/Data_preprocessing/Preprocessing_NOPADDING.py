@@ -19,21 +19,21 @@ from my_plotting_functions import *
 #######################################################
 #################### CONTROL PANEL ####################
 #######################################################
-data_type = 'test'
+data_type = 'validation'
 
 #Define scans
-all_scans = 0 #Set to 1 if you want to preprocess all scans
-with open("/home/s174197/Thesis/MY_CODE/Other_scripts/list_of_subjects_"+data_type+"_VERSE", "rb") as fp:   # Unpickling
-    list_of_subjects = pickle.load(fp)
+all_scans = 1 #Set to 1 if you want to preprocess all scans
+# with open("/home/s174197/Thesis/MY_CODE/Other_scripts/list_of_subjects_"+data_type+"_VERSE", "rb") as fp:   # Unpickling
+#     list_of_subjects = pickle.load(fp)
 
 #Define directories
 
 
 ### GPU CLUSTER ###
 #Raw data
-dir_data = '/scratch/s174197/data/Verse20/Verse20_'+data_type+'_unpacked' #'/scratch/s174197/data/Verse20/Verse20_test_unpacked' #'/Users/andreasaspe/Documents/Data/Verse20/Verse20_test_unpacked'
+dir_data = '/scratch/s214725/Data/Verse20/Verse20_'+data_type+'_unpacked' #'/scratch/s174197/data/Verse20/Verse20_test_unpacked' #'/Users/andreasaspe/Documents/Data/Verse20/Verse20_test_unpacked'
 #Output folders
-Output_folder = '/scratch/s174197/data/Verse20/VertebraeLocalisation2/Verse20_'+data_type+'_prep_NOPADDING' #'/scratch/s174197/data/Verse20/Verse20_test_prep' #'/Users/andreasaspe/Documents/Data/Verse20_training_prep' #r'C:\Users\PC\Documents\Andreas_s174197\Preprocessed_data' #"/Users/andreasaspe/Documents/Data/Preprocessed_data"
+Output_folder = '/scratch/s214725/Data/Verse20/VertebraeLocalisation/Verse20_'+data_type+'_prep_NOPADDING' #'/scratch/s174197/data/Verse20/Verse20_test_prep' #'/Users/andreasaspe/Documents/Data/Verse20_training_prep' #r'C:\Users\PC\Documents\Andreas_s174197\Preprocessed_data' #"/Users/andreasaspe/Documents/Data/Preprocessed_data"
 #Før stod der: Output_folder_heatmaps. Det var noget pjat. Skal jeg ikke bruge til noget. Heller ikke i det originale
 
 ### MAC ### ?

@@ -8,7 +8,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 import torchvision.transforms as transforms
-import wandb
 #import albumentations as A
 #My own documents
 from my_plotting_functions import *
@@ -31,34 +30,25 @@ parameters_dict = {
 
 #For everything
 #Training
-# img_dir_training = '/Data/Verse20/SpineLocalisation/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20/Verse20_training_prep/img' #'/scratch/s174197/data/Verse20/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20_training_prep/img' #r'C:\Users\PC\Documents\Andreas_s174197\Preprocessed_data\img'
-# heatmap_dir_training = '/Data/Verse20/SpineLocalisation/Verse20_training_prep/heatmaps'
-
-img_dir_training = '/scratch/s214721/Data/Verse20/SpineLocalisation/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20/Verse20_training_prep/img' #'/scratch/s174197/data/Verse20/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20_training_prep/img' #r'C:\Users\PC\Documents\Andreas_s174197\Preprocessed_data\img'
-heatmap_dir_training = '/scratch/s214721/Data/Verse20/SpineLocalisation/Verse20_training_heatmaps' #'/Users/andreasaspe/Documents/Data/Verse20/Verse20_training_heatmaps' #'/scratch/s174197/data/Verse20/Verse20_training_heatmaps' #'/Users/andreasaspe/Documents/Data/Verse20_training_heatmaps' #r'C:\Users\PC\Documents\Andreas_s174197\heatmaps'
+img_dir_training = '/scratch/s214725/Data/Verse20/SpineLocalisation/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20/Verse20_training_prep/img' #'/scratch/s174197/data/Verse20/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20_training_prep/img' #r'C:\Users\PC\Documents\Andreas_s174197\Preprocessed_data\img'
+heatmap_dir_training = '/scratch/s214725/Data/Verse20/SpineLocalisation/Verse20_training_heatmaps' #'/Users/andreasaspe/Documents/Data/Verse20/Verse20_training_heatmaps' #'/scratch/s174197/data/Verse20/Verse20_training_heatmaps' #'/Users/andreasaspe/Documents/Data/Verse20_training_heatmaps' #r'C:\Users\PC\Documents\Andreas_s174197\heatmaps'
 
 #Validation
-img_dir_validation ='/Data/Verse20/SpineLocalisation/Verse20_validation_prep/img'
-heatmap_dir_validation = '/Data/Verse20/SpineLocalisation/Verse20_validation_prep/heatmaps'
-
-# img_dir_validation = '/scratch/s174197/data/Verse20/SpineLocalisation/Verse20_validation_prep/img'
-# heatmap_dir_validation = '/scratch/s174197/data/Verse20/SpineLocalisation/Verse20_validation_heatmaps'
+img_dir_validation = '/scratch/s214725/Data/Verse20/SpineLocalisation/Verse20_validation_prep/img'
+heatmap_dir_validation = '/scratch/s214725/Data/Verse20/SpineLocalisation/Verse20_validation_heatmaps'
 #Checkpoint and wandb
-checkpoint_dir = 'Data/Checkpoints/SpineLocalisation/NO_DATAAUG' #'/Users/andreasaspe/Library/Mobile Documents/com~apple~CloudDocs/DTU/12.semester/Thesis/My_code/My_networks/Spine_Localisation/Checkpoints'
+checkpoint_dir = '/scratch/s214725/Data/Checkpoints/SpineLocalisation/NO_DATAAUG' #'/Users/andreasaspe/Library/Mobile Documents/com~apple~CloudDocs/DTU/12.semester/Thesis/My_code/My_networks/Spine_Localisation/Checkpoints'
 
 run_name = 'Only_rotation'
 description = 'Prøver med data augmentation igen'
-#For predition
-img_dir_test = '/Data/Verse20/SpineLocalisation/Verse20_test_prep/img' #'/scratch/s174197/data/Verse20/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20_training_prep/img' #r'C:\Users\PC\Documents\Andreas_s174197\Preprocessed_data\img'
-heatmap_dir_test = '/Data/Verse20/SpineLocalisation/Verse20_test_heatmaps' #'/scratch/s174197/data/Verse20/Verse20_training_heatmaps' #'/Users/andreasaspe/Documents/Data/Verse20_training_heatmaps' #r'C:\Users\PC\Documents\Andreas_s174197\heatmaps'
-output_parent_dir = '/Data/Verse20/SpineLocalisation/Verse20_test_heatmaps_predictions' #Prediction directory
+# #For predition
+# img_dir_test = '/scratch/s214725/Data/Verse20/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20_training_prep/img' #r'C:\Users\PC\Documents\Andreas_s174197\Preprocessed_data\img'
+# heatmap_dir_test = '/scratch/s214725/Data/Verse20/Verse20_training_heatmaps' #'/Users/andreasaspe/Documents/Data/Verse20_training_heatmaps' #r'C:\Users\PC\Documents\Andreas_s174197\heatmaps'
+# output_parent_dir = '/scratch/s214725/Data/Verse20/SpineLocalisation/Verse20_test_heatmaps_predictions' #Prediction directory
 
+#Create checkpoint parent folder if it does not exist
+os.makedirs(checkpoint_dir, exist_ok=True)
 
-#mac
-# img_dir_training = '/Users/andreasaspe/Documents/Data/Verse20/SpineLocalisation/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20/Verse20_training_prep/img' #'/scratch/s174197/data/Verse20/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20_training_prep/img' #r'C:\Users\PC\Documents\Andreas_s174197\Preprocessed_data\img'
-# heatmap_dir_training = '/Users/andreasaspe/Documents/Data/Verse20/SpineLocalisation/Verse20_training_heatmaps'
-# img_dir_validation = '/Users/andreasaspe/Documents/Data/Verse20/SpineLocalisation/Verse20_validation_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20/Verse20_training_prep/img' #'/scratch/s174197/data/Verse20/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20_training_prep/img' #r'C:\Users\PC\Documents\Andreas_s174197\Preprocessed_data\img'
-# heatmap_dir_validation = '/Users/andreasaspe/Documents/Data/Verse20/SpineLocalisation/Verse20_validation_heatmaps'
 
 #Unpack parameters
 num_epochs = parameters_dict['epochs']
@@ -178,20 +168,13 @@ for epoch in range(num_epochs):
         'transform': transform
     }
 
-    #Log in wandb
-    wandb.log({"Train_loss": avg_loss_train, "Validation_loss": avg_loss_validation})
-    torch.save(checkpoint, os.path.join(checkpoint_dir,str(run_name)+'_batchsize'+str(batch_size)+'_lr'+str(lr)+'_wd'+str(wd)+'.pth'))
+   
+    #Save checkpoint every 100 epoch
+    if epoch%100 == 0:
+        torch.save(checkpoint, os.path.join(checkpoint_dir,str(run_name)+'_epoch'+str(epoch)+'_batchsize'+str(batch_size)+'_lr'+str(lr)+'_wd'+str(wd)+'.pth'))
 
 
-
-    #Save checkpoint every 50 epoch
-    # if epoch%50 == 0:
-        # torch.save(checkpoint, os.path.join(checkpoint_dir,str(checkpoint_filename)+str(epoch)+'_batchsize'+str(batch_size)+'_lr'+str(lr)+'_wd'+str(wd)+'.pth'))
-
-
-
-
-
+torch.save(checkpoint, os.path.join(checkpoint_dir,str(run_name)+'_epoch'+str(epoch)+'_batchsize'+str(batch_size)+'_lr'+str(lr)+'_wd'+str(wd)+'.pth'))
 
     # torch.save(checkpoint, os.path.join(checkpoint_dir,str(checkpoint_filename)+'_general.pth'))
     # #torch.save(checkpoint, os.path.join(checkpoint_dir,str(checkpoint_filename)+'_batchsize'+str(batch_size)+'_lr'+str(lr)+'_wd'+str(wd)+'.pth'))

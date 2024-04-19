@@ -23,7 +23,7 @@ fi
 
 source ~/JK_bachelor/.bashrc
 module load CUDA/11.4
-python VertebraeLocalisation_singleclass/Verse/Data_preprocessing/Preprocessing_NOPADDING.py --no-mps 
+python VertebraeLocalisation_singleclass/Verse/Data_preprocessing/Preprocessing.py --no-mps 
 
 
 

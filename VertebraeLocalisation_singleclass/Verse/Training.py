@@ -179,7 +179,7 @@ for epoch in range(num_epochs):
         }
 
            #Save checkpoint every 100 epoch
-    if epoch%100 == 0:
+    if epoch%50 == 0:
         torch.save(checkpoint, os.path.join(checkpoint_dir,str(run_name)+'_epoch'+str(epoch)+'_batchsize'+str(batch_size)+'_lr'+str(lr)+'_wd'+str(wd)+'.pth'))
 
 

@@ -1,7 +1,7 @@
 #!/bin/bash	
 
-#SBATCH --job-name=jk_prep_stage2_spine_model
-#SBATCH --output=jk_prep_stage2_spine_model_%J.out
+#SBATCH --job-name=jk_stage2_spine_model
+#SBATCH --output=jk_stage2_spine_model_%J.out
 #SBATCH --cpus-per-task=2
 #SBATCH --time=1-05:00:00
 #SBATCH --mem=8gb
@@ -23,7 +23,8 @@ fi
 
 source ~/JK_bachelor/.bashrc
 module load CUDA/11.4
-python VertebraeLocalisation_singleclass/Verse/Data_preprocessing/Preprocessing.py --no-mps 
+# python VertebraeLocalisation_singleclass/Verse/Data_preprocessing/Preprocessing.py --no-mps 
+python VertebraeLocalisation_singleclass/Verse/Data_preprocessing/heatmap_generation.py --no-mps 
 
 
 

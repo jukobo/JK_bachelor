@@ -35,7 +35,7 @@ parameters_dict = {
 
 #For everything
 #gpu-cluster
-img_dir_training = '/scratch/s214725/Data/Verse20/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20_training_prep/img' #r'C:\Users\PC\Documents\Andreas_s174197\Preprocessed_data\img'
+img_dir_training = '/scratch/s214725/Data/Verse20/VertebraeLocalisation/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20_training_prep/img' #r'C:\Users\PC\Documents\Andreas_s174197\Preprocessed_data\img'
 heatmap_dir_training = '/scratch/s214725/Data/Verse20/VertebraeLocalisation/Verse20_training_prep/heatmaps'
 img_dir_validation ='/scratch/s214725/Data/Verse20/VertebraeLocalisation/Verse20_validation_prep/img'
 heatmap_dir_validation = '/scratch/s214725/Data/Verse20/VertebraeLocalisation/Verse20_validation_prep/heatmaps'

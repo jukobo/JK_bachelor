@@ -36,9 +36,9 @@ parameters_dict = {
 #For everything
 #gpu-cluster
 img_dir_training = '/scratch/s214725/Data/Verse20/VertebraeLocalisation/Verse20_training_prep/img' #'/Users/andreasaspe/Documents/Data/Verse20_training_prep/img' #r'C:\Users\PC\Documents\Andreas_s174197\Preprocessed_data\img'
-heatmap_dir_training = '/scratch/s214725/Data/Verse20/VertebraeLocalisation/Verse20_training_prep_heatmaps'
+heatmap_dir_training = '/scratch/s214725/Data/Verse20/VertebraeLocalisation/Verse20_training_heatmaps'
 img_dir_validation ='/scratch/s214725/Data/Verse20/VertebraeLocalisation/Verse20_validation_prep/img'
-heatmap_dir_validation = '/scratch/s214725/Data/Verse20/VertebraeLocalisation/Verse20_validation_prep_heatmaps'
+heatmap_dir_validation = '/scratch/s214725/Data/Verse20/VertebraeLocalisation/Verse20_validation_heatmaps'
 
 checkpoint_dir = '/scratch/s214725/Data/Checkpoints/VertebraeLocalisation/NO_DATAAUG' #'/Users/andreasaspe/Library/Mobile Documents/com~apple~CloudDocs/DTU/12.semester/Thesis/My_code/My_networks/Spine_Localisation/Checkpoints'
 

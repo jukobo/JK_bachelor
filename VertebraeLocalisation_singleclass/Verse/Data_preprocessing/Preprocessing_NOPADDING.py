@@ -19,7 +19,7 @@ from my_plotting_functions import *
 #######################################################
 #################### CONTROL PANEL ####################
 #######################################################
-data_type = 'training'
+data_type = 'validation'
 
 #Define scans
 all_scans = 1 #Set to 1 if you want to preprocess all scans

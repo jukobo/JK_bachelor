@@ -124,7 +124,7 @@ def loss_function(x, x_reconstructed, mean, var):
     return loss + kl_divergence
 
 
-class AE(nn.Module):
+class AE(nn.Module): # Bruges ikke
     # def __init__(self, dropout):
     def __init__(self, dim, device=device): # dim is a list with the dimensions of input, hidden and latent space
         super(AE, self).__init__()
@@ -187,7 +187,7 @@ class AE(nn.Module):
         return x_reconstructed, x_classified
 
 
-class AE2(nn.Module):
+class AE2(nn.Module): # Bruges ikke
     # def __init__(self, dropout):
     def __init__(self, dim, device=device): # dim is a list with the dimensions of input, hidden and latent space
         super(AE2, self).__init__()
@@ -237,7 +237,7 @@ class AE2(nn.Module):
         return x_reconstructed
 
 
-class AE2D(nn.Module):
+class AE2D(nn.Module): # Full connected NN
     # def __init__(self, dropout):
     def __init__(self, dim, device=device): # dim is a list with the dimensions of input, hidden and latent space
         super(AE2D, self).__init__()
@@ -276,7 +276,7 @@ class AE2D(nn.Module):
             # nn.Dropout2d(p=do),
             nn.ReLU(),
             nn.Linear(hidden_dim_1, input_dim),
-            nn.Tanh()
+            # nn.Tanh()
             # nn.Sigmoid()
         )
 
@@ -293,6 +293,54 @@ class AE2D(nn.Module):
 
         return x_reconstructed
 
+
+class conv_AE2D(nn.Module):
+    # def __init__(self, dropout):
+    def __init__(self, dim, device=device): # dim is a list with the dimensions of input, hidden and latent space
+        super(conv_AE2D, self).__init__()
+    
+        # Define dimensions
+        input_dim = dim[0]
+        hidden_dim_1 = dim[1]
+        hidden_dim_2 = dim[2]
+        latent_dim = dim[3]
+
+        kernel_size = 3
+        stride = 1
+        padding = 1
+
+
+        # Encoder
+        self.encoder = nn.Sequential(
+            nn.Conv2d(input_dim, hidden_dim_1, kernel_size = kernel_size, stride = stride, padding = padding),
+            nn.ReLU( ), #inplace=True), 
+            nn.Conv2d(hidden_dim_1, hidden_dim_2, kernel_size = kernel_size, stride = stride, padding = padding),
+            nn.ReLU(),
+            nn.Conv2d(hidden_dim_2, latent_dim, kernel_size = kernel_size, stride = stride, padding = padding),
+        )
+
+
+        # Decoder
+        self.decoder = nn.Sequential(
+            nn.Conv2d(latent_dim, hidden_dim_2, kernel_size = kernel_size, stride = stride, padding = padding),
+            nn.ReLU(),
+            nn.Conv2d(hidden_dim_2, hidden_dim_1, kernel_size = kernel_size, stride = stride, padding = padding),
+            nn.ReLU(),
+            nn.Conv2d(hidden_dim_1, input_dim, kernel_size = kernel_size, stride = stride, padding = padding),
+        )
+
+    def encode(self, x):
+        return self.encoder(x)
+    
+    def decode(self, z):
+        return self.decoder(z)
+
+
+    def forward(self, image):
+        z = self.encode(image)
+        x_reconstructed = self.decode(z)
+
+        return x_reconstructed
 
 
 def loss_function_re(x, x_reconstructed):

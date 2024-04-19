@@ -8,7 +8,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 import torchvision.transforms as transforms
-import wandb
 #import albumentations as A
 #My own documents
 from my_plotting_functions import *

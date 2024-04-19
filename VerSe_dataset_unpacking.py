@@ -24,10 +24,10 @@ import shutil
 #         fullstring.find(substring) != -1:
     
 #Input directories
-dir_rawdata = '/scratch/s174197/data/Verse19/dataset-verse19validation/rawdata' #'/Users/andreasaspe/Documents/Data/dataset-verse20test/rawdata' #r'C:\Users\PC\Documents\Andreas_s174197\dataset-verse20training\dataset-01training\rawdata' #'/zhome/bb/f/127616/Documents/Thesis/dataset-01training/rawdata' #'/Users/andreasaspe/Documents/Data/dataset-01training/rawdata'
-dir_derivatives = '/scratch/s174197/data/Verse19/dataset-verse19validation/derivatives' #'/Users/andreasaspe/Documents/Data/dataset-verse20test/derivatives' #r'C:\Users\PC\Documents\Andreas_s174197\dataset-verse20training\dataset-01training\derivatives' #'/zhome/bb/f/127616/Documents/Thesis/dataset-01training/derivatives/' #'/Users/andreasaspe/Documents/Data/dataset-01training/derivatives'
+dir_rawdata = '/scratch/s214725/Data/Verse20/dataset-verse20test/rawdata' #'/Users/andreasaspe/Documents/Data/dataset-verse20test/rawdata' #r'C:\Users\PC\Documents\Andreas_s174197\dataset-verse20training\dataset-01training\rawdata' #'/zhome/bb/f/127616/Documents/Thesis/dataset-01training/rawdata' #'/Users/andreasaspe/Documents/Data/dataset-01training/rawdata'
+dir_derivatives = '/scratch/s214725/Data/Verse20/dataset-verse20test/derivatives' #'/Users/andreasaspe/Documents/Data/dataset-verse20test/derivatives' #r'C:\Users\PC\Documents\Andreas_s174197\dataset-verse20training\dataset-01training\derivatives' #'/zhome/bb/f/127616/Documents/Thesis/dataset-01training/derivatives/' #'/Users/andreasaspe/Documents/Data/dataset-01training/derivatives'
 #Output directories (Will create a folder if it does not exist)
-dir_destination = '/scratch/s174197/data/Verse19/Verse19_validation_unpacked' #'/Users/andreasaspe/Documents/Data/Verse20_test' #r'C:\Users\PC\Documents\Andreas_s174197\dataset-verse20training_unpacked' #'/zhome/bb/f/127616/Documents/Thesis/Rawdata_training'
+dir_destination = '/scratch/s214725/Data/Verse20/Verse20_test_unpacked' #'/Users/andreasaspe/Documents/Data/Verse20_test' #r'C:\Users\PC\Documents\Andreas_s174197\dataset-verse20training_unpacked' #'/zhome/bb/f/127616/Documents/Thesis/Rawdata_training'
 
 #Define list of scans
 scans = [f for f in listdir(dir_rawdata) if f.startswith('sub')] #Remove file .DS_Store

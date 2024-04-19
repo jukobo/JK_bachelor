@@ -46,6 +46,8 @@ description = 'Prøver med data augmentation igen'
 # heatmap_dir_test = '/scratch/s214725/Data/Verse20/Verse20_training_heatmaps' #'/Users/andreasaspe/Documents/Data/Verse20_training_heatmaps' #r'C:\Users\PC\Documents\Andreas_s174197\heatmaps'
 # output_parent_dir = '/scratch/s214725/Data/Verse20/SpineLocalisation/Verse20_test_heatmaps_predictions' #Prediction directory
 
+#Create checkpoint parent folder if it does not exist
+os.makedirs(checkpoint_dir, exist_ok=True)
 
 
 #Unpack parameters

@@ -29,7 +29,7 @@ list_of_subjects = ['sub-verse500'] #sub-verse820, 'sub-verse824' is edge case. 
 
 ### GPU CLUSTER ###
 #Type
-data_type = 'training' #Training, validation or test
+data_type = 'validation' #Training, validation or test
 #Raw data
 dir_data = '/scratch/214725/Data/Verse20/Verse20_'+data_type+'_unpacked' #'/scratch/s174197/data/Verse20/Verse20_test_unpacked' #'/Users/andreasaspe/Documents/Data/Verse20/Verse20_test_unpacked'
 #SpineLocalisation folders

@@ -170,7 +170,7 @@ for epoch in range(num_epochs):
 
     #Log in wandb
     # wandb.log({"Train_loss": avg_loss_train, "Validation_loss": avg_loss_validation})
-    torch.save(checkpoint, os.path.join(checkpoint_dir,str(run_name)+'_batchsize'+str(batch_size)+'_lr'+str(lr)+'_wd'+str(wd)+'.pth'))
+    torch.save(checkpoint, os.path.join(checkpoint_dir,str(run_name)+'epoch'+str(epoch)+'_batchsize'+str(batch_size)+'_lr'+str(lr)+'_wd'+str(wd)+'.pth'))
 
 
 

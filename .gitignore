@@ -19,3 +19,5 @@ NO_DATAAUG_step22000_batchsize1_lr1e-05_wd0.0005.pth
 crop3.png
 
 OutlierDetection/rec_data/*
+OutlierDetection/rec_data2/*
+

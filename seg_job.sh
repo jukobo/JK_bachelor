@@ -9,6 +9,7 @@
 #SBATCH --nodelist=comp-gpu01
 #SBATCH --mail-user=s214725@dtu.dk
 #SBATCH --mail-type=BEGIN,END,FAIL
+#SBATCH --partition=titans
 #SBATCH --export=ALL
 
 ## INFO

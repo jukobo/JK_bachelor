@@ -25,7 +25,7 @@ fi
 source ~/JK_bachelor/.bashrc
 module load CUDA/11.4
 # python SpineLocalisation/Verse/Training.py --no-mps 
-python SpineLocalisation/Verse/Preprocessing.py --no-mps 
+python SpineLocalisation/Verse/heatmap_generation.py --no-mps 
 
 
 

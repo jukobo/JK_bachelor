@@ -163,7 +163,7 @@ for epoch in range(num_epochs):
         val_loss.append(avg_loss_val)
 
         #Log in wandb
-        wandb.log({"Train_loss": avg_loss_train, "Validation_loss": avg_loss_val})
+        # wandb.log({"Train_loss": avg_loss_train, "Validation_loss": avg_loss_val})
 
         #Save checkpoint
         checkpoint = {

@@ -33,7 +33,7 @@ all_scans = 1 #Set to 1 if you want to preprocess all scans
 #Raw data
 dir_data = '/scratch/s214725/Data/Verse20/Verse20_'+data_type+'_unpacked' #'/scratch/s174197/data/Verse20/Verse20_test_unpacked' #'/Users/andreasaspe/Documents/Data/Verse20/Verse20_test_unpacked'
 #Output folders
-Output_folder = '/scratch/s214725/Data/Verse20/VertebraeLocalisation2/Verse20_'+data_type+'_prep_NOPADDING' #'/scratch/s174197/data/Verse20/Verse20_test_prep' #'/Users/andreasaspe/Documents/Data/Verse20_training_prep' #r'C:\Users\PC\Documents\Andreas_s174197\Preprocessed_data' #"/Users/andreasaspe/Documents/Data/Preprocessed_data"
+Output_folder = '/scratch/s214725/Data/Verse20/VertebraeLocalisation/Verse20_'+data_type+'_prep_NOPADDING' #'/scratch/s174197/data/Verse20/Verse20_test_prep' #'/Users/andreasaspe/Documents/Data/Verse20_training_prep' #r'C:\Users\PC\Documents\Andreas_s174197\Preprocessed_data' #"/Users/andreasaspe/Documents/Data/Preprocessed_data"
 #Før stod der: Output_folder_heatmaps. Det var noget pjat. Skal jeg ikke bruge til noget. Heller ikke i det originale
 
 ### MAC ### ?

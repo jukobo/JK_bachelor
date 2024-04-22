@@ -203,7 +203,7 @@ for subject in tqdm(all_subjects):
     #Thresholding
     heatmap[heatmap < 0.001] = 0
     
-    # show_heatmap_img_dim1(data_img,heatmap,subject)
+    show_heatmap_img_dim1(data_img,heatmap,subject)
     #############################################################
 
 

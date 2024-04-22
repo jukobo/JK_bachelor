@@ -1,7 +1,7 @@
 #!/bin/bash	
 
-#SBATCH --job-name=jk_stage2_spine_model
-#SBATCH --output=jk_stage2_spine_model_%J.out
+#SBATCH --job-name=jk_spine_model
+#SBATCH --output=jk_spine_model_%J.out
 #SBATCH --cpus-per-task=2
 #SBATCH --time=7-00:00:00
 #SBATCH --mem=32gb
@@ -23,7 +23,7 @@ fi
 
 source ~/JK_bachelor/.bashrc
 module load CUDA/11.4
-python VertebraeLocalisation_singleclass/Verse/Training.py --no-mps 
+python VertebraeSegmentation/Verse/Predict_mask_titans.py --no-mps 
 
 
 

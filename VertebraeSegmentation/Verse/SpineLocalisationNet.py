@@ -12,9 +12,9 @@ def DoubleConv(in_channels, feature_maps):
         return double_conv
 
 
-class SpineLocalisationNet(nn.Module):
+class Unet3D(nn.Module):
     def __init__(self):
-        super(SpineLocalisationNet, self).__init__()
+        super(Unet3D, self).__init__()
 
         #Double convolutions
         self.conv_down1 = DoubleConv(1,64)
@@ -73,7 +73,7 @@ class SpineLocalisationNet(nn.Module):
     #def expanding(self, image):
 if __name__ == "__main__":
     image = torch.rand((1,1,64,64,128))
-    model = SpineLocalisationNet()
+    model = Unet3D()
     #Call model
     model(image)
 

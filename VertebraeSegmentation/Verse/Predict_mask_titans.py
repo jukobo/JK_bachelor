@@ -19,7 +19,7 @@ from data_utilities import *
 from SpineLocalisationNet import SpineLocalisationNet
 # from new_VertebraeLocalisationNet import Vert[[[ebraeLocalisationNet
 from new_VertebraeLocalisationNet_batchnormdropout import VertebraeLocalisationNet
-from VertebraeSegmentationNet import VertebraeSegmentationNet
+from VertebraeSegmentationNet import Unet3D
 # from VertebraeSegmentationNet_batchnormdropout import VertebraeSegmentationNet
 
 #######################################################
@@ -409,7 +409,7 @@ for subject in tqdm(all_subjects):
     checkpoint = torch.load(checkpoint_dir_stage3,map_location=device)
 
     #Define model
-    model = VertebraeSegmentationNet(0.0)
+    model = Unet3D(0.0)
     #Send to GPU
     model.to(device)
     # Load the saved weights into the model

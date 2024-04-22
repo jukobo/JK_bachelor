@@ -127,12 +127,16 @@ class SpatialConfiguration(nn.Module):
         # x = self.four_convs(image)
 
         x = self.conv1(image)
+        # print(x.shape)
         x = self.activation1(x)
         x = self.conv2(x)
+        # print(x.shape)
         x = self.activation1(x)
         x = self.conv3(x)
+        # print(x.shape)
         x = self.activation1(x)
         x = self.conv4(x)
+        # print(x.shape)
         x = self.activation2(x)
 
         #Upsample to original resolution which is four times as big
@@ -160,6 +164,7 @@ class VertebraeLocalisationNet(nn.Module): #SpatialConfigurationNet
 
         #Downsample resolution for input to Spatial Configuration
         x = self.avgpool(LocalAppearance_output)
+        # print(x.shape)
 
         #Call the Spatial Configuration network
         SpatialConfiguration_output = self.SpatialConfiguration(x)
@@ -178,6 +183,6 @@ if __name__ == "__main__":
     model = VertebraeLocalisationNet(0.0)
     print(model)
     #Call model
-    print(model(image).shape)
+    model(image)
 
 

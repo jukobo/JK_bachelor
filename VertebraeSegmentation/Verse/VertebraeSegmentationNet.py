@@ -76,7 +76,7 @@ class Unet3D(nn.Module):
         output = self.output(x)
         return output
     
-    class VertebraeSegmentationNet(nn.Module):
+class VertebraeSegmentationNet(nn.Module):
     def __init__(self, dropout):
         super(VertebraeSegmentationNet, self).__init__()
 

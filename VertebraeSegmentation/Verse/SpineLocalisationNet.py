@@ -14,7 +14,7 @@ def DoubleConv(in_channels, feature_maps):
 
 class spineloc_Unet3D(nn.Module):
     def __init__(self):
-        super(Unet3D, self).__init__()
+        super(spineloc_Unet3D, self).__init__()
 
         #Double convolutions
         self.conv_down1 = DoubleConv(1,64)

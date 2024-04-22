@@ -12,7 +12,7 @@ def DoubleConv(in_channels, feature_maps):
         return double_conv
 
 
-class Unet3D(nn.Module):
+class spineloc_Unet3D(nn.Module):
     def __init__(self):
         super(Unet3D, self).__init__()
 

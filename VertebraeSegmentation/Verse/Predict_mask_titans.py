@@ -16,7 +16,7 @@ from my_plotting_functions import *
 from my_data_utils import *
 from data_utilities import *
 #Import networks
-from SpineLocalisationNet import SpineLocalisationNet
+from SpineLocalisationNet import spineloc_Unet3D
 # from new_VertebraeLocalisationNet import Vert[[[ebraeLocalisationNet
 from new_VertebraeLocalisationNet_batchnormdropout import VertebraeLocalisationNet
 from VertebraeSegmentationNet import Unet3D
@@ -214,7 +214,7 @@ for subject in tqdm(all_subjects):
     checkpoint = torch.load(checkpoint_dir_stage1,map_location=device)
 
     #Define model
-    model = SpineLocalisationNet()
+    model = spineloc_Unet3D()
     #Send to GPU
     model.to(device)
     # Load the saved weights into the model

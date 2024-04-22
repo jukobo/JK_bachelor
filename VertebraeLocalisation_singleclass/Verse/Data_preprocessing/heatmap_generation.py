@@ -18,8 +18,8 @@ from functools import reduce
 
 #Dir_data er hovedmappen. Så definerer jeg img, msk og ctd længere nede selv.
 #gpu cluster
-dir_data = '/scratch/s214725/Data/Verse20/VertebraeLocalisation/Verse20_validation_prep' #"/Users/andreasaspe/Documents/Data/Verse20/Verse20_training_prep" #"/Users/andreasaspe/Documents/Data/Verse20_training_prep" #r'C:\Users\PC\Documents\Andreas_s174197\Preprocessed_data' #PARENT FOLDER #'/zhome/bb/f/127616/Documents/Thesis/Preprocessed_data/'
-Output_folder = '/scratch/s214725/Data/Verse20/VertebraeLocalisation/Verse20_validation_heatmaps'
+dir_data = '/scratch/s214725/Data/Verse20/VertebraeLocalisation/Verse20_training_prep' #"/Users/andreasaspe/Documents/Data/Verse20/Verse20_training_prep" #"/Users/andreasaspe/Documents/Data/Verse20_training_prep" #r'C:\Users\PC\Documents\Andreas_s174197\Preprocessed_data' #PARENT FOLDER #'/zhome/bb/f/127616/Documents/Thesis/Preprocessed_data/'
+Output_folder = '/scratch/s214725/Data/Verse20/VertebraeLocalisation/Verse20_training_heatmaps'
 sigma = 3
 
 

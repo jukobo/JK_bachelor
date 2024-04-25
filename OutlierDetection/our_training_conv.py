@@ -258,7 +258,7 @@ def train2D_conv(model, optimizer, epochs, device):
                         # Save reconstructed images
                         numpy_array = x_reconstructed.cpu().numpy()
                         # np.save(f'OutlierDetection/rec_data/reconstruction{epoch}.npy', numpy_array)
-                        np.save(f'/scratch/s214704/Data/Checkpoints/VertebraeSegmentation/rec_img/reconstruction{epoch}.npy', numpy_array)
+                        np.save(f'/scratch/s214725/Data/Checkpoints/VertebraeSegmentation/rec_img/reconstruction{epoch}.npy', numpy_array)
 
 
                         # Save loss
@@ -286,7 +286,7 @@ def train2D_conv(model, optimizer, epochs, device):
         if epoch%100 == 0:
             print(f'Epoch {epoch+1}, Average loss: {overall_loss/(n_2-n_1+1)}')    
 
-    save_path = '/home/s214704/JK_bachelor/OutlierDetection'
+    save_path = '/home/s214725/JK_bachelor/OutlierDetection'
     np.save(os.path.join(save_path+'o_loss.npy'), o_loss)
     np.save(os.path.join(save_path+'val_loss.npy'), val_loss)
 

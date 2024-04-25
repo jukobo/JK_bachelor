@@ -17,12 +17,15 @@ parameters_dict = {
     'weight_decay': 5e-4 #1e-6
 }
 
+print('Parameters done')
+
 ## Unpack parameters
 num_epochs = parameters_dict['epochs']
 lr = parameters_dict['learning_rate']
 batch_size = parameters_dict['batch_size']
 wd = parameters_dict['weight_decay']
 
+print('Unpack paramters done')
 
 ## Loading data
 # path = 'C:/Users/julie/Bachelor_data/crops_training_prep'

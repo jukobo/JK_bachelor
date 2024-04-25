@@ -25,9 +25,12 @@ wd = parameters_dict['weight_decay']
 
 
 ## Loading data
-img_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/img"
-heatmap_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/heatmaps"
-msk_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/msk"
+# path = 'C:/Users/julie/Bachelor_data/crops_training_prep'
+path = '/scratch/s214704/Data/Checkpoints/VertebraeSegmentation/crops_training_prep/'
+
+img_dir_training = os.path.join(path + 'img')
+heatmap_dir_training = os.path.join(path + 'heatmaps')
+msk_dir_training = os.path.join(path + 'msk')
 
 
 VerSe_train = LoadData(img_dir=img_dir_training, msk_dir = msk_dir_training, distfield_dir=heatmap_dir_training)
@@ -250,7 +253,8 @@ def train2D_conv(model, optimizer, epochs, device):
                         
                         # Save reconstructed images
                         numpy_array = x_reconstructed.cpu().numpy()
-                        np.save(f'OutlierDetection/rec_data/reconstruction{epoch}.npy', numpy_array)
+                        # np.save(f'OutlierDetection/rec_data/reconstruction{epoch}.npy', numpy_array)
+                        np.save(f'/scratch/s214704/Data/Checkpoints/VertebraeSegmentation/rec_img/reconstruction{epoch}.npy', numpy_array)
 
 
                         # Save loss
@@ -278,9 +282,9 @@ def train2D_conv(model, optimizer, epochs, device):
         if epoch%100 == 0:
             print(f'Epoch {epoch+1}, Average loss: {overall_loss/(n_2-n_1+1)}')    
 
-
-    np.save('OutlierDetection/o_loss.npy', o_loss)
-    np.save('OutlierDetection/Val_loss.npy', val_loss)
+    save_path = '/home/s214704/JK_bachelor/OutlierDetection'
+    np.save(os.path.join(save_path+'o_loss.npy'), o_loss)
+    np.save(os.path.join(save_path+'val_loss.npy'), val_loss)
 
     # # Plotting the loss
     # fig, ax = plt.subplots()

@@ -5,7 +5,7 @@
 #SBATCH --cpus-per-task=2
 #SBATCH --time=1-05:00:00
 #SBATCH --mem=32gb
-#SBATCH --gres=gpu:2
+#SBATCH --gres=gpu:Turing:2
 #SBATCH --mail-user=s214704@dtu.dk
 #SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH --partition=titans
@@ -24,7 +24,6 @@ fi
 source ~/JK_bachelor/.bashrc
 module load CUDA/11.4
 source bsc-env/bin/activate
-# python VertebraeSegmentation/Verse/Training.py --no-mps 
 python OutlierDetection/our_training_conv.py --no-mps 
 
 

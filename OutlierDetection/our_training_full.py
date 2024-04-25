@@ -11,7 +11,7 @@ n = 10
 #Define paramters
 parameters_dict = {
     'epochs': 10000,
-    'learning_rate': 1e-5,
+    'learning_rate': 1e-3,
     'batch_size': 1, #Noget galt når batch size ændres til mere end 1
     'weight_decay': 5e-4 #1e-6
 }
@@ -59,7 +59,7 @@ print(model)
 # exit()
 
 # optimizer = optim.Adam(model.parameters(), lr=lr, weight_decay=wd)
-optimizer = optim.AdamW(model.parameters(), lr=1e-3, weight_decay=wd)
+optimizer = optim.AdamW(model.parameters(), lr=lr, weight_decay=wd)
 
 o_loss = []
 train_loss = []
@@ -398,7 +398,7 @@ def train2D_conv(model, optimizer, epochs, device):
     ax.set_title(f'Model Loss, batch_size={batch_size}, lr={lr}, wd={wd}')
     ax.set_xlabel('Epoch')
     ax.set_ylabel('Avg. loss')
-    ax.set_xticks(np.arange(0, num_epochs, step=1000))
+    ax.set_xticks(np.arange(0, num_epochs, step= 1000))
 
     ax.plot(list(range(1, num_epochs+1, 1)), o_loss, label='Training loss', color='b')  # Update the plot with the current loss
     ax.plot(list(range(500, num_epochs+1, 500)), val_loss, label='Validation loss', color='r')

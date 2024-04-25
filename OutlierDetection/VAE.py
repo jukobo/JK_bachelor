@@ -343,6 +343,69 @@ class conv_AE2D(nn.Module):
         return x_reconstructed
 
 
+class conv_AE2D_U(nn.Module):
+    # def __init__(self, dropout):
+    def __init__(self, dim, device=device): # dim is a list with the dimensions of input, hidden and latent space
+        super(conv_AE2D_U, self).__init__()
+    
+        # Define dimensions
+        input_dim = dim[0]
+        hidden_dim_1 = dim[1]
+        hidden_dim_2 = dim[2]
+        latent_dim = dim[3]
+
+        kernel_size = 3
+        stride = 1
+        padding = 1
+
+
+        # Encoder
+        self.encoder = nn.Sequential(
+            nn.Conv2d(input_dim, hidden_dim_1, kernel_size = kernel_size, stride = stride, padding = padding),
+            nn.ReLU(inplace=True), #inplace=True),
+            nn.Conv2d(hidden_dim_1, hidden_dim_1, kernel_size = kernel_size, stride = stride, padding = padding),
+            nn.ReLU(inplace=True),
+
+            nn.Conv2d(hidden_dim_1, hidden_dim_2, kernel_size = kernel_size, stride = stride, padding = padding),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(hidden_dim_2, hidden_dim_2, kernel_size = kernel_size, stride = stride, padding = padding),
+            nn.ReLU(inplace=True),
+
+            nn.Conv2d(hidden_dim_2, latent_dim, kernel_size = kernel_size, stride = stride, padding = padding),
+        )
+
+
+        # Decoder
+        self.decoder = nn.Sequential(
+            nn.Conv2d(latent_dim, hidden_dim_2, kernel_size = kernel_size, stride = stride, padding = padding),
+            
+            nn.ReLU(),
+            nn.Conv2d(hidden_dim_2, hidden_dim_2, kernel_size = kernel_size, stride = stride, padding = padding),
+            nn.ReLU(),
+            nn.Conv2d(hidden_dim_2, hidden_dim_1, kernel_size = kernel_size, stride = stride, padding = padding),
+            
+            nn.ReLU(),
+            nn.Conv2d(hidden_dim_1, hidden_dim_1, kernel_size = kernel_size, stride = stride, padding = padding),
+            nn.ReLU(),
+            nn.Conv2d(hidden_dim_1, input_dim, kernel_size = kernel_size, stride = stride, padding = padding),
+        )
+
+    def encode(self, x):
+        return self.encoder(x)
+    
+    def decode(self, z):
+        return self.decoder(z)
+
+
+    def forward(self, image):
+        z = self.encode(image)
+        x_reconstructed = self.decode(z)
+
+        return x_reconstructed
+
+
+
+
 def loss_function_re(x, x_reconstructed):
     criterion = nn.MSELoss() #reduction='sum'
     loss = criterion(x_reconstructed, x)

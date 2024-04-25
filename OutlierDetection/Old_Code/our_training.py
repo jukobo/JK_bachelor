@@ -164,7 +164,7 @@ def train(model, optimizer, epochs, device):
 
 
 
-        print(f'Epoch {epoch+1}, Average loss: {overall_loss/len(train_loader)}')
+        print(f'Epoch {epoch+1}, Average loss: {overall_loss/(len(train_loader))}')
         print(f'Epoch {epoch+1}, Average loss: {overall_loss/batch_idx*batch_size}')
     
         

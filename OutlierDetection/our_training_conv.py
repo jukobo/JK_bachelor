@@ -38,7 +38,7 @@ train_loader = DataLoader(VerSe_train, batch_size=batch_size, shuffle=True, num_
     # 39 elements (images) in train_loader
     # Each element is a tuple of 3 elements: (img, heatmap, msk)
     # img: torch.Size([2, 128, 128, 96])
-
+print('Loaded data')
 # input_train, y, z = train_loader.dataset[n]
 # print(torch.min(input_train[0][64,:,:]), torch.max(input_train[0][64,:,:])) # min = -0.9077, max = 0.6916
 # plt.imshow(input_train[0][64, :, :], cmap='gray')
@@ -60,7 +60,7 @@ train_loader = DataLoader(VerSe_train, batch_size=batch_size, shuffle=True, num_
 model = conv_AE2D([1, 32, 16, 8]).double() #NOTE insert dimensions here
 # For U-net AE
 # model = conv_AE2D_U([1, 16, 8, 4]).double() #NOTE insert dimensions here
-
+print('Found model')
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu') 
 model.to(device)
 print(model)

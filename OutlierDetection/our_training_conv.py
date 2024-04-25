@@ -4,7 +4,8 @@ import torch.optim as optim
 from torch.utils.data import DataLoader
 import numpy as np
 
-from VAE import *
+# from VAE import *
+from AE import *
 
 n_1 = 10
 n_2 = 15
@@ -60,7 +61,7 @@ print('Loaded data')
 
 ## Define model
 # For simple AE
-model = conv_AE2D([1, 32, 16, 8]).double() #NOTE insert dimensions here
+model = conv_AE2D([1, 16, 8, 4]).double() #NOTE insert dimensions here
 # For U-net AE
 # model = conv_AE2D_U([1, 16, 8, 4]).double() #NOTE insert dimensions here
 print('Found model')
@@ -228,7 +229,7 @@ def train2D_conv(model, optimizer, epochs, device):
 
                 x_reconstructed = model(x)
 
-                loss = loss_function_re(x_reconstructed, x)
+                loss = loss_function(x_reconstructed, x)
                 overall_loss += loss.item()
 
                 optimizer.zero_grad()
@@ -252,7 +253,7 @@ def train2D_conv(model, optimizer, epochs, device):
                         inputs = inputs.to(device)
 
                         x_reconstructed = model(inputs)
-                        loss = loss_function_re(x_reconstructed, inputs)
+                        loss = loss_function(x_reconstructed, inputs)
                         
                         # Save reconstructed images
                         numpy_array = x_reconstructed.cpu().numpy()

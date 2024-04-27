@@ -6,8 +6,8 @@ import numpy as np
 
 from VAE import *
 
-n_1 = 10
-n_2 = 15
+n_1 = 0
+n_2 = 20
 
 #Define paramters
 parameters_dict = {
@@ -25,9 +25,12 @@ wd = parameters_dict['weight_decay']
 
 
 ## Loading data
-img_dir_training = "/scratch/s214704/Data/Checkpoints/VertebraeSegmentation/crops_training_prep/img"
-heatmap_dir_training = "/scratch/s214704/Data/Checkpoints/VertebraeSegmentation/crops_training_prep/heatmaps"
-msk_dir_training = "/scratch/s214704/Data/Checkpoints/VertebraeSegmentation/crops_training_prep/msk"
+img_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/img"
+heatmap_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/heatmaps"
+msk_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/msk"
+# img_dir_training = "/scratch/s214704/Data/Checkpoints/VertebraeSegmentation/crops_training_prep/img"
+# heatmap_dir_training = "/scratch/s214704/Data/Checkpoints/VertebraeSegmentation/crops_training_prep/heatmaps"
+# msk_dir_training = "/scratch/s214704/Data/Checkpoints/VertebraeSegmentation/crops_training_prep/msk"
 
 
 VerSe_train = LoadData(img_dir=img_dir_training, msk_dir = msk_dir_training, distfield_dir=heatmap_dir_training)
@@ -54,7 +57,7 @@ train_loader = DataLoader(VerSe_train, batch_size=batch_size, shuffle=True, num_
 
 ## Define model
 # For simple AE
-model = conv_AE2D([1, 32, 16, 8]).double() #NOTE insert dimensions here
+model = conv_AE2D([1, 16, 8, 4]).double() #NOTE insert dimensions here
 # For U-net AE
 # model = conv_AE2D_U([1, 16, 8, 4]).double() #NOTE insert dimensions here
 
@@ -214,7 +217,6 @@ def train2D_conv(model, optimizer, epochs, device):
         # for batch_idx, (x, _) in enumerate(train_loader.dataset[n]): #NOTE insert data loader here
         for idx, data in enumerate(train_loader):
             if idx >= n_1 and idx <= n_2:
-
                 input_train, _, _ = data
 
                 x = input_train[0][0,64,:,:].unsqueeze(dim=0)
@@ -233,7 +235,8 @@ def train2D_conv(model, optimizer, epochs, device):
                 step+=1
 
                 # Do evaluation every 50 step
-                if step%500 == 0:
+                if step%1000 == 0:
+                    print()
                     print("EVALUATION!")
                     model.eval() #Set to evaluation
 
@@ -250,7 +253,8 @@ def train2D_conv(model, optimizer, epochs, device):
                         
                         # Save reconstructed images
                         numpy_array = x_reconstructed.cpu().numpy()
-                        np.save(f'/scratch/s214725/Data/rec_data/reconstruction{epoch}.npy', numpy_array)
+                        np.save(f'OutlierDetection/rec_data3/reconstruction{epoch}.npy', numpy_array)
+                        # np.save(f'/scratch/s214725/Data/rec_data/reconstruction{epoch}.npy', numpy_array)
 
 
                         # Save loss
@@ -278,9 +282,10 @@ def train2D_conv(model, optimizer, epochs, device):
         if epoch%100 == 0:
             print(f'Epoch {epoch+1}, Average loss: {overall_loss/(n_2-n_1+1)}')    
 
-
-    np.save('/scratch/s214725/Data/o_loss.npy', o_loss)
-    np.save('/scratch/s214725/Data/Val_loss.npy', val_loss)
+    np.save('OutlierDetection/o_loss3.npy', o_loss)
+    np.save('OutlierDetection/val_loss3.npy', val_loss)
+    # np.save('/scratch/s214725/Data/o_loss.npy', o_loss)
+    # np.save('/scratch/s214725/Data/Val_loss.npy', val_loss)
 
     # # Plotting the loss
     # fig, ax = plt.subplots()

@@ -15,7 +15,7 @@ print('all imported')
 
 ############## Loaded ##################
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu') 
-loss_function_re = nn.MSELoss().to(device)
+# loss_function_re = nn.MSELoss().to(device)
 
 
 

@@ -1,15 +1,16 @@
 import time
-print(time.clock())
+print(time.perf_counter()) 
 import os
-print(time.clock())
+print(time.perf_counter())  
 import torch
-print(time.clock())
+print(time.perf_counter())  
 import torch.optim as optim
-print(time.clock())
+print(time.perf_counter())  
 from torch.utils.data import DataLoader
-print(time.clock())
+print(time.perf_counter())  
 import numpy as np
-print(time.clock())
+print(time.perf_counter())  
+
 
 from our_VAE import *
 print(time.clock())

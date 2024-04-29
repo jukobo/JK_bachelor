@@ -13,7 +13,8 @@ print(time.perf_counter())
 
 
 from our_VAE import *
-print(time.clock())
+print(time.perf_counter())  
+print('all imported')
 
 n_1 = 0
 n_2 = 39

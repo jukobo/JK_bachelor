@@ -4,10 +4,10 @@ import torch.optim as optim
 from torch.utils.data import DataLoader
 import numpy as np
 
-from VAE import *
+from our_VAE import *
 
 n_1 = 0
-n_2 = 20
+n_2 = 39
 
 #Define paramters
 parameters_dict = {
@@ -253,8 +253,8 @@ def train2D_conv(model, optimizer, epochs, device):
                         
                         # Save reconstructed images
                         numpy_array = x_reconstructed.cpu().numpy()
-                        np.save(f'OutlierDetection/rec_data3/reconstruction{epoch}.npy', numpy_array)
-                        # np.save(f'/scratch/s214725/Data/rec_data/reconstruction{epoch}.npy', numpy_array)
+                        # np.save(f'OutlierDetection/rec_data3/reconstruction{epoch}.npy', numpy_array)
+                        np.save(f'/scratch/s214725/Data/rec_data/reconstruction{epoch}.npy', numpy_array)
 
 
                         # Save loss
@@ -282,10 +282,10 @@ def train2D_conv(model, optimizer, epochs, device):
         if epoch%100 == 0:
             print(f'Epoch {epoch+1}, Average loss: {overall_loss/(n_2-n_1+1)}')    
 
-    np.save('OutlierDetection/o_loss3.npy', o_loss)
-    np.save('OutlierDetection/val_loss3.npy', val_loss)
-    # np.save('/scratch/s214725/Data/o_loss.npy', o_loss)
-    # np.save('/scratch/s214725/Data/Val_loss.npy', val_loss)
+    # np.save('OutlierDetection/o_loss3.npy', o_loss)
+    # np.save('OutlierDetection/val_loss3.npy', val_loss)
+    np.save('/scratch/s214725/Data/o_loss.npy', o_loss)
+    np.save('/scratch/s214725/Data/Val_loss.npy', val_loss)
 
     # # Plotting the loss
     # fig, ax = plt.subplots()

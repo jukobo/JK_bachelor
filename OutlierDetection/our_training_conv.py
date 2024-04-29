@@ -1,10 +1,16 @@
 import os
+print(time.clock())
 import torch
+print(time.clock())
 import torch.optim as optim
+print(time.clock())
 from torch.utils.data import DataLoader
+print(time.clock())
 import numpy as np
+print(time.clock())
 
 from our_VAE import *
+print(time.clock())
 
 n_1 = 0
 n_2 = 39

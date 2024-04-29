@@ -110,11 +110,11 @@ class conv_AE2D(nn.Module):
 
         return x_reconstructed
 
+def loss_function_re(x, x_reconstructed):
+    criterion = nn.MSELoss() #reduction='sum'
+    loss = criterion(x_reconstructed, x)
 
-
-
-
-
+    return loss
 
 
 

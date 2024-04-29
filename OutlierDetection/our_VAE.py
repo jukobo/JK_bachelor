@@ -406,10 +406,9 @@ class conv_AE2D_U(nn.Module):
 
 
 
-def loss_function_re(x, x_reconstructed):
+def loss_function_re(x, x_reconstructed, device):
     criterion = nn.MSELoss().to(device) #reduction='sum'
     loss = criterion(x_reconstructed, x)
-
     return loss
 
 # def loss_function_cla(x, x_classified):

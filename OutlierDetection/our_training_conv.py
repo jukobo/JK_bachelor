@@ -13,8 +13,8 @@ import numpy as np
 print(time.perf_counter())  
 
 
-from our_VAE import *
-print(time.perf_counter())  
+# from our_VAE import *'
+# print(time.perf_counter())  '
 print('all imported')
 
 n_1 = 0

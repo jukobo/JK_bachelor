@@ -15,6 +15,9 @@ print('all imported')
 
 
 ############## Loaded ##################
+
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu') 
+
 class LoadData(Dataset):
     def __init__(self, img_dir, msk_dir, distfield_dir):
         self.img_dir = img_dir

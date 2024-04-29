@@ -1,17 +1,12 @@
 print('Start importing')
 import time
-print(time.perf_counter()) 
-import os
-print(time.perf_counter())  
-import torch
-print(time.perf_counter())  
+import os 
+import torch 
+import torch.nn as nn
 import torch.optim as optim
-print(time.perf_counter())  
-from torch.utils.data import DataLoader
-print(time.perf_counter())  
+from torch.utils.data import DataLoader 
 import numpy as np
-from torch.utils.data import Dataset
-print(time.perf_counter())  
+from torch.utils.data import Dataset 
 
 
 # from our_VAE import *

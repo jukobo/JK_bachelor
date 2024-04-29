@@ -1,3 +1,4 @@
+print('Start importing')
 import time
 print(time.perf_counter()) 
 import os

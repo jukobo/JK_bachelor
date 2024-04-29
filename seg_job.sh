@@ -23,7 +23,7 @@ fi
 
 source ~/JK_bachelor/.bashrc
 module load CUDA/11.4
-python VertebraeLocalisation_singleclass/Verse/Do_predictions.py --no-mps 
+python OutlierDetection/VAE.py --no-mps 
 
 
 

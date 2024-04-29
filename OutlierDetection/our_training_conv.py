@@ -25,12 +25,12 @@ wd = parameters_dict['weight_decay']
 
 
 ## Loading data
-img_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/img"
-heatmap_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/heatmaps"
-msk_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/msk"
-# img_dir_training = "/scratch/s214704/Data/Checkpoints/VertebraeSegmentation/crops_training_prep/img"
-# heatmap_dir_training = "/scratch/s214704/Data/Checkpoints/VertebraeSegmentation/crops_training_prep/heatmaps"
-# msk_dir_training = "/scratch/s214704/Data/Checkpoints/VertebraeSegmentation/crops_training_prep/msk"
+# img_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/img"
+# heatmap_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/heatmaps"
+# msk_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/msk"
+img_dir_training = "/scratch/s214704/Data/Checkpoints/VertebraeSegmentation/crops_training_prep/img"
+heatmap_dir_training = "/scratch/s214704/Data/Checkpoints/VertebraeSegmentation/crops_training_prep/heatmaps"
+msk_dir_training = "/scratch/s214704/Data/Checkpoints/VertebraeSegmentation/crops_training_prep/msk"
 
 
 VerSe_train = LoadData(img_dir=img_dir_training, msk_dir = msk_dir_training, distfield_dir=heatmap_dir_training)

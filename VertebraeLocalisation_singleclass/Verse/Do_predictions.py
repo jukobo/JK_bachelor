@@ -32,7 +32,7 @@ heatmap_dir = '/scratch/s214725/Data/Verse20/VertebraeLocalisation/Verse20_test_
 output_pred_dir = '/scratch/s214725/Data/Verse20/VertebraeLocalisation/Verse20_test_predictions' #'/scratch/s174197/data/Verse20/VertebraeLocalisation2/for_making_figure/output' #'/scratch/s174197/data/Verse20/VertebraeLocalisation2/Verse20_validation_predictions_alldata' #'/scratch/s174197/data/Verse20/VertebraeLocalisation2/Verse20_validation_predictions2' #Prediction directory
 #Checkpoint
 checkpoint_parent_dir = '/scratch/s214725/Data/Checkpoints/VertebraeLocalisation' #/VertebraeLocalisation2/alldata' #'/scratch/s174197/data/Checkpoints'
-checkpoint_filename = 'FIXED_DATAAUG_both_epoch2999_batchsize1_lr1e-05_wd0.0001.pth' #'Batchnorm_dropout_batchsize1_lr1e-05_wd0.0001.pth' #'Second_try_No_dropout_newinitialisation_batchsize1_lr1e-05_wd0.0001.pth' #'Third_try_No_dropout_newinitialisation142.pth' #'Second_try_No_dropout_newinitialisation_batchsize1_lr1e-05_wd0.0001.pth' #'NEWNetworkWithNewInitialisation_GPU_batchsize1_lr0.001_wd0.pth' #'FIXEDVAL_dropout3_higherdecay_batchsize1_lr1e-05_wd0.0001.pth' #'FIXEDVAL_dropout3_higherdecay_batchsize1_lr1e-05_wd0.0001.pth'
+checkpoint_filename = 'FIXED_DATAAUG_both_epoch700_batchsize1_lr1e-05_wd0.0001.pth' #'Batchnorm_dropout_batchsize1_lr1e-05_wd0.0001.pth' #'Second_try_No_dropout_newinitialisation_batchsize1_lr1e-05_wd0.0001.pth' #'Third_try_No_dropout_newinitialisation142.pth' #'Second_try_No_dropout_newinitialisation_batchsize1_lr1e-05_wd0.0001.pth' #'NEWNetworkWithNewInitialisation_GPU_batchsize1_lr0.001_wd0.pth' #'FIXEDVAL_dropout3_higherdecay_batchsize1_lr1e-05_wd0.0001.pth' #'FIXEDVAL_dropout3_higherdecay_batchsize1_lr1e-05_wd0.0001.pth'
 
 checkpoint_dir = os.path.join(checkpoint_parent_dir,checkpoint_filename)
 

@@ -110,7 +110,7 @@ class conv_AE2D(nn.Module):
 
         return x_reconstructed
 
-criterion = nn.MSELoss() 
+criterion = nn.MSELoss().to(device)
 
 
 

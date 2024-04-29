@@ -10,6 +10,7 @@ print(time.perf_counter())
 from torch.utils.data import DataLoader
 print(time.perf_counter())  
 import numpy as np
+from torch.utils.data import Dataset
 print(time.perf_counter())  
 
 

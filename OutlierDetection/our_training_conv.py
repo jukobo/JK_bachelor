@@ -113,7 +113,7 @@ def train2D_conv_simple(model, optimizer, epochs, device):
 
             x_reconstructed = model(x)
 
-            loss = loss_function_re(x_reconstructed, x, device)
+            loss = loss_function_re(x_reconstructed, x)
             overall_loss += loss.item()
             o_loss.append(overall_loss)
 
@@ -164,7 +164,7 @@ def train2D_conv_simple(model, optimizer, epochs, device):
                         inputs = inputs.to(device)
 
                         x_reconstructed = model(inputs)
-                        loss = loss_function_re(x_reconstructed, inputs, device)
+                        loss = loss_function_re(x_reconstructed, inputs)
                         
                         # Save reconstructed images
                         numpy_array = x_reconstructed.cpu().numpy()
@@ -242,7 +242,7 @@ def train2D_conv(model, optimizer, epochs, device):
 
                 x_reconstructed = model(x)
 
-                loss = loss_function_re(x_reconstructed, x, device)
+                loss = loss_function_re(x_reconstructed, x)
                 overall_loss += loss.item()
 
                 optimizer.zero_grad()
@@ -267,7 +267,7 @@ def train2D_conv(model, optimizer, epochs, device):
                         inputs = inputs.to(device)
 
                         x_reconstructed = model(inputs)
-                        loss = loss_function_re(x_reconstructed, inputs, device)
+                        loss = loss_function_re(x_reconstructed, inputs)
                         
                         # Save reconstructed images
                         numpy_array = x_reconstructed.cpu().numpy()

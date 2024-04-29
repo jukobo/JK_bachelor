@@ -110,10 +110,8 @@ class conv_AE2D(nn.Module):
 
         return x_reconstructed
 
-# def loss_function_re(x, x_reconstructed):
-#     criterion = nn.MSELoss() #reduction='sum'
-#     loss = criterion(x_reconstructed, x)
-    # return loss
+criterion = nn.MSELoss() 
+
 
 
 
@@ -210,7 +208,7 @@ def train2D_conv_simple(model, optimizer, epochs, device):
 
             x_reconstructed = model(x)
 
-            loss = loss_function_re(x_reconstructed, x)
+            loss = criterion(x_reconstructed, x)
             overall_loss += loss.item()
             o_loss.append(overall_loss)
 
@@ -261,7 +259,7 @@ def train2D_conv_simple(model, optimizer, epochs, device):
                         inputs = inputs.to(device)
 
                         x_reconstructed = model(inputs)
-                        loss = loss_function_re(x_reconstructed, inputs)
+                        loss = criterion(x_reconstructed, inputs)
                         
                         # Save reconstructed images
                         numpy_array = x_reconstructed.cpu().numpy()
@@ -339,7 +337,7 @@ def train2D_conv(model, optimizer, epochs, device):
 
                 x_reconstructed = model(x)
 
-                loss = loss_function_re(x_reconstructed, x)
+                loss = criterion(x_reconstructed, x)
                 overall_loss += loss.item()
 
                 optimizer.zero_grad()
@@ -364,7 +362,7 @@ def train2D_conv(model, optimizer, epochs, device):
                         inputs = inputs.to(device)
 
                         x_reconstructed = model(inputs)
-                        loss = loss_function_re(x_reconstructed, inputs)
+                        loss = criterion(x_reconstructed, inputs)
                         
                         # Save reconstructed images
                         numpy_array = x_reconstructed.cpu().numpy()

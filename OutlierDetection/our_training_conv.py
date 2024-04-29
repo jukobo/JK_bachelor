@@ -1,3 +1,5 @@
+import time
+print(time.clock())
 import os
 print(time.clock())
 import torch

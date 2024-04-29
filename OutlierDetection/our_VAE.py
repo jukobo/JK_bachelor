@@ -406,39 +406,39 @@ class conv_AE2D_U(nn.Module):
 
 
 
-def loss_function_re(x, x_reconstructed):
-    criterion = nn.MSELoss() #reduction='sum'
-    loss = criterion(x_reconstructed, x)
+# def loss_function_re(x, x_reconstructed):
+#     criterion = nn.MSELoss() #reduction='sum'
+#     loss = criterion(x_reconstructed, x)
 
-    return loss
+#     return loss
 
-def loss_function_cla(x, x_classified):
-    loss_function_cla = nn.functional.binary_cross_entropy
-    loss = loss_function_cla(x_classified, x, reduction='sum')
+# def loss_function_cla(x, x_classified):
+#     loss_function_cla = nn.functional.binary_cross_entropy
+#     loss = loss_function_cla(x_classified, x, reduction='sum')
 
-    return loss
-
-
-
-def load_split_data(folder_healthy, folder_outlier):
-    folder_path_healthy = folder_healthy
-    file_names_healthy = os.listdir(folder_path_healthy)
-
-    folder_path_outlier= folder_outlier
-    file_names_outlier = os.listdir(folder_path_outlier)
-
-    healthy_A, outlier_A, healthy_B, outlier_B = train_test_split(file_names_healthy, file_names_outlier, test_size=0.2, random_state=42)
+#     return loss
 
 
-    return healthy_A, outlier_B
+
+# def load_split_data(folder_healthy, folder_outlier):
+#     folder_path_healthy = folder_healthy
+#     file_names_healthy = os.listdir(folder_path_healthy)
+
+#     folder_path_outlier= folder_outlier
+#     file_names_outlier = os.listdir(folder_path_outlier)
+
+#     healthy_A, outlier_A, healthy_B, outlier_B = train_test_split(file_names_healthy, file_names_outlier, test_size=0.2, random_state=42)
 
 
-## Function to display tensor as image
-def display_tensor_as_image(tensor):
-    # Detach tensor from computation graph and convert to numpy array
-    tensor = tensor.detach().cpu().numpy() if tensor.requires_grad else tensor.cpu().numpy()
+#     return healthy_A, outlier_B
+
+
+# ## Function to display tensor as image
+# def display_tensor_as_image(tensor):
+#     # Detach tensor from computation graph and convert to numpy array
+#     tensor = tensor.detach().cpu().numpy() if tensor.requires_grad else tensor.cpu().numpy()
     
-    # Assuming tensor is a numpy array
-    plt.imshow(tensor, cmap='gray')  # You can change the colormap as needed
-    plt.axis('off')  # Turn off axis
-    plt.show()
+#     # Assuming tensor is a numpy array
+#     plt.imshow(tensor, cmap='gray')  # You can change the colormap as needed
+#     plt.axis('off')  # Turn off axis
+#     plt.show()

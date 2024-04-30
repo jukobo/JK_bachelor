@@ -1,18 +1,23 @@
-import time
-import os 
+# import time
+# import os 
 import torch 
 import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader 
 import numpy as np
-from torch.utils.data import Dataset 
 
 
 from our_VAE import *
 
 
 ############## Loaded ##################
-loss_function_re = nn.MSELoss()
+def mse_loss(reconstruction, original):
+    squared_error = (reconstruction - original)**2
+    mse = torch.mean(squared_error)
+
+    return mse
+
+# loss_function_re = nn.MSELoss()
 ########################################
 
 n_1 = 0
@@ -20,7 +25,7 @@ n_2 = 9
 
 #Define paramters
 parameters_dict = {
-    'epochs': 5000,
+    'epochs': 2000,
     'learning_rate': 1e-3,
     'batch_size': 1, #Noget galt når batch size ændres til mere end 1
     'weight_decay': 5e-4 #1e-6
@@ -237,7 +242,7 @@ def train2D_conv(model, optimizer, epochs, device):
 
                 x_reconstructed = model(x)
 
-                loss = loss_function_re(x_reconstructed, x)
+                loss = mse_loss(x_reconstructed, x)
                 overall_loss += loss.item()
 
                 optimizer.zero_grad()
@@ -248,7 +253,7 @@ def train2D_conv(model, optimizer, epochs, device):
                 step+=1
 
                 # Do evaluation every 50 step
-                if step%3000 == 0:
+                if step%1000 == 0:
                     print()
                     print("EVALUATION!")
                     model.eval() #Set to evaluation
@@ -262,7 +267,7 @@ def train2D_conv(model, optimizer, epochs, device):
                         inputs = inputs.to(device)
 
                         x_reconstructed = model(inputs)
-                        loss = loss_function_re(x_reconstructed, inputs)
+                        loss = mse_loss(x_reconstructed, inputs)
                         
                         # Save reconstructed images
                         numpy_array = x_reconstructed.cpu().numpy()

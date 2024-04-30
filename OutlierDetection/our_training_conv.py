@@ -236,6 +236,10 @@ def train2D_conv(model, optimizer, epochs, device):
             if idx >= n_1 and idx <= n_2:
                 input_train, _, _ = data
 
+                plt.imshow(input_train[0][0,64,:,:], cmap='gray')
+                plt.title(f'{epoch, idx}')
+                plt.show()
+
                 x = input_train[0][0,64,:,:].unsqueeze(dim=0)
                 x = x.to(device)
 

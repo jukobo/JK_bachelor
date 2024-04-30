@@ -1,4 +1,3 @@
-print('Start importing')
 import time
 import os 
 import torch 
@@ -10,21 +9,14 @@ from torch.utils.data import Dataset
 
 
 from our_VAE import *
-print('all imported')
 
 
 ############## Loaded ##################
 loss_function_re = nn.MSELoss()
-
-
-
-
 ########################################
 
-
-
 n_1 = 0
-n_2 = 39
+n_2 = 9
 
 #Define paramters
 parameters_dict = {
@@ -42,16 +34,16 @@ wd = parameters_dict['weight_decay']
 
 
 ## Loading data
-# img_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/img"
-# heatmap_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/heatmaps"
-# msk_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/msk"
-img_dir_training = "/scratch/s214704/Data/Checkpoints/VertebraeSegmentation/crops_training_prep/img"
-heatmap_dir_training = "/scratch/s214704/Data/Checkpoints/VertebraeSegmentation/crops_training_prep/heatmaps"
-msk_dir_training = "/scratch/s214704/Data/Checkpoints/VertebraeSegmentation/crops_training_prep/msk"
+img_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/img"
+heatmap_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/heatmaps"
+msk_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/msk"
+# img_dir_training = "/scratch/s214704/Data/Checkpoints/VertebraeSegmentation/crops_training_prep/img"
+# heatmap_dir_training = "/scratch/s214704/Data/Checkpoints/VertebraeSegmentation/crops_training_prep/heatmaps"
+# msk_dir_training = "/scratch/s214704/Data/Checkpoints/VertebraeSegmentation/crops_training_prep/msk"
 
 
 VerSe_train = LoadData(img_dir=img_dir_training, msk_dir = msk_dir_training, distfield_dir=heatmap_dir_training)
-train_loader = DataLoader(VerSe_train, batch_size=batch_size, shuffle=True, num_workers=0)
+train_loader = DataLoader(VerSe_train, batch_size=batch_size, shuffle=False, num_workers=0)
     # 39 elements (images) in train_loader
     # Each element is a tuple of 3 elements: (img, heatmap, msk)
     # img: torch.Size([2, 128, 128, 96])
@@ -236,9 +228,9 @@ def train2D_conv(model, optimizer, epochs, device):
             if idx >= n_1 and idx <= n_2:
                 input_train, _, _ = data
 
-                plt.imshow(input_train[0][0,64,:,:], cmap='gray')
-                plt.title(f'{epoch, idx}')
-                plt.show()
+                # plt.imshow(input_train[0][0,64,:,:], cmap='gray')
+                # plt.title(f'{epoch, idx}')
+                # plt.show()
 
                 x = input_train[0][0,64,:,:].unsqueeze(dim=0)
                 x = x.to(device)
@@ -256,7 +248,7 @@ def train2D_conv(model, optimizer, epochs, device):
                 step+=1
 
                 # Do evaluation every 50 step
-                if step%1000 == 0:
+                if step%3000 == 0:
                     print()
                     print("EVALUATION!")
                     model.eval() #Set to evaluation
@@ -274,8 +266,8 @@ def train2D_conv(model, optimizer, epochs, device):
                         
                         # Save reconstructed images
                         numpy_array = x_reconstructed.cpu().numpy()
-                        # np.save(f'OutlierDetection/rec_data3/reconstruction{epoch}.npy', numpy_array)
-                        np.save(f'/scratch/s214725/Data/rec_data/reconstruction{epoch}.npy', numpy_array)
+                        np.save(f'OutlierDetection/rec_data3/reconstruction{epoch}.npy', numpy_array)
+                        # np.save(f'/scratch/s214725/Data/rec_data/reconstruction{epoch}.npy', numpy_array)
 
 
                         # Save loss
@@ -303,10 +295,10 @@ def train2D_conv(model, optimizer, epochs, device):
         if epoch%100 == 0:
             print(f'Epoch {epoch+1}, Average loss: {overall_loss/(n_2-n_1+1)}')    
 
-    # np.save('OutlierDetection/o_loss3.npy', o_loss)
-    # np.save('OutlierDetection/val_loss3.npy', val_loss)
-    np.save('/scratch/s214725/Data/o_loss.npy', o_loss)
-    np.save('/scratch/s214725/Data/Val_loss.npy', val_loss)
+    np.save('OutlierDetection/o_loss3.npy', o_loss)
+    np.save('OutlierDetection/val_loss3.npy', val_loss)
+    # np.save('/scratch/s214725/Data/o_loss.npy', o_loss)
+    # np.save('/scratch/s214725/Data/Val_loss.npy', val_loss)
 
     # # Plotting the loss
     # fig, ax = plt.subplots()

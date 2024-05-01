@@ -21,11 +21,11 @@ def mse_loss(reconstruction, original):
 ########################################
 
 n_1 = 0
-n_2 = 9
+n_2 = 19
 
 #Define paramters
 parameters_dict = {
-    'epochs': 2000,
+    'epochs': 4000,
     'learning_rate': 1e-3,
     'batch_size': 1, #Noget galt når batch size ændres til mere end 1
     'weight_decay': 5e-4 #1e-6
@@ -71,7 +71,7 @@ train_loader = DataLoader(VerSe_train, batch_size=batch_size, shuffle=False, num
 
 ## Define model
 # For simple AE
-model = conv_AE2D([1, 16, 8, 4]).double() #NOTE insert dimensions here
+model = conv_AE2D([1, 32, 16, 8]).double() #NOTE insert dimensions here
 # For U-net AE
 # model = conv_AE2D_U([1, 16, 8, 4]).double() #NOTE insert dimensions here
 
@@ -263,7 +263,11 @@ def train2D_conv(model, optimizer, epochs, device):
                     with torch.no_grad():
                         inputs, _, _ = train_loader.dataset[n_1]
                         
-                        inputs = input_train[0][0,64,:,:].unsqueeze(dim=0)
+                        inputs = input_train[0][0,64,:,:].unsqueeze(dim=0) #NOTE
+                        #plt.imshow(inputs.squeeze(), cmap='gray')
+                        #plt.title('Original')
+                        #plt.show()
+                        #exit()
                         inputs = inputs.to(device)
 
                         x_reconstructed = model(inputs)

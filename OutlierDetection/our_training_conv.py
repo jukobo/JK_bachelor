@@ -11,11 +11,11 @@ from our_VAE import *
 
 
 ############## Loaded ##################
-def mse_loss(reconstruction, original):
-    squared_error = (reconstruction - original)**2
-    mse = torch.mean(squared_error)
+# def mse_loss(reconstruction, original):
+#     squared_error = (reconstruction - original)**2
+#     mse = torch.mean(squared_error)
 
-    return mse
+#     return mse
 
 # loss_function_re = nn.MSELoss()
 ########################################

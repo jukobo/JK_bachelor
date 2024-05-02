@@ -241,10 +241,10 @@ def train2D_conv(model, optimizer, epochs, device):
                 step+=1
 
                 # Do evaluation every 50 step
-                if step%1000 == 0:
-                    print()
-                    print("EVALUATION!")
-                    model.eval() #Set to evaluation
+                # if step%1000 == 0:
+                #     print()
+                #     print("EVALUATION!")
+                #     model.eval() #Set to evaluation
 
                     # #Training evaluation
                     # val_loss_eval = []

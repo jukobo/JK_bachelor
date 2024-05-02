@@ -1,8 +1,8 @@
 Node: comp-gpu01
-Start: 2024-05-02-11:30:02
+Start: 2024-05-02-11:31:14
 Working dir: /home/s214704/JK_bachelor
 
-/var/lib/slurm/slurmd/job49650/slurm_script: line 24: /home/s214704/JK_bachelor/.bashrc: No such file or directory
+/var/lib/slurm/slurmd/job49651/slurm_script: line 24: /home/s214704/JK_bachelor/.bashrc: No such file or directory
 Script started
 conv_AE_UNet(
   (encoder): Sequential(
@@ -44,9 +44,8 @@ conv_AE_UNet(
     (15): Conv2d(16, 1, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
   )
 )
+<class 'torch.Tensor'> torch.Size([]) tensor(0.3064, device='cuda:0', dtype=torch.float64, grad_fn=<MeanBackward0>)
 
 EVALUATION!
-torch.Size([1, 128, 96])
-torch.Size([1, 128, 96])
-torch.Size([1])
-Done: 2024-05-02-11:30:09
+<class 'torch.Tensor'> torch.Size([1]) tensor([0.2946], device='cuda:0', dtype=torch.float64)
+Done: 2024-05-02-11:31:21

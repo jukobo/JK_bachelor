@@ -86,7 +86,7 @@ def train2D_conv(model, optimizer, epochs, device):
                 squared_diff = (x_reconstructed - x) ** 2
                 loss_temp = torch.mean(squared_diff, dim=1)
                 loss = torch.mean(loss_temp, dim=1).squeeze()
-                print(type(loss), loss.shape, loss)
+                # print(type(loss), loss.shape, loss)
                 
 
                 # loss = loss_function(x_reconstructed, x)
@@ -98,7 +98,7 @@ def train2D_conv(model, optimizer, epochs, device):
         
                 # Update step
                 step+=1
-                print(step)
+                # print(step)
 
                 # Do evaluation every 50 step
                 if step%1000 == 0:
@@ -126,7 +126,7 @@ def train2D_conv(model, optimizer, epochs, device):
                         squared_diff = (inputs_reconstructed - inputs) ** 2
                         loss_temp = torch.mean(squared_diff, dim=1)
                         v_loss = torch.mean(loss_temp, dim=1).squeeze()
-                        print(type(v_loss), v_loss.shape, v_loss)
+                        # print(type(v_loss), v_loss.shape, v_loss)
 
                         
                         # Save reconstructed images

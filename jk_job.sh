@@ -23,7 +23,7 @@ fi
 
 source ~/JK_bachelor/.bashrc
 module load CUDA/11.4
-python OutlierDetection/our_training_conv.py --no-mps 
+python OutlierDetection/training_conv.py --no-mps 
 
 
 echo "Done: $(date +%F-%R:%S)"

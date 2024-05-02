@@ -83,16 +83,16 @@ def train2D_conv(model, optimizer, epochs, device):
                 x_reconstructed = model(x)
 
                 #-- Loss function
-                loss = loss_function(x_reconstructed, x)
-                overall_loss += loss.item()
+                # loss = loss_function(x_reconstructed, x)
+                # overall_loss += loss.item()
 
-                optimizer.zero_grad()
-                loss. backward()
-                optimizer.step()
+                # optimizer.zero_grad()
+                # loss. backward()
+                # optimizer.step()
         
-                # Update step
-                step+=1
-                print(step)
+                # # Update step
+                # step+=1
+                # print(step)
 
                 # # Do evaluation every 50 step
                 # if step%1000 == 0:

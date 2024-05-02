@@ -1,5 +1,6 @@
 # import time
 # import os 
+print('Script started')
 import torch 
 import torch.nn as nn
 import torch.optim as optim
@@ -11,11 +12,11 @@ from our_VAE import *
 
 
 ############## Loaded ##################
-def mse_loss(reconstruction, original):
-    squared_error = (reconstruction - original)**2
-    mse = torch.mean(squared_error)
+# def mse_loss(reconstruction, original):
+#     squared_error = (reconstruction - original)**2
+#     mse = torch.mean(squared_error)
 
-    return mse
+#     return mse
 
 # loss_function_re = nn.MSELoss()
 ########################################
@@ -235,8 +236,8 @@ def train2D_conv(model, optimizer, epochs, device):
                 x = x.to(device)
 
                 x_reconstructed = model(x)
-
-                loss = mse_loss(x_reconstructed, x)
+                print(x_reconstructed.shape, x.shape)
+                loss = loss_function(x_reconstructed, x)
                 overall_loss += loss.item()
 
                 optimizer.zero_grad()
@@ -269,7 +270,7 @@ def train2D_conv(model, optimizer, epochs, device):
                         inputs = inputs.to(device)
 
                         x_reconstructed = model(inputs)
-                        loss = mse_loss(x_reconstructed, inputs)
+                        loss = loss_function(x_reconstructed, inputs)
                         
                         # Save reconstructed images
                         # numpy_array = x_reconstructed.cpu().numpy()

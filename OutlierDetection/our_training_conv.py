@@ -229,7 +229,7 @@ def train2D_conv(model, optimizer, epochs, device):
                 #-- Loss function
                 squared_diff = (x_reconstructed - x) ** 2
                 loss = torch.mean(squared_diff)
-                print(type(loss), loss.shape, loss)
+                # print(type(loss), loss.shape, loss)
 
                 # loss = loss_function(x_reconstructed, x)
                 overall_loss += loss.item()
@@ -283,17 +283,17 @@ def train2D_conv(model, optimizer, epochs, device):
                     print("Validation loss: "+str(avg_loss_val))
                     val_loss.append(avg_loss_val)
 
-                    #Save checkpoint
-                    checkpoint = {
-                        'model_state_dict': model.state_dict(),
-                        'optimizer_state_dict': optimizer.state_dict(),
-                        'epoch': epoch,
-                        'train_loss': train_loss,
-                        'val_loss': val_loss,
-                        'parameters_dict': parameters_dict,
-                        'run_name': run_name,
-                    }
-                    torch.save(checkpoint, os.path.join(checkpoint_dir,str(run_name)+'_step'+str(step)+'_batchsize'+str(batch_size)+'_lr'+str(lr)+'_wd'+str(wd)+'.pth'))
+                    # #Save checkpoint
+                    # checkpoint = {
+                    #     'model_state_dict': model.state_dict(),
+                    #     'optimizer_state_dict': optimizer.state_dict(),
+                    #     'epoch': epoch,
+                    #     'train_loss': train_loss,
+                    #     'val_loss': val_loss,
+                    #     'parameters_dict': parameters_dict,
+                    #     'run_name': run_name,
+                    # }
+                    # torch.save(checkpoint, os.path.join(checkpoint_dir,str(run_name)+'_step'+str(step)+'_batchsize'+str(batch_size)+'_lr'+str(lr)+'_wd'+str(wd)+'.pth'))
         
             if idx == n_2:
                 break

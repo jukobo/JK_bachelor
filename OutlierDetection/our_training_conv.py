@@ -308,34 +308,6 @@ def train2D_conv(model, optimizer, epochs, device):
     # np.save('/scratch/s214725/Data/o_loss.npy', o_loss)
     # np.save('/scratch/s214725/Data/Val_loss.npy', val_loss)
 
-    # # Plotting the loss
-    # fig, ax = plt.subplots()
-    # ax.set_title(f'Model Loss, batch_size={batch_size}, lr={lr}, wd={wd}')
-    # ax.set_xlabel('Epoch')
-    # ax.set_ylabel('Avg. loss')
-    # ax.set_xticks(np.arange(0, num_epochs, step= 1000))
-
-    # ax.plot(list(range(1, num_epochs+1, 1)), o_loss, label='Training loss', color='b')  # Update the plot with the current loss
-    # ax.plot(list(range(500, num_epochs+1, 500)), val_loss, label='Validation loss', color='r')
-    
-    # ax.legend()
-    # # plt.show()
-    # fig.savefig('model_loss_conv.png')  # Save the plot as a PNG file
-
-    # # Plotting the loss
-    # fig2, ax2 = plt.subplots()
-    # ax2.set_title(f'Model Loss, batch_size={batch_size}, lr={lr}, wd={wd}')
-    # ax2.set_xlabel('Epoch')
-    # ax2.set_ylabel('Avg. loss')
-    # ax2.set_xticks(np.arange(0, num_epochs, step=1000))
-
-    # ax2.plot(list(range(601, num_epochs+1, 1)), o_loss[600:], label='Training loss', color='b')  # Update the plot with the current loss
-    # ax2.plot(list(range(1000, num_epochs+1, 500)), val_loss[1:], label='Validation loss', color='r') ## NOTE ikke helt rigtig ved x/y-akse
-    
-    # ax2.legend()
-    # # plt.show()
-    # fig2.savefig('model_loss_conv2.png')  # Save the plot as a PNG file
-
 
 train2D_conv(model, optimizer, num_epochs, device=device)
 

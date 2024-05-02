@@ -114,7 +114,7 @@ class VAE(nn.Module):
         x_reconstructed = self.decoder(z)
         return x_reconstructed, mean, var
     
-
+## Cross entropy loss function
 def loss_function(x, x_reconstructed, mean, var):
     loss = nn.functional.binary_cross_entropy(x_reconstructed, x, reduction='sum'),
 

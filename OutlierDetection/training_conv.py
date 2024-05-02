@@ -100,46 +100,48 @@ def train2D_conv(model, optimizer, epochs, device):
                 step+=1
                 # print(step)
 
-                # Do evaluation every 50 step
-                if step%1000 == 0:
-                    print()
-                    print("EVALUATION!")
-                    model.eval() #Set to evaluation
+                if step%1000 == 0: print('yes')
 
-                    #Training evaluation
-                    val_loss_eval = []
-                    with torch.no_grad():
-                        inputs, _, _ = train_loader.dataset[n_1]
-                        inputs = input_train[0][0,64,:,:].unsqueeze(dim=0)
+                # # Do evaluation every 50 step
+                # if step%1000 == 0:
+                #     print()
+                #     print("EVALUATION!")
+                #     model.eval() #Set to evaluation
 
-                        #-- Plotting the original image
-                        #plt.imshow(inputs.squeeze(), cmap='gray')
-                        #plt.title('Original')
-                        #plt.show()
-                        #exit()
+                #     #Training evaluation
+                #     val_loss_eval = []
+                #     with torch.no_grad():
+                #         inputs, _, _ = train_loader.dataset[n_1]
+                #         inputs = input_train[0][0,64,:,:].unsqueeze(dim=0)
 
-                        inputs = inputs.to(device)
+                #         #-- Plotting the original image
+                #         #plt.imshow(inputs.squeeze(), cmap='gray')
+                #         #plt.title('Original')
+                #         #plt.show()
+                #         #exit()
 
-                        inputs_reconstructed = model(inputs)
+                #         inputs = inputs.to(device)
+
+                #         inputs_reconstructed = model(inputs)
                         
-                        #-- Loss function
-                        squared_diff = (inputs_reconstructed - inputs) ** 2
-                        loss_temp = torch.mean(squared_diff, dim=1)
-                        v_loss = torch.mean(loss_temp, dim=1).squeeze()
-                        # print(type(v_loss), v_loss.shape, v_loss)
+                #         #-- Loss function
+                #         squared_diff = (inputs_reconstructed - inputs) ** 2
+                #         loss_temp = torch.mean(squared_diff, dim=1)
+                #         v_loss = torch.mean(loss_temp, dim=1).squeeze()
+                #         # print(type(v_loss), v_loss.shape, v_loss)
 
                         
-                        # Save reconstructed images
-                        numpy_array = inputs_reconstructed.cpu().numpy()
-                        # np.save(f'OutlierDetection/rec_data3/reconstruction{epoch}.npy', numpy_array)
-                        np.save(f'/scratch/{study_no_save}/Data/rec_data/reconstruction{epoch}.npy', numpy_array)
+                #         # Save reconstructed images
+                #         numpy_array = inputs_reconstructed.cpu().numpy()
+                #         # np.save(f'OutlierDetection/rec_data3/reconstruction{epoch}.npy', numpy_array)
+                #         np.save(f'/scratch/{study_no_save}/Data/rec_data/reconstruction{epoch}.npy', numpy_array)
 
 
-                        # Save loss
-                        val_loss_eval.append(v_loss.item())
-                    avg_loss_val = np.mean(val_loss_eval)
-                    print("Validation loss: "+str(avg_loss_val))
-                    val_loss.append(avg_loss_val)
+                #         # Save loss
+                #         val_loss_eval.append(v_loss.item())
+                #     avg_loss_val = np.mean(val_loss_eval)
+                #     print("Validation loss: "+str(avg_loss_val))
+                #     val_loss.append(avg_loss_val)
 
                    
             if idx == n_2:

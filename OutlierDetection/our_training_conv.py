@@ -268,13 +268,12 @@ def train2D_conv(model, optimizer, epochs, device):
                         loss_temp = torch.mean(squared_diff, dim=1)
                         v_loss = torch.mean(loss_temp, dim=1).squeeze()
                         print(type(v_loss), v_loss.shape, v_loss)
-                        exit()
 
                         
                         # Save reconstructed images
-                        numpy_array = inputs_reconstructed.cpu().numpy()
+                        # numpy_array = inputs_reconstructed.cpu().numpy()
                         # np.save(f'OutlierDetection/rec_data3/reconstruction{epoch}.npy', numpy_array)
-                        np.save(f'/scratch/{study_no_save}/Data/rec_data/reconstruction{epoch}.npy', numpy_array)
+                        # np.save(f'/scratch/{study_no_save}/Data/rec_data/reconstruction{epoch}.npy', numpy_array)
 
 
                         # Save loss

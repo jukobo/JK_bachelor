@@ -1,0 +1,124 @@
+import torch 
+import torch.nn as nn
+import torch.optim as optim
+from torch.utils.data import DataLoader 
+import numpy as np
+
+
+from our_VAE import *
+
+n_1 = 0
+n_2 = 19
+
+#Define paramters
+parameters_dict = {
+    'epochs': 4000,
+    'learning_rate': 1e-3,
+    'batch_size': 1, #Noget galt når batch size ændres til mere end 1
+    'weight_decay': 5e-4 #1e-6
+}
+
+## Unpack parameters
+num_epochs = parameters_dict['epochs']
+lr = parameters_dict['learning_rate']
+batch_size = parameters_dict['batch_size']
+wd = parameters_dict['weight_decay']
+
+
+## Loading data
+study_no_data = 's214704'
+study_no_save = 's214704'
+
+# img_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/img"
+# heatmap_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/heatmaps"
+# msk_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/msk"
+img_dir_training = f"/scratch/{study_no_data}/Data/crops_training_prep/img"
+heatmap_dir_training = f"/scratch/{study_no_data}/Data/crops_training_prep/heatmaps"
+msk_dir_training = f"/scratch/{study_no_data}/Data/crops_training_prep/msk"
+
+VerSe_train = LoadData(img_dir=img_dir_training, msk_dir = msk_dir_training, distfield_dir=heatmap_dir_training)
+train_loader = DataLoader(VerSe_train, batch_size=batch_size, shuffle=False, num_workers=0)
+    # 39 elements (images) in train_loader
+    # Each element is a tuple of 3 elements: (img, heatmap, msk)
+    # img: torch.Size([2, 128, 128, 96])
+
+# input_train, y, z = train_loader.dataset[n]
+# print(torch.min(input_train[0][64,:,:]), torch.max(input_train[0][64,:,:])) # min = -0.9077, max = 0.6916
+# plt.imshow(input_train[0][64, :, :], cmap='gray')
+# plt.show()
+# exit()
+
+
+## Define model
+# For simple AE
+model = conv_AE_UNet([1, 32, 16, 8]).double() #NOTE insert dimensions here
+
+
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu') 
+model.to(device)
+print(model)
+
+optimizer = optim.AdamW(model.parameters(), lr=lr, weight_decay=wd)
+
+o_loss = []
+train_loss = []
+val_loss = []
+
+## Train model
+def train2D_conv(model, optimizer, epochs, device):
+    model.train()
+    step = -1
+
+    for epoch in range(epochs):
+
+        overall_loss = 0
+
+        for idx, data in enumerate(train_loader):
+            if idx >= n_1 and idx <= n_2:
+                input_train, _, _ = data
+
+                x = input_train[0][0,64,:,:].unsqueeze(dim=0)
+                x = x.to(device)
+
+                x_reconstructed = model(x)
+
+                #-- Loss function
+                squared_diff = (x_reconstructed - x) ** 2
+                loss = torch.mean(squared_diff)
+                # print(type(loss), loss.shape, loss)
+
+                # loss = loss_function(x_reconstructed, x)
+                overall_loss += loss.item()
+
+                optimizer.zero_grad()
+                loss. backward()
+                optimizer.step()
+        
+                # Update step
+                step+=1
+
+                   
+            if idx == n_2:
+                break
+
+        o_loss.append(overall_loss/(n_2-n_1+1))
+        if epoch%100 == 0:
+            print(f'Epoch {epoch+1}, Average loss: {overall_loss/(n_2-n_1+1)}')    
+
+        ## Save model
+        if epoch == 0:
+            torch.save(model.state_dict(), f'/scratch/{study_no_save}/Data/model_conv_{epoch}.pth')
+            print('Model saved')
+        elif epoch == epochs-1:
+            torch.save(model.state_dict(), f'/scratch/{study_no_save}/Data/model_conv_{epoch}.pth')
+            print('Model saved')
+
+    # np.save('OutlierDetection/o_loss3.npy', o_loss)
+    # np.save('OutlierDetection/val_loss3.npy', val_loss)
+    np.save(f'/scratch/{study_no_save}/Data/o_loss.npy', o_loss)
+    # np.save(f'/scratch/{study_no_save}/Data/Val_loss.npy', val_loss)
+
+    
+
+train2D_conv(model, optimizer, num_epochs, device=device)
+

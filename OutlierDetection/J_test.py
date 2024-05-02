@@ -1,17 +1,35 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import torch
 # from our_VAE import *
 
 no = 1900
 file = f'OutlierDetection/rec_data3/reconstruction{no}.npy'
+file2 = f'OutlierDetection/rec_data3/reconstruction{no-100}.npy'
 # file = f'OutlierDetection/rec_data2/reconstruction0.npy'
 x = np.load(file)
+x2 = np.load(file2)
 print(x.shape)
 # print(x[:,64,:].shape)
 
 plt.imshow(x[0,:,:], cmap='gray')
 plt.title(f'Reconstructed Image, {no} epochs')
 plt.show()
+
+
+x_tensor = torch.from_numpy(x)
+print(x_tensor.shape)
+x2_tensor = torch.from_numpy(x2)
+print(x2_tensor.shape)
+
+def mse_loss(reconstruction, original):
+    squared_error = (reconstruction - original)**2
+    mse = torch.mean(squared_error)
+
+    return mse
+
+print(mse_loss(x_tensor, x2_tensor))
+
 
 ## Plotting
 # file_loss = 'OutlierDetection/o_loss3.npy'

@@ -236,7 +236,6 @@ def train2D_conv(model, optimizer, epochs, device):
                 x = x.to(device)
 
                 x_reconstructed = model(x)
-                print(x_reconstructed.shape, x.shape)
                 loss = loss_function(x_reconstructed, x)
                 overall_loss += loss.item()
 

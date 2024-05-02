@@ -225,7 +225,12 @@ def train2D_conv(model, optimizer, epochs, device):
                 x = x.to(device)
 
                 x_reconstructed = model(x)
-                loss = loss_function(x_reconstructed, x)
+
+                #-- Loss function
+                squared_diff = (x_reconstructed - x) ** 2
+                loss = torch.mean(squared_diff)
+
+                # loss = loss_function(x_reconstructed, x)
                 overall_loss += loss.item()
 
                 optimizer.zero_grad()

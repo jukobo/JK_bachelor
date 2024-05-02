@@ -264,7 +264,8 @@ def train2D_conv(model, optimizer, epochs, device):
                         print(inputs_reconstructed.shape)
                         
                         #-- Loss function
-                        # squared_diff = (inputs_reconstructed - inputs) ** 2
+                        squared_diff = (inputs_reconstructed - inputs) ** 2
+                        print(squared_diff)
                         # v_loss = torch.mean(squared_diff)
 
                         

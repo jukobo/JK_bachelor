@@ -1,8 +1,8 @@
 Node: comp-gpu01
-Start: 2024-05-02-11:27:36
+Start: 2024-05-02-11:30:02
 Working dir: /home/s214704/JK_bachelor
 
-/var/lib/slurm/slurmd/job49648/slurm_script: line 24: /home/s214704/JK_bachelor/.bashrc: No such file or directory
+/var/lib/slurm/slurmd/job49650/slurm_script: line 24: /home/s214704/JK_bachelor/.bashrc: No such file or directory
 Script started
 conv_AE_UNet(
   (encoder): Sequential(
@@ -48,5 +48,5 @@ conv_AE_UNet(
 EVALUATION!
 torch.Size([1, 128, 96])
 torch.Size([1, 128, 96])
-torch.Size([128, 96])
-Done: 2024-05-02-11:27:42
+torch.Size([1])
+Done: 2024-05-02-11:30:09

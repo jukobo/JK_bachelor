@@ -30,7 +30,7 @@ wd = parameters_dict['weight_decay']
 
 ## Loading data
 study_no_data = 's214704'
-study_no_save = 's214704'
+study_no_save = 's214725'
 
 # img_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/img"
 # heatmap_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/heatmaps"

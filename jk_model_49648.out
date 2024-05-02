@@ -1,8 +1,8 @@
 Node: comp-gpu01
-Start: 2024-05-02-11:22:52
+Start: 2024-05-02-11:27:36
 Working dir: /home/s214704/JK_bachelor
 
-/var/lib/slurm/slurmd/job49646/slurm_script: line 24: /home/s214704/JK_bachelor/.bashrc: No such file or directory
+/var/lib/slurm/slurmd/job49648/slurm_script: line 24: /home/s214704/JK_bachelor/.bashrc: No such file or directory
 Script started
 conv_AE_UNet(
   (encoder): Sequential(
@@ -47,18 +47,6 @@ conv_AE_UNet(
 
 EVALUATION!
 torch.Size([1, 128, 96])
-tensor([[[0.4263, 0.4045, 0.4106,  ..., 0.8044, 0.7984, 0.7307],
-         [0.4409, 0.4166, 0.4347,  ..., 0.7681, 0.7656, 0.6958],
-         [0.4547, 0.4328, 0.4731,  ..., 0.6954, 0.6918, 0.6117],
-         ...,
-         [0.5964, 0.5614, 0.5650,  ..., 0.4411, 0.4625, 0.4357],
-         [0.6771, 0.6630, 0.6973,  ..., 0.4557, 0.4783, 0.4475],
-         [0.6959, 0.6796, 0.7013,  ..., 0.4224, 0.4336, 0.4166]]],
-       device='cuda:0', dtype=torch.float64)
-Traceback (most recent call last):
-  File "/home/s214704/JK_bachelor/OutlierDetection/our_training_conv.py", line 318, in <module>
-    train2D_conv(model, optimizer, num_epochs, device=device)
-  File "/home/s214704/JK_bachelor/OutlierDetection/our_training_conv.py", line 279, in train2D_conv
-    val_loss_eval.append(v_loss.item())
-NameError: name 'v_loss' is not defined
-Done: 2024-05-02-11:22:59
+torch.Size([1, 128, 96])
+torch.Size([128, 96])
+Done: 2024-05-02-11:27:42

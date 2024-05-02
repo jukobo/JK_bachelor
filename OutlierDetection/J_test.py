@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import torch
-# from our_VAE import *
+from our_VAE import *
 
 no = 1900
 file = f'OutlierDetection/rec_data3/reconstruction{no}.npy'
@@ -22,13 +22,7 @@ print(x_tensor.shape)
 x2_tensor = torch.from_numpy(x2)
 print(x2_tensor.shape)
 
-def mse_loss(reconstruction, original):
-    squared_error = (reconstruction - original)**2
-    mse = torch.mean(squared_error)
-
-    return mse
-
-print(mse_loss(x_tensor, x2_tensor))
+print(loss_function(x_tensor, x2_tensor))
 
 
 ## Plotting

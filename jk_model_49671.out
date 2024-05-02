@@ -1,0 +1,5 @@
+Node: comp-gpu01
+Start: 2024-05-02-12:29:04
+Working dir: /home/s214704/JK_bachelor
+
+/var/lib/slurm/slurmd/job49671/slurm_script: line 24: /home/s214704/JK_bachelor/.bashrc: No such file or directory

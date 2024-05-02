@@ -83,41 +83,41 @@ def train2D_conv(model, optimizer, epochs, device):
                 x_reconstructed = model(x)
 
                 #-- Loss function
-                squared_diff = (x_reconstructed - x) ** 2
-                loss_temp = torch.mean(squared_diff, dim=1)
-                loss = torch.mean(loss_temp, dim=1).squeeze()
-                # print(type(loss), loss.shape, loss)
+    #             squared_diff = (x_reconstructed - x) ** 2
+    #             loss_temp = torch.mean(squared_diff, dim=1)
+    #             loss = torch.mean(loss_temp, dim=1).squeeze()
+    #             # print(type(loss), loss.shape, loss)
                 
 
-                # loss = loss_function(x_reconstructed, x)
-                overall_loss += loss.item()
+    #             # loss = loss_function(x_reconstructed, x)
+    #             overall_loss += loss.item()
 
-                optimizer.zero_grad()
-                loss. backward()
-                optimizer.step()
+    #             optimizer.zero_grad()
+    #             loss. backward()
+    #             optimizer.step()
         
-                # Update step
-                step+=1
+    #             # Update step
+    #             step+=1
 
                    
-            # if idx == n_2:
-            #     break
+    #         # if idx == n_2:
+    #         #     break
 
-        o_loss.append(overall_loss/(n_2-n_1+1))
-        if epoch%100 == 0:
-            print(f'Epoch {epoch+1}, Average loss: {overall_loss/(n_2-n_1+1)}')    
+    #     o_loss.append(overall_loss/(n_2-n_1+1))
+    #     if epoch%100 == 0:
+    #         print(f'Epoch {epoch+1}, Average loss: {overall_loss/(n_2-n_1+1)}')    
 
-        ## Save model
-        if epoch == 0:
-            torch.save(model.state_dict(), f'/scratch/{study_no_save}/Data/model_conv_{epoch}.pth')
-            print('Model saved')
-        elif epoch == epochs-1:
-            torch.save(model.state_dict(), f'/scratch/{study_no_save}/Data/model_conv_{epoch}.pth')
-            print('Model saved')
+    #     ## Save model
+    #     if epoch == 0:
+    #         torch.save(model.state_dict(), f'/scratch/{study_no_save}/Data/model_conv_{epoch}.pth')
+    #         print('Model saved')
+    #     elif epoch == epochs-1:
+    #         torch.save(model.state_dict(), f'/scratch/{study_no_save}/Data/model_conv_{epoch}.pth')
+    #         print('Model saved')
 
-    # np.save('OutlierDetection/o_loss3.npy', o_loss)
-    # np.save('OutlierDetection/val_loss3.npy', val_loss)
-    np.save(f'/scratch/{study_no_save}/Data/o_loss.npy', o_loss)
+    # # np.save('OutlierDetection/o_loss3.npy', o_loss)
+    # # np.save('OutlierDetection/val_loss3.npy', val_loss)
+    # np.save(f'/scratch/{study_no_save}/Data/o_loss.npy', o_loss)
     # np.save(f'/scratch/{study_no_save}/Data/Val_loss.npy', val_loss)
 
     

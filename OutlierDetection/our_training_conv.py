@@ -72,8 +72,7 @@ train_loader = DataLoader(VerSe_train, batch_size=batch_size, shuffle=False, num
 ## Define model
 # For simple AE
 model = conv_AE2D([1, 32, 16, 8]).double() #NOTE insert dimensions here
-# For U-net AE
-# model = conv_AE2D_U([1, 16, 8, 4]).double() #NOTE insert dimensions here
+
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu') 
 model.to(device)

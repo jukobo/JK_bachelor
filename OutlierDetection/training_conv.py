@@ -83,43 +83,84 @@ def train2D_conv(model, optimizer, epochs, device):
                 x_reconstructed = model(x)
 
                 #-- Loss function
-                # squared_diff = (x_reconstructed - x) ** 2
-                # loss_temp = torch.mean(squared_diff, dim=1)
-                # loss = torch.mean(loss_temp, dim=1).squeeze()
-                # # print(type(loss), loss.shape, loss)
+                squared_diff = (x_reconstructed - x) ** 2
+                loss_temp = torch.mean(squared_diff, dim=1)
+                loss = torch.mean(loss_temp, dim=1).squeeze()
+                # print(type(loss), loss.shape, loss)
                 
 
-                # # loss = loss_function(x_reconstructed, x)
-                # overall_loss += loss.item()
+                # loss = loss_function(x_reconstructed, x)
+                overall_loss += loss.item()
 
-                # optimizer.zero_grad()
-                # loss. backward()
-                # optimizer.step()
+                optimizer.zero_grad()
+                loss. backward()
+                optimizer.step()
         
                 # Update step
                 step+=1
                 print(step)
 
+                # Do evaluation every 50 step
+                if step%1000 == 0:
+                    print()
+                    print("EVALUATION!")
+                    model.eval() #Set to evaluation
+
+                    #Training evaluation
+                    val_loss_eval = []
+                    with torch.no_grad():
+                        inputs, _, _ = train_loader.dataset[n_1]
+                        inputs = input_train[0][0,64,:,:].unsqueeze(dim=0)
+
+                        #-- Plotting the original image
+                        #plt.imshow(inputs.squeeze(), cmap='gray')
+                        #plt.title('Original')
+                        #plt.show()
+                        #exit()
+
+                        inputs = inputs.to(device)
+
+                        inputs_reconstructed = model(inputs)
+                        
+                        #-- Loss function
+                        # squared_diff = (inputs_reconstructed - inputs) ** 2
+                        # loss_temp = torch.mean(squared_diff, dim=1)
+                        # v_loss = torch.mean(loss_temp, dim=1).squeeze()
+                        # print(type(v_loss), v_loss.shape, v_loss)
+
+                        
+                        # Save reconstructed images
+                        # numpy_array = inputs_reconstructed.cpu().numpy()
+                        # np.save(f'OutlierDetection/rec_data3/reconstruction{epoch}.npy', numpy_array)
+                        # np.save(f'/scratch/{study_no_save}/Data/rec_data/reconstruction{epoch}.npy', numpy_array)
+
+
+                        # Save loss
+                    #     val_loss_eval.append(v_loss.item())
+                    # avg_loss_val = np.mean(val_loss_eval)
+                    # print("Validation loss: "+str(avg_loss_val))
+                    # val_loss.append(avg_loss_val)
+
                    
-    #         # if idx == n_2:
-    #         #     break
+            # if idx == n_2:
+            #     break
 
-    #     o_loss.append(overall_loss/(n_2-n_1+1))
-    #     if epoch%100 == 0:
-    #         print(f'Epoch {epoch+1}, Average loss: {overall_loss/(n_2-n_1+1)}')    
+        o_loss.append(overall_loss/(n_2-n_1+1))
+        if epoch%100 == 0:
+            print(f'Epoch {epoch+1}, Average loss: {overall_loss/(n_2-n_1+1)}')    
 
-    #     ## Save model
-    #     if epoch == 0:
-    #         torch.save(model.state_dict(), f'/scratch/{study_no_save}/Data/model_conv_{epoch}.pth')
-    #         print('Model saved')
-    #     elif epoch == epochs-1:
-    #         torch.save(model.state_dict(), f'/scratch/{study_no_save}/Data/model_conv_{epoch}.pth')
-    #         print('Model saved')
+        ## Save model
+        if epoch == 0:
+            torch.save(model.state_dict(), f'/scratch/{study_no_save}/Data/model_conv_{epoch}.pth')
+            print('Model saved')
+        elif epoch == epochs-1:
+            torch.save(model.state_dict(), f'/scratch/{study_no_save}/Data/model_conv_{epoch}.pth')
+            print('Model saved')
 
     # # np.save('OutlierDetection/o_loss3.npy', o_loss)
     # # np.save('OutlierDetection/val_loss3.npy', val_loss)
-    # np.save(f'/scratch/{study_no_save}/Data/o_loss.npy', o_loss)
-    # np.save(f'/scratch/{study_no_save}/Data/Val_loss.npy', val_loss)
+    np.save(f'/scratch/{study_no_save}/Data/o_loss.npy', o_loss)
+    np.save(f'/scratch/{study_no_save}/Data/Val_loss.npy', val_loss)
 
     
 

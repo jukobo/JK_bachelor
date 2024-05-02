@@ -84,8 +84,6 @@ def train2D_conv(model, optimizer, epochs, device):
 
                 #-- Loss function
                 loss = loss_function(x_reconstructed, x)
-                print(loss)
-                exit()
 
                 # squared_diff = (x_reconstructed - x) ** 2
                 # loss_temp = torch.mean(squared_diff, dim=1)
@@ -102,9 +100,8 @@ def train2D_conv(model, optimizer, epochs, device):
         
                 # Update step
                 step+=1
-                # print(step)
-
-                if step%1000 == 0: print('yes')
+                print(step)
+                exit()
 
                 # # Do evaluation every 50 step
                 # if step%1000 == 0:

@@ -114,18 +114,18 @@ class VAE(nn.Module):
         x_reconstructed = self.decoder(z)
         return x_reconstructed, mean, var
     
-# ## Cross entropy loss function
-# def loss_function(x_reconstructed, x):
-#     loss = nn.MSELoss()
-#         # Calculate squared error
-#     # squared_error = (x_reconstructed - x)**2
+## Cross entropy loss function
+def loss_function(x_reconstructed, x):
+    loss = nn.MSELoss()
+        # Calculate squared error
+    # squared_error = (x_reconstructed - x)**2
     
-#     # # Calculate mean of squared error
-#     # mse = torch.mean(squared_error)
-# #     # loss = nn.L1Loss()
-#     # loss(x_reconstructed, x)
+    # # Calculate mean of squared error
+    # mse = torch.mean(squared_error)
+#     # loss = nn.L1Loss()
+    # loss(x_reconstructed, x)
 
-#     return loss(x_reconstructed, x)
+    return loss(x_reconstructed, x)
 
 
 

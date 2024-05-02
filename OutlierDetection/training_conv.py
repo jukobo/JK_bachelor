@@ -123,10 +123,10 @@ def train2D_conv(model, optimizer, epochs, device):
                         inputs_reconstructed = model(inputs)
                         
                         #-- Loss function
-                        # squared_diff = (inputs_reconstructed - inputs) ** 2
-                        # loss_temp = torch.mean(squared_diff, dim=1)
-                        # v_loss = torch.mean(loss_temp, dim=1).squeeze()
-                        # print(type(v_loss), v_loss.shape, v_loss)
+                        squared_diff = (inputs_reconstructed - inputs) ** 2
+                        loss_temp = torch.mean(squared_diff, dim=1)
+                        v_loss = torch.mean(loss_temp, dim=1).squeeze()
+                        print(type(v_loss), v_loss.shape, v_loss)
 
                         
                         # Save reconstructed images
@@ -136,14 +136,14 @@ def train2D_conv(model, optimizer, epochs, device):
 
 
                         # Save loss
-                    #     val_loss_eval.append(v_loss.item())
-                    # avg_loss_val = np.mean(val_loss_eval)
-                    # print("Validation loss: "+str(avg_loss_val))
-                    # val_loss.append(avg_loss_val)
+                        val_loss_eval.append(v_loss.item())
+                    avg_loss_val = np.mean(val_loss_eval)
+                    print("Validation loss: "+str(avg_loss_val))
+                    val_loss.append(avg_loss_val)
 
                    
-            # if idx == n_2:
-            #     break
+            if idx == n_2:
+                break
 
         o_loss.append(overall_loss/(n_2-n_1+1))
         if epoch%100 == 0:

@@ -95,7 +95,6 @@ def train2D_conv(model, optimizer, epochs, device):
                 optimizer.zero_grad()
                 loss. backward()
                 optimizer.step()
-                exit()
         
                 # Update step
                 step+=1

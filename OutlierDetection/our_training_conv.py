@@ -277,10 +277,10 @@ def train2D_conv(model, optimizer, epochs, device):
 
 
                         # Save loss
-                        val_loss_eval.append(v_loss.item())
-                    avg_loss_val = np.mean(val_loss_eval)
-                    print("Validation loss: "+str(avg_loss_val))
-                    val_loss.append(avg_loss_val)
+                    #     val_loss_eval.append(v_loss.item())
+                    # avg_loss_val = np.mean(val_loss_eval)
+                    # print("Validation loss: "+str(avg_loss_val))
+                    # val_loss.append(avg_loss_val)
 
                     # #Save checkpoint
                     # checkpoint = {

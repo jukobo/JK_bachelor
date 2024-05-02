@@ -261,6 +261,7 @@ def train2D_conv(model, optimizer, epochs, device):
                         inputs = inputs.to(device)
 
                         inputs_reconstructed = model(inputs)
+                        print(inputs_reconstructed.shape)
                         
                         #-- Loss function
                         # squared_diff = (inputs_reconstructed - inputs) ** 2

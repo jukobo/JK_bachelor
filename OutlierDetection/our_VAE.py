@@ -114,18 +114,20 @@ class VAE(nn.Module):
         x_reconstructed = self.decoder(z)
         return x_reconstructed, mean, var
     
-## Cross entropy loss function
-def loss_function(x, x_reconstructed):
-    loss = nn.L1Loss()
+# ## Cross entropy loss function
+# def loss_function(x_reconstructed, x):
+#         # Calculate squared error
+#     squared_error = (x_reconstructed - x)**2
+    
+#     # Calculate mean of squared error
+#     mse = torch.mean(squared_error)
 
-    return loss(x_reconstructed, x)
 
-    # loss = nn.functional.binary_cross_entropy(x_reconstructed, x, reduction='sum'),
+#     # loss = nn.L1Loss()
+#     # loss(x_reconstructed, x)
 
-    # # Kullback–Leibler (KL) divergence
-    # kl_divergence = 0.5 * torch.sum(1 + var - mean**2 - var.exp())
+#     return mse
 
-    # return loss + kl_divergence
 
 
 class AE(nn.Module): # Bruges ikke

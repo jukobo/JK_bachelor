@@ -385,6 +385,8 @@ class conv_AE_UNet(nn.Module):
 
             # input: 16x12x64
             nn.Conv2d(hidden_dim_3, latent_dim, kernel_size = kernel_size, stride = stride, padding = padding), # output: 16x12x128
+
+            # --- NOTE er i tvivl med om vis skal have dette med
             nn.ReLU(inplace=True),
             nn.Conv2d(latent_dim, latent_dim, kernel_size = kernel_size, stride = stride, padding = padding), # output: 16x12x128
         )
@@ -396,22 +398,22 @@ class conv_AE_UNet(nn.Module):
             nn.Conv2d(latent_dim, hidden_dim_3, kernel_size = kernel_size, stride = stride, padding = padding),
             nn.ReLU(inplace=True),
 
-            # nn.ConvTranspose2d(hidden_dim_3, hidden_dim_3, kernel_size=2, stride=2), # output: 32x24x64
-            nn.ConvTranspose2d(kernel_size=2, stride=2), # output: 32x24x64
+            nn.ConvTranspose2d(hidden_dim_3, hidden_dim_3, kernel_size=2, stride=2), # output: 32x24x64
+            # nn.ConvTranspose2d(kernel_size=2, stride=2), # output: 32x24x64
             nn.Conv2d(hidden_dim_3, hidden_dim_3, kernel_size = kernel_size, stride = stride, padding = padding), # output: 32x24x64
             nn.ReLU(inplace=True),
             nn.Conv2d(hidden_dim_3, hidden_dim_2, kernel_size = kernel_size, stride = stride, padding = padding), # output: 32x24x32
             nn.ReLU(inplace=True),
 
-            # nn.ConvTranspose2d(hidden_dim_2, hidden_dim_2, kernel_size=2, stride=2), # output: 64x48x32
-            nn.ConvTranspose2d(kernel_size=2, stride=2), # output: 64x48x32
+            nn.ConvTranspose2d(hidden_dim_2, hidden_dim_2, kernel_size=2, stride=2), # output: 64x48x32
+            # nn.ConvTranspose2d(kernel_size=2, stride=2), # output: 64x48x32
             nn.Conv2d(hidden_dim_2, hidden_dim_2, kernel_size = kernel_size, stride = stride, padding = padding), # output: 64x48x32
             nn.ReLU(inplace=True),
             nn.Conv2d(hidden_dim_2, hidden_dim_1, kernel_size = kernel_size, stride = stride, padding = padding), # output: 64x48x16
             nn.ReLU(inplace=True),
             
-            # nn.ConvTranspose2d(hidden_dim_1, hidden_dim_1, kernel_size=2, stride=2), # output: 128x96x16
-            nn.ConvTranspose2d(kernel_size=2, stride=2), # output: 128x96x16
+            nn.ConvTranspose2d(hidden_dim_1, hidden_dim_1, kernel_size=2, stride=2), # output: 128x96x16
+            # nn.ConvTranspose2d(kernel_size=2, stride=2), # output: 128x96x16
             nn.Conv2d(hidden_dim_1, hidden_dim_1, kernel_size = kernel_size, stride = stride, padding = padding), # output: 128x96x16
             nn.ReLU(inplace=True),
             nn.Conv2d(hidden_dim_1, input_dim, kernel_size = kernel_size, stride = stride, padding = padding), # output: 128x96x1

@@ -59,6 +59,7 @@ model.to(device)
 print(model)
 
 optimizer = optim.AdamW(model.parameters(), lr=lr, weight_decay=wd)
+# loss = nn.MSELoss()
 
 o_loss = []
 train_loss = []

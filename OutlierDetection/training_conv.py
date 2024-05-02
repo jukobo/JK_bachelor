@@ -100,8 +100,8 @@ def train2D_conv(model, optimizer, epochs, device):
                 step+=1
 
                    
-            if idx == n_2:
-                break
+            # if idx == n_2:
+            #     break
 
         o_loss.append(overall_loss/(n_2-n_1+1))
         if epoch%100 == 0:

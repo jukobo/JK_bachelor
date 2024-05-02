@@ -136,20 +136,20 @@ def train2D_conv(model, optimizer, epochs, device):
                 #     val_loss.append(avg_loss_val)
 
                    
-            if idx == n_2:
-                break
+        #     if idx == n_2:
+        #         break
 
-        o_loss.append(overall_loss/(n_2-n_1+1))
-        if epoch%100 == 0:
-            print(f'Epoch {epoch+1}, Average loss: {overall_loss/(n_2-n_1+1)}')    
+        # o_loss.append(overall_loss/(n_2-n_1+1))
+        # if epoch%100 == 0:
+        #     print(f'Epoch {epoch+1}, Average loss: {overall_loss/(n_2-n_1+1)}')    
 
-        ## Save model
-        if epoch == 0:
-            torch.save(model.state_dict(), f'/scratch/{study_no_save}/Data/model_conv_{epoch}.pth')
-            print('Model saved')
-        elif epoch == epochs-1:
-            torch.save(model.state_dict(), f'/scratch/{study_no_save}/Data/model_conv_{epoch}.pth')
-            print('Model saved')
+        # ## Save model
+        # if epoch == 0:
+        #     torch.save(model.state_dict(), f'/scratch/{study_no_save}/Data/model_conv_{epoch}.pth')
+        #     print('Model saved')
+        # elif epoch == epochs-1:
+        #     torch.save(model.state_dict(), f'/scratch/{study_no_save}/Data/model_conv_{epoch}.pth')
+        #     print('Model saved')
 
     # # np.save('OutlierDetection/o_loss3.npy', o_loss)
     # # np.save('OutlierDetection/val_loss3.npy', val_loss)

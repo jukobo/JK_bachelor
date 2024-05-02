@@ -264,17 +264,17 @@ def train2D_conv(model, optimizer, epochs, device):
                         
                         #-- Loss function
                         squared_diff = (inputs_reconstructed - inputs) ** 2
-                        loss = torch.mean(squared_diff)
+                        v_loss = torch.mean(squared_diff)
 
                         
                         # Save reconstructed images
-                        numpy_array = x_reconstructed.cpu().numpy()
+                        numpy_array = inputs_reconstructed.cpu().numpy()
                         # np.save(f'OutlierDetection/rec_data3/reconstruction{epoch}.npy', numpy_array)
                         np.save(f'/scratch/{study_no_save}/Data/rec_data/reconstruction{epoch}.npy', numpy_array)
 
 
                         # Save loss
-                        val_loss_eval.append(loss.item())
+                        val_loss_eval.append(v_loss.item())
                     avg_loss_val = np.mean(val_loss_eval)
                     print("Validation loss: "+str(avg_loss_val))
                     val_loss.append(avg_loss_val)

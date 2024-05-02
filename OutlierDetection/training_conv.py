@@ -161,3 +161,5 @@ def train2D_conv(model, optimizer, epochs, device):
 
 train2D_conv(model, optimizer, num_epochs, device=device)
 
+exit()
+

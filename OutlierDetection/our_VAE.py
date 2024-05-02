@@ -41,7 +41,7 @@ class LoadData(Dataset):
         inputs = np.stack((img, distfield), axis=3)
         #Reshape
         inputs = np.moveaxis(inputs, -1, 0)
-        inputs = inputs.astype(np.float64)
+        inputs = inputs.astype(np.float32)
                 
         #Add one dimension to mask to set #channels = 1
         msk = np.expand_dims(msk, axis=0)

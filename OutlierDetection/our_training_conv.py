@@ -246,38 +246,38 @@ def train2D_conv(model, optimizer, epochs, device):
                     print("EVALUATION!")
                     model.eval() #Set to evaluation
 
-                    #Training evaluation
-                    val_loss_eval = []
-                    with torch.no_grad():
-                        # inputs, _, _ = train_loader.dataset[n_1]
-                        inputs = input_train[0][0,64,:,:].unsqueeze(dim=0)
+                    # #Training evaluation
+                    # val_loss_eval = []
+                    # with torch.no_grad():
+                    #     inputs, _, _ = train_loader.dataset[n_1]
+                    #     inputs = inputs[0][0,64,:,:].unsqueeze(dim=0)
 
-                        #-- Plotting the original image
-                        #plt.imshow(inputs.squeeze(), cmap='gray')
-                        #plt.title('Original')
-                        #plt.show()
-                        #exit()
+                    #     #-- Plotting the original image
+                    #     #plt.imshow(inputs.squeeze(), cmap='gray')
+                    #     #plt.title('Original')
+                    #     #plt.show()
+                    #     #exit()
 
-                        inputs = inputs.to(device)
+                    #     inputs = inputs.to(device)
 
-                        inputs_reconstructed = model(inputs)
+                    #     inputs_reconstructed = model(inputs)
                         
-                        #-- Loss function
-                        squared_diff = (inputs_reconstructed - inputs) ** 2
-                        v_loss = torch.mean(squared_diff)
+                    #     #-- Loss function
+                    #     squared_diff = (inputs_reconstructed - inputs) ** 2
+                    #     v_loss = torch.mean(squared_diff)
 
                         
-                        # Save reconstructed images
-                        numpy_array = inputs_reconstructed.cpu().numpy()
-                        # np.save(f'OutlierDetection/rec_data3/reconstruction{epoch}.npy', numpy_array)
-                        np.save(f'/scratch/{study_no_save}/Data/rec_data/reconstruction{epoch}.npy', numpy_array)
+                    #     # Save reconstructed images
+                    #     numpy_array = inputs_reconstructed.cpu().numpy()
+                    #     # np.save(f'OutlierDetection/rec_data3/reconstruction{epoch}.npy', numpy_array)
+                    #     np.save(f'/scratch/{study_no_save}/Data/rec_data/reconstruction{epoch}.npy', numpy_array)
 
 
-                        # Save loss
-                        val_loss_eval.append(v_loss.item())
-                    avg_loss_val = np.mean(val_loss_eval)
-                    print("Validation loss: "+str(avg_loss_val))
-                    val_loss.append(avg_loss_val)
+                    #     # Save loss
+                    #     val_loss_eval.append(v_loss.item())
+                    # avg_loss_val = np.mean(val_loss_eval)
+                    # print("Validation loss: "+str(avg_loss_val))
+                    # val_loss.append(avg_loss_val)
 
                     # #Save checkpoint
                     # checkpoint = {

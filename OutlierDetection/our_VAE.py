@@ -470,3 +470,9 @@ def display_tensor_as_image(tensor):
     plt.imshow(tensor, cmap='gray')  # You can change the colormap as needed
     plt.axis('off')  # Turn off axis
     plt.show()
+
+
+
+def save_model(model, path, name):
+    torch.save(model, os.path.join(path, name))
+    print('Model saved')

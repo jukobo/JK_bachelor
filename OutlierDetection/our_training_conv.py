@@ -39,13 +39,15 @@ wd = parameters_dict['weight_decay']
 
 
 ## Loading data
-img_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/img"
-heatmap_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/heatmaps"
-msk_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/msk"
-# img_dir_training = "/scratch/s214704/Data/Checkpoints/VertebraeSegmentation/crops_training_prep/img"
-# heatmap_dir_training = "/scratch/s214704/Data/Checkpoints/VertebraeSegmentation/crops_training_prep/heatmaps"
-# msk_dir_training = "/scratch/s214704/Data/Checkpoints/VertebraeSegmentation/crops_training_prep/msk"
+study_no_data = 's214704'
+study_no_save = 's214704'
 
+# img_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/img"
+# heatmap_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/heatmaps"
+# msk_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/msk"
+img_dir_training = f"/scratch/{study_no_data}/Data/Checkpoints/VertebraeSegmentation/crops_training_prep/img"
+heatmap_dir_training = f"/scratch/{study_no_data}/Data/Checkpoints/VertebraeSegmentation/crops_training_prep/heatmaps"
+msk_dir_training = f"/scratch/{study_no_data}/Data/Checkpoints/VertebraeSegmentation/crops_training_prep/msk"
 
 VerSe_train = LoadData(img_dir=img_dir_training, msk_dir = msk_dir_training, distfield_dir=heatmap_dir_training)
 train_loader = DataLoader(VerSe_train, batch_size=batch_size, shuffle=False, num_workers=0)
@@ -263,7 +265,7 @@ def train2D_conv(model, optimizer, epochs, device):
                         #plt.show()
                         #exit()
 
-                        
+
                         inputs = inputs.to(device)
 
                         x_reconstructed = model(inputs)
@@ -272,7 +274,7 @@ def train2D_conv(model, optimizer, epochs, device):
                         # Save reconstructed images
                         # numpy_array = x_reconstructed.cpu().numpy()
                         # np.save(f'OutlierDetection/rec_data3/reconstruction{epoch}.npy', numpy_array)
-                        # np.save(f'/scratch/s214725/Data/rec_data/reconstruction{epoch}.npy', numpy_array)
+                        # np.save(f'/scratch/{study_no_save}/Data/rec_data/reconstruction{epoch}.npy', numpy_array)
 
 
                         # Save loss
@@ -302,8 +304,8 @@ def train2D_conv(model, optimizer, epochs, device):
 
     np.save('OutlierDetection/o_loss3.npy', o_loss)
     np.save('OutlierDetection/val_loss3.npy', val_loss)
-    # np.save('/scratch/s214725/Data/o_loss.npy', o_loss)
-    # np.save('/scratch/s214725/Data/Val_loss.npy', val_loss)
+    # np.save(f'/scratch/{study_no_save}/Data/o_loss.npy', o_loss)
+    # np.save(f'/scratch/{study_no_save}/Data/Val_loss.npy', val_loss)
 
 
 train2D_conv(model, optimizer, num_epochs, device=device)

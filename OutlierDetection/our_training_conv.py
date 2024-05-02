@@ -1,5 +1,6 @@
 # import time
 # import os 
+print('Script started')
 import torch 
 import torch.nn as nn
 import torch.optim as optim

@@ -39,17 +39,8 @@ wd = parameters_dict['weight_decay']
 
 
 ## Loading data
-<<<<<<< HEAD
 study_no_data = 's214704'
 study_no_save = 's214704'
-=======
-# img_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/img"
-# heatmap_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/heatmaps"
-# msk_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/msk"
-img_dir_training = "/scratch/s214704/Data/Checkpoints/VertebraeSegmentation/crops_training_prep/img"
-heatmap_dir_training = "/scratch/s214704/Data/Checkpoints/VertebraeSegmentation/crops_training_prep/heatmaps"
-msk_dir_training = "/scratch/s214704/Data/Checkpoints/VertebraeSegmentation/crops_training_prep/msk"
->>>>>>> 462d8f9655f6da4ec3dac186cb3bfd5042cb347c
 
 # img_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/img"
 # heatmap_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/heatmaps"

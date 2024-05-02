@@ -3,7 +3,7 @@
 #SBATCH --job-name=jk_spine_model
 #SBATCH --output=jk_spine_model_%J.out
 #SBATCH --cpus-per-task=4
-#SBATCH --time=7-00:00:00
+#SBATCH --time=0-05:00:00
 #SBATCH --mem=32gb
 #SBATCH --gres=gpu:2
 #SBATCH --mail-user=s214725@dtu.dk

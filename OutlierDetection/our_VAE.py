@@ -116,7 +116,7 @@ class VAE(nn.Module):
     
 ## Cross entropy loss function
 def loss_function(x, x_reconstructed):
-    loss = nn.MSELoss()
+    loss = nn.L1Loss()
 
     return loss(x_reconstructed, x)
 

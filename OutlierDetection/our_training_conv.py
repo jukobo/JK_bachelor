@@ -250,7 +250,7 @@ def train2D_conv(model, optimizer, epochs, device):
                     val_loss_eval = []
                     with torch.no_grad():
                         inputs, _, _ = train_loader.dataset[n_1]
-                        inputs = inputs[0][0,64,:,:].unsqueeze(dim=0)
+                        inputs = input_train[0][0,64,:,:].unsqueeze(dim=0)
 
                         #-- Plotting the original image
                         #plt.imshow(inputs.squeeze(), cmap='gray')

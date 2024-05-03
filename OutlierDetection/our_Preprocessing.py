@@ -141,7 +141,7 @@ for subject in tqdm(all_subjects):
     #Gaussian smoothing
     #Get data
     data_img = np.asanyarray(img_nib.dataobj, dtype=img_nib.dataobj.dtype)
-    data_img_out = np.asanyarray(img_out_nib.dataobj, dtype=img_out_nib.dataobj.dtype)
+    # data_img_out = np.asanyarray(img_out_nib.dataobj, dtype=img_out_nib.dataobj.dtype)
 
     #Smooth
     sigma_smooth = [0.75/zooms[0],0.75/zooms[1],0.75/zooms[2]]

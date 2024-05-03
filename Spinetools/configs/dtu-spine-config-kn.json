@@ -3,8 +3,8 @@
     "image_dir": "G:\\Mit drev\\Uni\\6. semester\\JK_bachelor\\Data\\Verse20_test_unpacked_spinetools\\raw\\",
     "segmentation_dir": "G:\\Mit drev\\Uni\\6. semester\\JK_bachelor\\Data\\Verse20_test_unpacked_spinetools\\msk\\",
     "elastix_settings_dir": "C:\\data\\Spinetools\\Spine2024\\ElastixSettings\\",
-    "template_id": "sub-verse500",
-    "template_image": "sub-verse500_dir-ax_img.nii.gz",
+    "template_id": "sub-verse502",
+    "template_image": "sub-verse502_dir-iso_ct.nii.gz",
     "id_list": "spine_ids_verse_train.csv",
     "elastix_dir":  "G:\\Mit drev\\Uni\\6. semester\\JK_bachelor\\Spinetools\\elastix_dir\\"
 }

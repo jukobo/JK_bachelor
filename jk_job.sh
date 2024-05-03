@@ -2,8 +2,8 @@
 
 #SBATCH --job-name=jk_model
 #SBATCH --output=jk_model_%J.out
-#SBATCH --cpus-per-task=2
-#SBATCH --time=05:00:00
+#SBATCH --cpus-per-task=1
+#SBATCH --time=07:00:00
 #SBATCH --mem=32gb
 #SBATCH --gres=gpu:2
 #SBATCH --mail-user=s214704@dtu.dk
@@ -23,7 +23,7 @@ fi
 
 source ~/JK_bachelor/.bashrc
 module load CUDA/11.4
-python OutlierDetection/training_conv.py --no-mps 
+python OutlierDetection/our_training_conv.py --no-mps 
 
 
 echo "Done: $(date +%F-%R:%S)"

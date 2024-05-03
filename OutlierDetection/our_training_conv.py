@@ -7,11 +7,8 @@ import torch.optim as optim
 from torch.utils.data import DataLoader 
 import numpy as np
 
-
 from our_VAE import *
 
-n_1 = 0
-n_2 = 19
 
 #Define paramters
 parameters_dict = {
@@ -218,96 +215,88 @@ def train2D_conv(model, optimizer, epochs, device):
         overall_loss = 0
 
         for idx, data in enumerate(train_loader):
-            if idx >= n_1 and idx <= n_2:
-                input_train, _, _ = data
+            input_train, _, _ = data
 
-                x = input_train[0][0,64,:,:].unsqueeze(dim=0)
-                x = x.to(device)
+            x = input_train[0][0,64,:,:].unsqueeze(dim=0)
+            x = x.to(device)
 
-                x_reconstructed = model(x)
+            x_reconstructed = model(x)
 
-                #-- Loss function
-                squared_diff = (x_reconstructed - x) ** 2
-                loss = torch.mean(squared_diff)
-                # print(type(loss), loss.shape, loss)
+            #-- Loss function
+            squared_diff = (x_reconstructed - x) ** 2
+            loss = torch.mean(squared_diff)
 
-                # loss = loss_function(x_reconstructed, x)
-                overall_loss += loss.item()
+            overall_loss += loss.item()
 
-                optimizer.zero_grad()
-                loss. backward()
-                optimizer.step()
-        
-                # Update step
-                step+=1
+            optimizer.zero_grad()
+            loss. backward()
+            optimizer.step()
+    
+            # Update step
+            step+=1
 
-                # Do evaluation every 50 step
-                if step%1000 == 0:
-                    print()
-                    print("EVALUATION!")
-                    model.eval() #Set to evaluation
+            # Do evaluation every 50 step
+            if step%1000 == 0:
+                print()
+                print("EVALUATION!")
+                model.eval() #Set to evaluation
 
-                    #Training evaluation
-                    val_loss_eval = []
-                    with torch.no_grad():
-                        inputs, _, _ = train_loader.dataset[n_1]
-                        inputs = input_train[0][0,64,:,:].unsqueeze(dim=0)
+                #Training evaluation
+                val_loss_eval = []
+                with torch.no_grad():
+                    inputs, _, _ = train_loader.dataset[0]
+                    inputs = input_train[0][0,64,:,:].unsqueeze(dim=0)
 
-                        #-- Plotting the original image
-                        #plt.imshow(inputs.squeeze(), cmap='gray')
-                        #plt.title('Original')
-                        #plt.show()
-                        #exit()
+                    #-- Plotting the original image
+                    #plt.imshow(inputs.squeeze(), cmap='gray')
+                    #plt.title('Original')
+                    #plt.show()
+                    #exit()
 
-                        inputs = inputs.to(device)
+                    inputs = inputs.to(device)
 
-                        inputs_reconstructed = model(inputs)
-                        
-                        #-- Loss function
-                        squared_diff = (inputs_reconstructed - inputs) ** 2
-                        loss_temp = torch.mean(squared_diff, dim=1)
-                        v_loss = torch.mean(loss_temp, dim=1).squeeze()
-                        # print(type(v_loss), v_loss.shape, v_loss)
-
-                        
-                        # Save reconstructed images
-                        # numpy_array = inputs_reconstructed.cpu().numpy()
-                        # np.save(f'OutlierDetection/rec_data3/reconstruction{epoch}.npy', numpy_array)
-                        # np.save(f'/scratch/{study_no_save}/Data/rec_data/reconstruction{epoch}.npy', numpy_array)
+                    inputs_reconstructed = model(inputs)
+                    
+                    #-- Loss function
+                    squared_diff = (inputs_reconstructed - inputs) ** 2
+                    loss_temp = torch.mean(squared_diff, dim=1)
+                    v_loss = torch.mean(loss_temp, dim=1).squeeze()
+                    
+                    # Save reconstructed images
+                    numpy_array = inputs_reconstructed.cpu().numpy()
+                    # np.save(f'OutlierDetection/rec_data3/reconstruction{epoch}.npy', numpy_array)
+                    np.save(f'/scratch/{study_no_save}/Data/rec_data/reconstruction{epoch}.npy', numpy_array)
 
 
-                        # Save loss
-                    #     val_loss_eval.append(v_loss.item())
-                    # avg_loss_val = np.mean(val_loss_eval)
-                    # print("Validation loss: "+str(avg_loss_val))
-                    # val_loss.append(avg_loss_val)
+                    # Save loss
+                    val_loss_eval.append(v_loss.item())
+                avg_loss_val = np.mean(val_loss_eval)
+                print("Validation loss: "+str(avg_loss_val))
+                val_loss.append(avg_loss_val)
 
-                    # #Save checkpoint
-                    # checkpoint = {
-                    #     'model_state_dict': model.state_dict(),
-                    #     'optimizer_state_dict': optimizer.state_dict(),
-                    #     'epoch': epoch,
-                    #     'train_loss': train_loss,
-                    #     'val_loss': val_loss,
-                    #     'parameters_dict': parameters_dict,
-                    #     'run_name': run_name,
-                    # }
-                    # torch.save(checkpoint, os.path.join(checkpoint_dir,str(run_name)+'_step'+str(step)+'_batchsize'+str(batch_size)+'_lr'+str(lr)+'_wd'+str(wd)+'.pth'))
-        
-            if idx == n_2:
-                break
+                # #Save checkpoint
+                # checkpoint = {
+                #     'model_state_dict': model.state_dict(),
+                #     'optimizer_state_dict': optimizer.state_dict(),
+                #     'epoch': epoch,
+                #     'train_loss': train_loss,
+                #     'val_loss': val_loss,
+                #     'parameters_dict': parameters_dict,
+                #     'run_name': run_name,
+                # }
+                # torch.save(checkpoint, os.path.join(checkpoint_dir,str(run_name)+'_step'+str(step)+'_batchsize'+str(batch_size)+'_lr'+str(lr)+'_wd'+str(wd)+'.pth'))
 
-        o_loss.append(overall_loss/(n_2-n_1+1))
+        o_loss.append(overall_loss/len(train_loader))
         if epoch%100 == 0:
-            print(f'Epoch {epoch+1}, Average loss: {overall_loss/(n_2-n_1+1)}')    
+            print(f'Epoch {epoch+1}, Average loss: {overall_loss/(len(train_loader))}')    
 
         ## Save model
-        # if epoch == 0:
-        #     torch.save(model.state_dict(), f'/scratch/{study_no_save}/Data/model_conv_{epoch}.pth')
-        #     print('Model saved')
-        # elif epoch == epochs-1:
-        #     torch.save(model.state_dict(), f'/scratch/{study_no_save}/Data/model_conv_{epoch}.pth')
-        #     print('Model saved')
+        if epoch == 0:
+            torch.save(model.state_dict(), f'/scratch/{study_no_save}/Data/model_conv_{epoch}.pth')
+            print('Model saved')
+        elif epoch == epochs-1:
+            torch.save(model.state_dict(), f'/scratch/{study_no_save}/Data/model_conv_{epoch}.pth')
+            print('Model saved')
 
     # np.save('OutlierDetection/o_loss3.npy', o_loss)
     # np.save('OutlierDetection/val_loss3.npy', val_loss)

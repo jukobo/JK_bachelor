@@ -29,12 +29,12 @@ wd = parameters_dict['weight_decay']
 study_no_data = 's214704'
 study_no_save = 's214704'
 
-# img_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/img"
-# heatmap_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/heatmaps"
-# msk_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/msk"
-img_dir_training = f"/scratch/{study_no_data}/Data/crops_training_prep/img"
-heatmap_dir_training = f"/scratch/{study_no_data}/Data/crops_training_prep/heatmaps"
-msk_dir_training = f"/scratch/{study_no_data}/Data/crops_training_prep/msk"
+img_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/img"
+heatmap_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/heatmaps"
+msk_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/msk"
+# img_dir_training = f"/scratch/{study_no_data}/Data/crops_training_prep/img"
+# heatmap_dir_training = f"/scratch/{study_no_data}/Data/crops_training_prep/heatmaps"
+# msk_dir_training = f"/scratch/{study_no_data}/Data/crops_training_prep/msk"
 
 VerSe_train = LoadData(img_dir=img_dir_training, msk_dir = msk_dir_training, distfield_dir=heatmap_dir_training)
 train_loader = DataLoader(VerSe_train, batch_size=batch_size, shuffle=False, num_workers=0)
@@ -42,11 +42,11 @@ train_loader = DataLoader(VerSe_train, batch_size=batch_size, shuffle=False, num
     # Each element is a tuple of 3 elements: (img, heatmap, msk)
     # img: torch.Size([2, 128, 128, 96])
 
-# input_train, y, z = train_loader.dataset[n]
-# print(torch.min(input_train[0][64,:,:]), torch.max(input_train[0][64,:,:])) # min = -0.9077, max = 0.6916
-# plt.imshow(input_train[0][64, :, :], cmap='gray')
-# plt.show()
-# exit()
+input_train, y, z = train_loader.dataset[-1]
+plt.imshow(input_train[0][64, :, :], cmap='gray')
+plt.title('Original')
+plt.show()
+exit()
 
 # run_name = 'Test_AE2'
 # run_name2 = 'rec_img'
@@ -248,10 +248,10 @@ def train2D_conv(model, optimizer, epochs, device):
                     inputs = input_train[0][0,64,:,:].unsqueeze(dim=0)
 
                     #-- Plotting the original image
-                    #plt.imshow(inputs.squeeze(), cmap='gray')
-                    #plt.title('Original')
-                    #plt.show()
-                    #exit()
+                    # plt.imshow(inputs.squeeze(), cmap='gray')
+                    # plt.title('Original')
+                    # plt.show()
+                    # exit()
 
                     inputs = inputs.to(device)
 
@@ -265,7 +265,7 @@ def train2D_conv(model, optimizer, epochs, device):
                     # Save reconstructed images
                     numpy_array = inputs_reconstructed.cpu().numpy()
                     # np.save(f'OutlierDetection/rec_data3/reconstruction{epoch}.npy', numpy_array)
-                    np.save(f'/scratch/{study_no_save}/Data/rec_data2/reconstruction{epoch}.npy', numpy_array)
+                    # np.save(f'/scratch/{study_no_save}/Data/rec_data2/reconstruction{epoch}.npy', numpy_array)
 
 
                     # Save loss
@@ -300,8 +300,8 @@ def train2D_conv(model, optimizer, epochs, device):
 
     # np.save('OutlierDetection/o_loss3.npy', o_loss)
     # np.save('OutlierDetection/val_loss3.npy', val_loss)
-    np.save(f'/scratch/{study_no_save}/Data/o_loss2.npy', o_loss)
-    np.save(f'/scratch/{study_no_save}/Data/Val_loss2.npy', val_loss)
+    # np.save(f'/scratch/{study_no_save}/Data/o_loss2.npy', o_loss)
+    # np.save(f'/scratch/{study_no_save}/Data/Val_loss2.npy', val_loss)
 
     
 

@@ -4,11 +4,11 @@ import shutil
 
     
 #Input directories
-dir_crops = 'Data/Output_spinetools/crops'  #Output folder from Spinetools
+dir_crops = 'Data/Output_spinetools/test/crops'  #Output folder from Spinetools
 # dir_crops = 'Data/Output_spinetools/dist_fields'  #Output folder from Spinetools
 
 
-dir_destination = 'Data/Verse20/Outlier_detection/crops_training_unpacked' 
+dir_destination = 'Data/Verse20/Outlier_detection/crops_test_unpacked' 
  
 
 
@@ -71,7 +71,7 @@ for subject in scans:
 dir_dist = 'Data/Output_spinetools/dist_fields'  #Output folder from Spinetools
 
 
-dir_destination = 'Data/Verse20/Outlier_detection/crops_training_unpacked' 
+dir_destination = 'Data/Verse20/Outlier_detection/crops_test_unpacked' 
  
 
 

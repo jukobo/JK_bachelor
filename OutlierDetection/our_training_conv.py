@@ -31,9 +31,9 @@ study_no_save = 's214704'
 # img_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/img"
 # heatmap_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/heatmaps"
 # msk_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/msk"
-# img_dir_training = f"/scratch/{study_no_data}/Data/crops_training_prep/img"
-# heatmap_dir_training = f"/scratch/{study_no_data}/Data/crops_training_prep/heatmaps"
-# msk_dir_training = f"/scratch/{study_no_data}/Data/crops_training_prep/msk"
+img_dir_training = f"/scratch/{study_no_data}/Data/crops_training_prep/img"
+heatmap_dir_training = f"/scratch/{study_no_data}/Data/crops_training_prep/heatmaps"
+msk_dir_training = f"/scratch/{study_no_data}/Data/crops_training_prep/msk"
 
 VerSe_train = LoadData(img_dir=img_dir_training, msk_dir = msk_dir_training, distfield_dir=heatmap_dir_training)
 train_loader = DataLoader(VerSe_train, batch_size=batch_size, shuffle=False, num_workers=0)
@@ -239,7 +239,7 @@ def train2D_conv(model, optimizer, epochs, device):
             step+=1
 
             # Do evaluation every 50 step
-            if step%1000 == 0:
+            if step%4000 == 0:
                 print()
                 print("EVALUATION!")
                 model.eval() #Set to evaluation
@@ -252,7 +252,7 @@ def train2D_conv(model, optimizer, epochs, device):
                     inputs = dataset[0]
 
                     org_img = inputs.cpu().numpy()
-                    # np.save(f'/scratch/{study_no_save}/Data/rec_data2/original.npy', org_img)
+                    np.save(f'/scratch/{study_no_save}/Data/rec_data2/original.npy', org_img)
 
                     #-- Plotting the original image
                     # plt.imshow(inputs.squeeze(), cmap='gray')
@@ -272,7 +272,7 @@ def train2D_conv(model, optimizer, epochs, device):
                     # Save reconstructed images
                     numpy_array = inputs_reconstructed.cpu().numpy()
                     # np.save(f'OutlierDetection/rec_data3/reconstruction{epoch}.npy', numpy_array)
-                    # np.save(f'/scratch/{study_no_save}/Data/rec_data2/reconstruction{epoch}.npy', numpy_array)
+                    np.save(f'/scratch/{study_no_save}/Data/rec_data2/reconstruction{epoch}.npy', numpy_array)
 
 
                     # Save loss
@@ -299,16 +299,16 @@ def train2D_conv(model, optimizer, epochs, device):
 
         ## Save model
         if epoch == 0:
-            # torch.save(model.state_dict(), f'/scratch/{study_no_save}/Data/model_conv_{epoch}2.pth')
+            torch.save(model.state_dict(), f'/scratch/{study_no_save}/Data/model_conv_{epoch}2.pth')
             print('Model saved')
         elif epoch == epochs-1:
-            # torch.save(model.state_dict(), f'/scratch/{study_no_save}/Data/model_conv_{epoch}2.pth')
+            torch.save(model.state_dict(), f'/scratch/{study_no_save}/Data/model_conv_{epoch}2.pth')
             print('Model saved')
 
     # np.save('OutlierDetection/o_loss3.npy', o_loss)
     # np.save('OutlierDetection/val_loss3.npy', val_loss)
-    # np.save(f'/scratch/{study_no_save}/Data/o_loss2.npy', o_loss)
-    # np.save(f'/scratch/{study_no_save}/Data/Val_loss2.npy', val_loss)
+    np.save(f'/scratch/{study_no_save}/Data/o_loss3.npy', o_loss)
+    np.save(f'/scratch/{study_no_save}/Data/Val_loss3.npy', val_loss)
 
     
 

@@ -1,0 +1,1 @@
+Denne mappe er til en træning udført med batch size = 39, filen our_training_conv, samt validation image = training image [0]

@@ -1,9 +1,9 @@
 Guide.txt
 Data/* 
 bin/*
-# J_test.py
+
 k_test.py
-OutlierDetection/j_test.py
+OutlierDetection/J_test.py
 OutlierDetection/j_test.ipynb
 jk_test_38346.out
 jk_model_38400.out

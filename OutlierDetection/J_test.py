@@ -3,6 +3,10 @@ import matplotlib.pyplot as plt
 import torch
 from our_VAE import *
 
+
+
+
+
 # no = 1900
 # file = f'OutlierDetection/rec_data3/reconstruction{no}.npy'
 # file2 = f'OutlierDetection/rec_data3/reconstruction{no-100}.npy'

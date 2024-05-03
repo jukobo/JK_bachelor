@@ -1,5 +1,3 @@
-# import time
-# import os 
 print('Script started')
 import torch 
 import torch.nn as nn
@@ -30,9 +28,9 @@ wd = parameters_dict['weight_decay']
 study_no_data = 's214704'
 study_no_save = 's214704'
 
-img_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/img"
-heatmap_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/heatmaps"
-msk_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/msk"
+# img_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/img"
+# heatmap_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/heatmaps"
+# msk_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/msk"
 # img_dir_training = f"/scratch/{study_no_data}/Data/crops_training_prep/img"
 # heatmap_dir_training = f"/scratch/{study_no_data}/Data/crops_training_prep/heatmaps"
 # msk_dir_training = f"/scratch/{study_no_data}/Data/crops_training_prep/msk"

@@ -1,8 +1,8 @@
 Node: comp-gpu03
-Start: 2024-05-03-09:09:32
+Start: 2024-05-03-09:10:50
 Working dir: /home/s214704/JK_bachelor
 
-/var/lib/slurm/slurmd/job49798/slurm_script: line 24: /home/s214704/JK_bachelor/.bashrc: No such file or directory
+/var/lib/slurm/slurmd/job49799/slurm_script: line 24: /home/s214704/JK_bachelor/.bashrc: No such file or directory
 conv_AE_UNet(
   (encoder): Sequential(
     (0): Conv2d(1, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
@@ -49,4 +49,4 @@ Traceback (most recent call last):
   File "/home/s214704/JK_bachelor/OutlierDetection/training_conv.py", line 83, in train2D_conv
     loss = loss_function(x_reconstructed, x)
 NameError: name 'loss_function' is not defined
-Done: 2024-05-03-09:09:39
+Done: 2024-05-03-09:10:56

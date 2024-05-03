@@ -122,21 +122,6 @@ class VAE(nn.Module):
         return mse
 
 
-## Cross entropy loss function
-# def loss_function(x_reconstructed, x):
-#     loss = nn.MSELoss()
-#         # Calculate squared error
-#     # squared_error = (x_reconstructed - x)**2
-    
-#     # # Calculate mean of squared error
-#     # mse = torch.mean(squared_error)
-# #     # loss = nn.L1Loss()
-#     # loss(x_reconstructed, x)
-
-#     return loss(x_reconstructed, x)
-
-
-
 class AE(nn.Module): # Bruges ikke
     # def __init__(self, dropout):
     def __init__(self, dim, device=device): # dim is a list with the dimensions of input, hidden and latent space
@@ -446,7 +431,10 @@ class conv_AE_UNet(nn.Module):
         return x_reconstructed
 
 
-
+def loss_function(x_reconstructed, x):
+    loss = nn.MSELoss()
+    mse = loss(x_reconstructed, x)
+    return mse
 
 # def loss_function_re(x, x_reconstructed, device):
 #     criterion = nn.MSELoss().to(device) #reduction='sum'

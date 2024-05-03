@@ -12,12 +12,12 @@ import shutil
 
     
 #Input directories
-dir_rawdata = 'Data/dataset-verse20training/rawdata' 
-dir_derivatives = 'Data/dataset-verse20training/derivatives' 
+dir_rawdata = 'Data/dataset-verse20validation/rawdata' 
+dir_derivatives = 'Data/dataset-verse20validation/derivatives' 
 
-raw_dir_destination = 'Data/Verse20_training_unpacked_spinetools/raw' 
-msk_dir_destination = 'Data/Verse20_training_unpacked_spinetools/msk' 
-ctd_dir_destination = 'Data/Verse20/Outlier_detection/crops_training_unpacked' 
+raw_dir_destination = 'Data/Verse20_validation_unpacked_spinetools/raw' 
+msk_dir_destination = 'Data/Verse20_validation_unpacked_spinetools/msk' 
+ctd_dir_destination = 'Data/Verse20/Outlier_detection/crops_validation_unpacked' 
 
 
 #Define list of scans

@@ -8,11 +8,12 @@ from torch.utils.data import DataLoader
 import numpy as np
 
 from our_VAE import *
+from dataset import *
 
 
 #Define paramters
 parameters_dict = {
-    'epochs': 4000,
+    'epochs': 2000,
     'learning_rate': 1e-3,
     'batch_size': 1, #Noget galt når batch size ændres til mere end 1
     'weight_decay': 5e-4 #1e-6
@@ -42,11 +43,14 @@ train_loader = DataLoader(VerSe_train, batch_size=batch_size, shuffle=False, num
     # Each element is a tuple of 3 elements: (img, heatmap, msk)
     # img: torch.Size([2, 128, 128, 96])
 
-input_train, y, z = train_loader.dataset[-1]
-plt.imshow(input_train[0][64, :, :], cmap='gray')
-plt.title('Original')
-plt.show()
-exit()
+# input_train, y, z = train_loader.dataset[-1]
+# plt.imshow(input_train[0][64, :, :], cmap='gray')
+# plt.title('Original')
+# plt.show()
+# exit()
+
+## Generere dataset med angivet antal 2D images
+dataset = generate_dataset(train_loader, 100)
 
 # run_name = 'Test_AE2'
 # run_name2 = 'rec_img'
@@ -214,11 +218,12 @@ def train2D_conv(model, optimizer, epochs, device):
 
         overall_loss = 0
 
-        for idx, data in enumerate(train_loader):
-            input_train, _, _ = data
+        # for idx, data in enumerate(train_loader):
+        #     input_train, _, _ = data
 
-            x = input_train[0][0,64,:,:].unsqueeze(dim=0)
-            x = x.to(device)
+        #     x = input_train[0][0,64,:,:].unsqueeze(dim=0)
+        for idx, data in enumerate(dataset):
+            x = data.to(device)
 
             x_reconstructed = model(x)
 
@@ -244,8 +249,12 @@ def train2D_conv(model, optimizer, epochs, device):
                 #Training evaluation
                 val_loss_eval = []
                 with torch.no_grad():
-                    inputs, _, _ = train_loader.dataset[0]
-                    inputs = input_train[0][0,64,:,:].unsqueeze(dim=0)
+                    # inputs, _, _ = train_loader.dataset[0]
+                    # inputs = input_train[0][0,64,:,:].unsqueeze(dim=0)
+                    inputs = dataset[0]
+
+                    org_img = inputs.cpu().numpy()
+                    # np.save(f'/scratch/{study_no_save}/Data/rec_data2/original.npy', org_img)
 
                     #-- Plotting the original image
                     # plt.imshow(inputs.squeeze(), cmap='gray')
@@ -292,10 +301,10 @@ def train2D_conv(model, optimizer, epochs, device):
 
         ## Save model
         if epoch == 0:
-            torch.save(model.state_dict(), f'/scratch/{study_no_save}/Data/model_conv_{epoch}2.pth')
+            # torch.save(model.state_dict(), f'/scratch/{study_no_save}/Data/model_conv_{epoch}2.pth')
             print('Model saved')
         elif epoch == epochs-1:
-            torch.save(model.state_dict(), f'/scratch/{study_no_save}/Data/model_conv_{epoch}2.pth')
+            # torch.save(model.state_dict(), f'/scratch/{study_no_save}/Data/model_conv_{epoch}2.pth')
             print('Model saved')
 
     # np.save('OutlierDetection/o_loss3.npy', o_loss)

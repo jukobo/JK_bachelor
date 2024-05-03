@@ -7,9 +7,6 @@ import numpy as np
 
 from our_VAE import *
 
-n_1 = 0
-n_2 = 19
-
 #Define paramters
 parameters_dict = {
     'epochs': 4000,
@@ -32,7 +29,7 @@ study_no_save = 's214704'
 # img_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/img"
 # heatmap_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/heatmaps"
 # msk_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/msk"
-img_dir_training = f"/scratch/{study_no_data}/Data/crops_training_prep/img"
+img_dir_training = f"/scratch/{study_no_data}/Data/crops_training_prep/img" # Har organiseret det sådan at der kun er 20 billeder i mappen
 heatmap_dir_training = f"/scratch/{study_no_data}/Data/crops_training_prep/heatmaps"
 msk_dir_training = f"/scratch/{study_no_data}/Data/crops_training_prep/msk"
 
@@ -75,13 +72,12 @@ def train2D_conv(model, optimizer, epochs, device):
         overall_loss = 0
 
         for idx, data in enumerate(train_loader):
-            if idx >= n_1 and idx <= n_2:
-                input_train, _, _ = data
+            input_train, _, _ = data
 
-                x = input_train[0][0,64,:,:].unsqueeze(dim=0)
-                x = x.to(device)
+            x = input_train[0][0,64,:,:].unsqueeze(dim=0)
+            x = x.to(device)
 
-                x_reconstructed = model(x)
+            x_reconstructed = model(x)
 
                 #-- Loss function
                 # loss = loss_function(x_reconstructed, x)

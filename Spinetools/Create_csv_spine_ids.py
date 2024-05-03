@@ -29,7 +29,7 @@ def create_csv_from_folder(folder_path, csv_filename, output_directory):
 #########################################################################
 
 # Example usage
-folder_path = 'G:/Mit drev/Uni/6. semester/JK_bachelor/Data/Verse20_validation_unpacked_new/raw'
+folder_path = 'G:/Mit drev/Uni/6. semester/JK_bachelor/Data/Verse20_validation_unpacked_spinetools/raw'
 csv_filename = 'spine_ids_verse_val.csv'
 output_directory = 'G:/Mit drev/Uni/6. semester/JK_bachelor/Spinetools'
 

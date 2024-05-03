@@ -592,14 +592,14 @@ def spine_tools(cfg):
         # register_segmentations(cfg.settings, template_id=template_id, target_id=scan_id, label_id=label_id,
         #                        on_outlier=False)
 
-    # Now create outliers
-    for idx in all_scan_ids:
-        scan_id = idx[0].strip()
-        scan_image = idx[1].strip()
-        print(f"Creating outlier from scan {scan_id} with image {scan_image}")
-        create_outlier(cfg.settings, scan_id, label_id)
-        # register_segmentations(cfg.settings, template_id=template_id, target_id=scan_id, label_id=label_id,
-        #                        on_outlier=True)
+    # # Now create outliers
+    # for idx in all_scan_ids:
+    #     scan_id = idx[0].strip()
+    #     scan_image = idx[1].strip()
+    #     print(f"Creating outlier from scan {scan_id} with image {scan_image}")
+    #     create_outlier(cfg.settings, scan_id, label_id)
+    #     # register_segmentations(cfg.settings, template_id=template_id, target_id=scan_id, label_id=label_id,
+    #     #                        on_outlier=True)
 
 
 def debug_testing(cfg):

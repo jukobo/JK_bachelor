@@ -110,7 +110,7 @@ for subject in scans:
             raise e
 
 
-dir_to_delete = 'Data/Output_spinetools'
+# dir_to_delete = 'Data/Output_spinetools'
 
 if os.path.exists(dir_to_delete):
     shutil.rmtree(dir_to_delete)

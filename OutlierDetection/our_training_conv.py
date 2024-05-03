@@ -62,7 +62,7 @@ dataset = generate_dataset(train_loader, 100)
 
 ## Define model
 # For simple AE
-model = conv_AE_UNet([1, 32, 16, 8]) #NOTE insert dimensions here
+model = conv_AE_UNet([1, 16, 32, 64, 128]) #NOTE insert dimensions here
 
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu') 

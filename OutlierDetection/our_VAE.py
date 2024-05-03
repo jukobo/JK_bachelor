@@ -347,11 +347,11 @@ class conv_AE_UNet(nn.Module):
         super(conv_AE_UNet, self).__init__()
     
         # Define dimensions
-        input_dim = 1 #dim[0]
-        hidden_dim_1 = 16 #dim[1]
-        hidden_dim_2 = 32 #dim[2]
-        hidden_dim_3 = 64 #dim[3]
-        latent_dim = 128 #dim[4]
+        input_dim = dim[0]
+        hidden_dim_1 = dim[1]
+        hidden_dim_2 = dim[2]
+        hidden_dim_3 = dim[3]
+        latent_dim = dim[4]
 
         kernel_size = 3
         stride = 1
@@ -435,18 +435,6 @@ def loss_function(x_reconstructed, x):
     loss = nn.MSELoss()
     mse = loss(x_reconstructed, x)
     return mse
-
-# def loss_function_re(x, x_reconstructed, device):
-#     criterion = nn.MSELoss().to(device) #reduction='sum'
-#     loss = criterion(x_reconstructed, x)
-#     return loss
-
-# def loss_function_cla(x, x_classified):
-#     loss_function_cla = nn.functional.binary_cross_entropy
-#     loss = loss_function_cla(x_classified, x, reduction='sum')
-
-#     return loss
-
 
 
 def load_split_data(folder_healthy, folder_outlier):

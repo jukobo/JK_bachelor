@@ -114,6 +114,14 @@ class VAE(nn.Module):
         x_reconstructed = self.decoder(z)
         return x_reconstructed, mean, var
     
+
+    def loss_function(x_reconstructed, x):
+        loss = nn.MSELoss()
+        mse = loss(x_reconstructed, x)
+
+        return mse
+
+
 ## Cross entropy loss function
 # def loss_function(x_reconstructed, x):
 #     loss = nn.MSELoss()

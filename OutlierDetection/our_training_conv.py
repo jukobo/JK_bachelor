@@ -307,8 +307,8 @@ def train2D_conv(model, optimizer, epochs, device):
 
     # np.save('OutlierDetection/o_loss3.npy', o_loss)
     # np.save('OutlierDetection/val_loss3.npy', val_loss)
-    np.save(f'/scratch/{study_no_save}/Data/o_loss3.npy', o_loss)
-    np.save(f'/scratch/{study_no_save}/Data/Val_loss3.npy', val_loss)
+    np.save(f'/scratch/{study_no_save}/Data/o_loss.npy', o_loss)
+    np.save(f'/scratch/{study_no_save}/Data/Val_loss.npy', val_loss)
 
     
 

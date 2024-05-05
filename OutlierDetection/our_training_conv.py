@@ -238,8 +238,8 @@ def train2D_conv(model, optimizer, epochs, device):
             # Update step
             step+=1
 
-            # Do evaluation every 50 step
-            if step%4000 == 0:
+            # Do evaluation every 50 epoch
+            if step%5000 == 0:
                 print()
                 print("EVALUATION!")
                 model.eval() #Set to evaluation
@@ -252,7 +252,7 @@ def train2D_conv(model, optimizer, epochs, device):
                     inputs = dataset[0]
 
                     org_img = inputs.cpu().numpy()
-                    np.save(f'/scratch/{study_no_save}/Data/rec_data2/original.npy', org_img)
+                    np.save(f'/scratch/{study_no_save}/Data/rec_data/original.npy', org_img)
 
                     #-- Plotting the original image
                     # plt.imshow(inputs.squeeze(), cmap='gray')
@@ -272,7 +272,7 @@ def train2D_conv(model, optimizer, epochs, device):
                     # Save reconstructed images
                     numpy_array = inputs_reconstructed.cpu().numpy()
                     # np.save(f'OutlierDetection/rec_data3/reconstruction{epoch}.npy', numpy_array)
-                    np.save(f'/scratch/{study_no_save}/Data/rec_data2/reconstruction{epoch}.npy', numpy_array)
+                    np.save(f'/scratch/{study_no_save}/Data/rec_data/reconstruction{epoch}.npy', numpy_array)
 
 
                     # Save loss
@@ -299,10 +299,10 @@ def train2D_conv(model, optimizer, epochs, device):
 
         ## Save model
         if epoch == 0:
-            torch.save(model.state_dict(), f'/scratch/{study_no_save}/Data/model_conv_{epoch}2.pth')
+            torch.save(model.state_dict(), f'/scratch/{study_no_save}/Data/model_conv_{epoch}.pth')
             print('Model saved')
         elif epoch == epochs-1:
-            torch.save(model.state_dict(), f'/scratch/{study_no_save}/Data/model_conv_{epoch}2.pth')
+            torch.save(model.state_dict(), f'/scratch/{study_no_save}/Data/model_conv_{epoch}.pth')
             print('Model saved')
 
     # np.save('OutlierDetection/o_loss3.npy', o_loss)

@@ -53,6 +53,7 @@ class LoadData(Dataset):
         subject = self.images[index].split("_")[0]
 
         return inputs, msk, subject
+    
 
 
 class VAE(nn.Module):

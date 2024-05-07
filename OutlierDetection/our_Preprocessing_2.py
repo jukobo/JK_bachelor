@@ -222,25 +222,25 @@ for subject in tqdm(all_subjects):
             heatmap[heatmap < 0.001] = 0
 
 
-            # distfield
-            try:
-                img_seg = sitk.ReadImage(segm_name) #segm_name dir for segmentation
-            except RuntimeError as e:
-                print(f"Got an exception {str(e)}")
-                print(f"Error reading {segm_name}")
+            # # distfield
+            # try:
+            #     img_seg = sitk.ReadImage(segm_name) #segm_name dir for segmentation
+            # except RuntimeError as e:
+            #     print(f"Got an exception {str(e)}")
+            #     print(f"Error reading {segm_name}")
                 
             
-            # Extract image data in numpy format
-            img_t = sitk.GetArrayFromImage(img_seg)
-            mask = img_t == label_id
+            # # Extract image data in numpy format
+            # img_t = sitk.GetArrayFromImage(img_seg)
+            # mask = img_t == label_id
 
-            dist_image = distance_transform_edt(mask)
+            # dist_image = distance_transform_edt(mask)
 
-            # Outside mask
-            mask_2 = img_t != label_id
-            dist_image_2 = distance_transform_edt(mask_2)
+            # # Outside mask
+            # mask_2 = img_t != label_id
+            # dist_image_2 = distance_transform_edt(mask_2)
 
-            final_dist = dist_image_2 - dist_image
+            # final_dist = dist_image_2 - dist_image
 
 
             #Define filenames and save data
@@ -248,7 +248,7 @@ for subject in tqdm(all_subjects):
 
             msk_filename = subject_ID + "_msk.npy" 
 
-            dist_filename = subject_ID + "_dist_field.npy"
+            # dist_filename = subject_ID + "_dist_field.npy"
 
             heatmap_filename = subject_ID + "_heatmap.npy" #Input
 
@@ -257,7 +257,7 @@ for subject in tqdm(all_subjects):
 
             np.save(os.path.join(msk_path,msk_filename), data_msk_temp)
 
-            np.save(os.path.join(dist_path,dist_filename), final_dist)
+            # np.save(os.path.join(dist_path,dist_filename), final_dist)
 
             np.save(os.path.join(heatmap_path,heatmap_filename), heatmap)
 

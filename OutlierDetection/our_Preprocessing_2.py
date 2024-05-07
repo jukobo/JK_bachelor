@@ -158,8 +158,8 @@ for subject in tqdm(all_subjects):
 
 
     # #Crop image and mask based on centroids!
-    # for ctd in ctd_resampled_reoriented[1:]:
-    #     if ctd[0] == 20:
+    for ctd in ctd_resampled_reoriented[1:]:
+        if ctd[0] == 20:
     #         x = np.round(ctd[1]).astype(int)
     #         y = np.round(ctd[2]).astype(int)
     #         z = np.round(ctd[3]).astype(int)
@@ -168,12 +168,12 @@ for subject in tqdm(all_subjects):
 
     #         # #Crop image and mask
     #         # data_img_temp, restrictions = center_and_pad(data=data_img, new_dim=new_dim, pad_value=-1,centroid=centroid)
-    #         # data_msk_temp, restrictions = center_and_pad(data=data_msk, new_dim=new_dim, pad_value=-1,centroid=centroid)
+            data_msk_temp, restrictions = center_and_pad(data=data_msk, new_dim=new_dim, pad_value=-1,centroid=centroid)
     #         #Extract values
     #         x_min_restrict, _, y_min_restrict, _, z_min_restrict, _ = restrictions
 
     #         #Remove all other masks than the relevant one and convert to binary
-    #         data_msk_temp = np.where(data_msk_temp == ctd[0],1,0)
+            data_msk_temp = np.where(data_msk_temp == ctd[0],1,0)
             
 
     #         subject_ID = subject + '-' + str(ctd[0])
@@ -194,13 +194,13 @@ for subject in tqdm(all_subjects):
     #         #Thresholding
     #         heatmap[heatmap < 0.001] = 0
 
-            #Define filenames and save data
-            img_filename = subject_ID + "_img.npy" #Input
-            heatmap_filename = subject_ID + "_heatmap.npy" #Input
-            msk_filename = subject_ID + "_msk.npy" #Target
-            np.save(os.path.join(img_path,img_filename), data_img_temp)
-            np.save(os.path.join(heatmap_path,heatmap_filename), heatmap)
-            np.save(os.path.join(msk_path,msk_filename), data_msk_temp)
+    #Define filenames and save data
+    img_filename = subject + "_img.npy" #Input
+    # heatmap_filename = subject + "_heatmap.npy" #Input
+    msk_filename = subject + "_msk.npy" #Target
+    np.save(os.path.join(img_path,img_filename), data_img)
+    # np.save(os.path.join(heatmap_path,heatmap_filename), heatmap)
+    np.save(os.path.join(msk_path,msk_filename), data_msk_temp)
 
 
 #Save padding-directory

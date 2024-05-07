@@ -35,7 +35,7 @@ new_dim = (128,128,96)
 #Define directories
 
 ### GPU CLUSTER ###
-dir_data = 'Data/Verse20/Outlier_detection/crops_validation_unpacked' #Overall folder. Defining specific below #'/scratch/s174197/data/Verse20/Verse20_test_unpacked' #'/Users/andreasaspe/Documents/Data/Verse20/Verse20_test_unpacked'
+dir_data = 'Data/Verse20/Outlier_detection/crops_test_unpacked' #Overall folder. Defining specific below #'/scratch/s174197/data/Verse20/Verse20_test_unpacked' #'/Users/andreasaspe/Documents/Data/Verse20/Verse20_test_unpacked'
 #ONLY FOR SAVING TIME AND GETTING THE RIGHT SUBJECTS
 dir_data_localisation = 'Data/Verse20_validation_unpacked_spinetools/raw' #list of images, rember to remove files, that spinetools haven't used
 #Outputs

@@ -228,7 +228,7 @@ for subject in tqdm(all_subjects):
             except RuntimeError as e:
                 print(f"Got an exception {str(e)}")
                 print(f"Error reading {segm_name}")
-                return
+                
             
             # Extract image data in numpy format
             img_t = sitk.GetArrayFromImage(img_seg)

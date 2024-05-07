@@ -2,7 +2,7 @@ import torch
 import numpy as np
 import matplotlib.pyplot as plt
 
-from our_VAE import conv_AE_UNet
+from our_VAE import conv_AE_UNet, loss_function
 
 ## Planen er at starte på evaluerigen af billederne, altså hvor vi indlæser modellerne og laver histogrammer
 
@@ -17,8 +17,15 @@ def load_model(model_path, dim):
 def evaluate_model(model, img):
     # Load model
     rec_img = model(img)
-    rec_img = rec_img.detach().numpy()
-    print(rec_img.shape)
+    
+    # Calculate error
+    mse = loss_function(rec_img, img)
+
+    return mse
+
+
+
+def plot_histograms(losses):
 
     # I = np.int8(feat_img)
     # max_val = np.int8(np.max(I.flatten()))
@@ -30,7 +37,5 @@ def evaluate_model(model, img):
     plt.show()
 
     return
-
-
 
 

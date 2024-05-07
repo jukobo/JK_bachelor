@@ -4,11 +4,11 @@ import shutil
 
     
 #Input directories
-dir_crops = 'Data/Output_spinetools/test/crops'  #Output folder from Spinetools
+dir_crops = 'Data/Output_spinetools/validation/crops'  #Output folder from Spinetools
 # dir_crops = 'Data/Output_spinetools/dist_fields'  #Output folder from Spinetools
 
 
-dir_destination = 'Data/Verse20/Outlier_detection/crops_test_unpacked' 
+dir_destination = 'Data/Verse20/Outlier_detection/crops_validation_unpacked' 
  
 
 
@@ -68,10 +68,10 @@ for subject in scans:
 
 # Move distfields
 
-dir_dist = 'Data/Output_spinetools/test/dist_fields'  #Output folder from Spinetools
+dir_dist = 'Data/Output_spinetools/validation/dist_fields'  #Output folder from Spinetools
 
 
-dir_destination = 'Data/Verse20/Outlier_detection/crops_test_unpacked' 
+dir_destination = 'Data/Verse20/Outlier_detection/crops_validation_unpacked' 
  
 
 

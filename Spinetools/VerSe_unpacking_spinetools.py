@@ -2,14 +2,14 @@ from os import listdir
 import os
 import shutil
 
-Type = 'test'
+Type = 'validation'
 #Input directories
-dir_rawdata = f'/scratch/s214725/Data/Verse20/dataset-verse20{Type}/rawdata' 
-dir_derivatives = f'/scratch/s214725/Data/Verse20/dataset-verse20{Type}/derivatives' 
+dir_rawdata = f'Data/dataset-verse20{Type}/rawdata' 
+dir_derivatives = f'Data/dataset-verse20{Type}/derivatives' 
 
-raw_dir_destination = f'/scratch/s214725/Data/Verse20/Verse20_{Type}_unpacked_spinetools/raw' 
-msk_dir_destination = f'/scratch/s214725/Data/Verse20/Verse20_{Type}_unpacked_spinetools/msk' 
-ctd_dir_destination = f'/scratch/s214725/Data/Verse20/Outlier_detection/crops_{Type}_unpacked' 
+raw_dir_destination = f'Data/Verse20/Verse20_{Type}_unpacked_spinetools/raw' 
+msk_dir_destination = f'Data/Verse20/Verse20_{Type}_unpacked_spinetools/msk' 
+ctd_dir_destination = f'Data/Verse20/Outlier_detection/crops_{Type}_unpacked' 
 
 
 #Define list of scans

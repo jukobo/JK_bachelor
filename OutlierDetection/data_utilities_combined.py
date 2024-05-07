@@ -512,9 +512,9 @@ def crop_and_resample_roi(image, roi_center, roi_side_length, voxel_side_length,
     dir_y = direction[4]
     dir_z = direction[8]
 
-    new_origin_x = roi_center[0] - dir_x * roi_side_length / 2
-    new_origin_y = roi_center[1] - dir_y * roi_side_length / 2
-    new_origin_z = roi_center[2] - dir_z * roi_side_length / 2
+    new_origin_x = roi_center[0] - dir_x * roi_side_length[0] / 2
+    new_origin_y = roi_center[1] - dir_y * roi_side_length[1] / 2
+    new_origin_z = roi_center[2] - dir_z * roi_side_length[2] / 2
 
     new_size = [nvox_side, nvox_side, nvox_side]
     new_image = sitk.Image(new_size, image.GetPixelIDValue())

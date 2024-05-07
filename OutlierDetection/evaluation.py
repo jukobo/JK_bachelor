@@ -25,10 +25,18 @@ def evaluate_model(model, img):
 
 
 
-def plot_histograms(losses, no_bins):
+def plot_histograms(loss_healthy, loss_outlier, no_bins):
 
-    # Plotting the histogram
-    plt.hist(losses, bins=no_bins, color='blue', edgecolor='black')
+    # Plotting the histogram of one loss
+    # plt.hist(losses, bins=no_bins, color='blue', edgecolor='black')
+
+    # Plotting the histogram of two losses
+        # Plotting the histogram for the first set of losses (blue)
+    plt.hist(loss_healthy, bins=no_bins, color='blue', edgecolor='black', alpha=0.5, label='Losses healthy')
+
+    # Plotting the histogram for the second set of losses (red)
+    plt.hist(loss_outlier, bins=no_bins, color='red', edgecolor='black', alpha=0.5, label='Losses outliers')
+
 
     # Adding labels and title
     plt.xlabel('Value')

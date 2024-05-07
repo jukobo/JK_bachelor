@@ -21,21 +21,37 @@ def evaluate_model(model, img):
     # Calculate error
     mse = loss_function(rec_img, img)
 
-    return mse
+    return mse.item()
 
 
 
-def plot_histograms(losses):
+def plot_histograms(losses, no_bins):
 
-    # I = np.int8(feat_img)
-    # max_val = np.int8(np.max(I.flatten()))
-    max_val = np.max(rec_img.flatten())
+    # Plotting the histogram
+    plt.hist(losses, bins=no_bins, color='blue', edgecolor='black')
 
-    hist_in, bins = np.histogram(rec_img, bins=100, range = [-0.5, max_val+0.5])
+    # Adding labels and title
+    plt.xlabel('Value')
+    plt.ylabel('Frequency')
+    plt.title('Histogram over errors in reconstruction of images')
 
-    plt.bar(bins[:-1], hist_in, width = 1)
+    # Displaying the plot
     plt.show()
 
-    return
+    return 
 
+def plot_histogrgrams2(losses, no_bins):
+    hist_values, bin_edges = np.histogram(losses, bins=no_bins)
 
+    # Plotting the histogram
+    plt.bar(bin_edges[:-1], hist_values, width=np.diff(bin_edges), color='blue', edgecolor='black')
+
+    # Adding labels and title
+    plt.xlabel('Value')
+    plt.ylabel('Frequency')
+    plt.title('Histogram over errors in reconstruction of images')
+
+    # Displaying the plot
+    plt.show()
+
+    return hist_values, bin_edges

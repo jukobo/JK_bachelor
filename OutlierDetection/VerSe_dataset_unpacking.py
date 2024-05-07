@@ -11,12 +11,13 @@ import os
 import shutil
 
 student_id = 's214725'
+Type = 'test'
     
 #Input directories
-dir_rawdata = f'/scratch/{student_id}/Data/Verse20/dataset-verse20test/rawdata' 
-dir_derivatives = f'/scratch/{student_id}/Data/Verse20/dataset-verse20test/derivatives' 
+dir_rawdata = f'/scratch/{student_id}/Data/Verse20/dataset-verse20{Type}/rawdata' 
+dir_derivatives = f'/scratch/{student_id}/Data/Verse20/dataset-verse20{Type}/derivatives' 
 #Output directories (Will create a folder if it does not exist)
-dir_destination = f'/scratch/{student_id}/Data/Verse20/Verse20_test_unpacked'
+dir_destination = f'/scratch/{student_id}/Data/Verse20/Verse20_{Type}_unpacked'
 
 #Define list of scans
 scans = [f for f in listdir(dir_rawdata) if f.startswith('sub-v')] #Remove file .DS_Store and sub-gl

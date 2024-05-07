@@ -497,3 +497,42 @@ def gaussian_kernel_3d_new(origins, meshgrid_dim, gamma, sigma=1):
     factor = gamma/( (2*math.pi)**(d/2)*sigma**d   )
     heatmap = factor*kernel
     return heatmap
+
+
+
+def crop_and_resample_roi(image, roi_center, roi_side_length, voxel_side_length, label_map=False):
+    # Create the sampled image with same direction
+    direction = image.GetDirection()
+
+    # Desired voxel spacing for new image
+    new_spacing = [voxel_side_length, voxel_side_length, voxel_side_length]
+    nvox_side = int(roi_side_length / voxel_side_length + 1)
+
+    dir_x = direction[0]
+    dir_y = direction[4]
+    dir_z = direction[8]
+
+    new_origin_x = roi_center[0] - dir_x * roi_side_length / 2
+    new_origin_y = roi_center[1] - dir_y * roi_side_length / 2
+    new_origin_z = roi_center[2] - dir_z * roi_side_length / 2
+
+    new_size = [nvox_side, nvox_side, nvox_side]
+    new_image = sitk.Image(new_size, image.GetPixelIDValue())
+    new_image.SetOrigin([new_origin_x, new_origin_y, new_origin_z])
+    new_image.SetSpacing(new_spacing)
+    new_image.SetDirection(direction)
+
+    # Make translation with no offset, since sitk.Resample needs this arg.
+    translation = sitk.TranslationTransform(3)
+    translation.SetOffset((0, 0, 0))
+
+    if label_map:
+        default_value = 0
+        interpolator = sitk.sitkNearestNeighbor
+    else:
+        default_value = -2048.0
+        interpolator = sitk.sitkLinear
+    # Create final resampled image
+    resampled_image = sitk.Resample(image, new_image, translation, interpolator, default_value)
+
+    return resampled_image

@@ -11,7 +11,7 @@ import os
 import shutil
 
 student_id = 's214725'
-Type = 'test'
+Type = 'training'
     
 #Input directories
 dir_rawdata = f'/scratch/{student_id}/Data/Verse20/dataset-verse20{Type}/rawdata' 

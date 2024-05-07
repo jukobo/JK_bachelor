@@ -13,22 +13,22 @@ def generate_dataset(trainloader, no):
 
         dataset.append(x[0][0,64,:,:].unsqueeze(dim=0))
 
-        if i+1 == no:
-            break
+        if len(dataset) == no:
+            return dataset
 
 
     for j in range(len(trainloader)):
         dataset.append(x[0][0,50,:,:].unsqueeze(dim=0))
 
-        if i+j+2 == no:
-            break
-
+        if len(dataset) == no:
+            return dataset
+        
 
     for k in range(len(trainloader)):
         dataset.append(x[0][0,80,:,:].unsqueeze(dim=0))
 
-        if i+j+k+3 == no:
-            break
+        if len(dataset) == no:
+            return dataset
 
     return dataset
 

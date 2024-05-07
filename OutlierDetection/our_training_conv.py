@@ -48,7 +48,7 @@ train_loader = DataLoader(VerSe_train, batch_size=batch_size, shuffle=False, num
 # exit()
 
 ## Generere dataset med angivet antal 2D images
-n = 38
+n = 39
 dataset = generate_dataset(train_loader, n)
 print(len(dataset))
 exit()

@@ -57,6 +57,7 @@ def plot_histograms(loss_healthy, loss_outlier, no_bins):
     plt.xlabel('Value')
     plt.ylabel('Frequency')
     plt.title('Histogram over errors in reconstruction of images')
+    plt.legend()
 
     # Displaying the plot
     plt.show()

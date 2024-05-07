@@ -48,8 +48,9 @@ train_loader = DataLoader(VerSe_train, batch_size=batch_size, shuffle=False, num
 # exit()
 
 ## Generere dataset med angivet antal 2D images
-dataset = generate_dataset(train_loader, 39)
-print(len(dataset))
+n = 39
+dataset = generate_dataset(train_loader, n)
+print(len(dataset), dataset.shape)
 
 # run_name = 'Test_AE2'
 # run_name2 = 'rec_img'
@@ -294,9 +295,9 @@ def train2D_conv(model, optimizer, epochs, device):
                 # }
                 # torch.save(checkpoint, os.path.join(checkpoint_dir,str(run_name)+'_step'+str(step)+'_batchsize'+str(batch_size)+'_lr'+str(lr)+'_wd'+str(wd)+'.pth'))
 
-        o_loss.append(overall_loss/len(train_loader))
+        o_loss.append(overall_loss/n)
         if epoch%100 == 0:
-            print(f'Epoch {epoch+1}, Average loss: {overall_loss/(len(train_loader))}')    
+            print(f'Epoch {epoch+1}, Average loss: {overall_loss/n}')    
 
         ## Save model
         if epoch == 0:

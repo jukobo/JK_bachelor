@@ -23,7 +23,8 @@ fi
 
 source ~/JK_bachelor/.bashrc
 module load CUDA/11.4
-python Spinetools/VerSe_unpacking_spinetools.py --no-mps 
+# python Spinetools/VerSe_unpacking_spinetools.py --no-mps 
+python Spinetools/dtu_spine_tools.py -c Spinetools/configs/dtu-spine-config-kn.json
 
 
 

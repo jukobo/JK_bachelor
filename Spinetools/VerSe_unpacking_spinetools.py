@@ -4,12 +4,12 @@ import shutil
 
     
 #Input directories
-dir_rawdata = 'Data/dataset-verse20validation/rawdata' 
-dir_derivatives = 'Data/dataset-verse20validation/derivatives' 
+dir_rawdata = '/scratch/s214725/Data/Verse20/dataset-verse20validation/rawdata' 
+dir_derivatives = '/scratch/s214725/Data/Verse20/dataset-verse20validation/derivatives' 
 
-raw_dir_destination = 'Data/Verse20_validation_unpacked_spinetools/raw' 
-msk_dir_destination = 'Data/Verse20_validation_unpacked_spinetools/msk' 
-ctd_dir_destination = 'Data/Verse20/Outlier_detection/crops_validation_unpacked' 
+raw_dir_destination = '/scratch/s214725/Data/Verse20/Verse20_validation_unpacked_spinetools/raw' 
+msk_dir_destination = '/scratch/s214725/Data/Verse20/Verse20_validation_unpacked_spinetools/msk' 
+ctd_dir_destination = '/scratch/s214725/Data/Verse20/Outlier_detection/crops_validation_unpacked' 
 
 
 #Define list of scans
@@ -55,3 +55,18 @@ for subject in scans:
         print("Subject "+str(subject)+" has been copied.")
     except:
         print("Subject "+str(subject)+" has already been moved.")
+
+
+scans_g = [f for f in listdir(dir_rawdata) if f.startswith('sub-gl')] 
+
+for subject in scans_g:
+    try:
+        # Define file paths
+        file_path_img = os.path.join(dir_rawdata, subject)
+        file_path_msk = os.path.join(dir_derivatives, subject)
+        # Delete files
+        shutil.rmtree(file_path_img)
+        shutil.rmtree(file_path_msk)
+        print("Files for subject "+str(subject)+" starting with 'sub-g' have been deleted.")
+    except Exception as e:
+        print("An error occurred while deleting files for subject "+str(subject)+":", e)

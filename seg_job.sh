@@ -23,7 +23,7 @@ fi
 
 source ~/JK_bachelor/.bashrc
 module load CUDA/11.4
-python OutlierDetection/our_Preprocessing_2.py --no-mps 
+python Spinetools/VerSe_unpacking_spinetools.py --no-mps 
 
 
 

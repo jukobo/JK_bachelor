@@ -2,7 +2,7 @@
 
 #SBATCH --job-name=jk_spine_model
 #SBATCH --output=jk_spine_model_%J.out
-#SBATCH --cpus-per-task=4
+#SBATCH --cpus-per-task=2
 #SBATCH --time=0-05:00:00
 #SBATCH --mem=32gb
 #SBATCH --gres=gpu:2
@@ -23,7 +23,7 @@ fi
 
 source ~/JK_bachelor/.bashrc
 module load CUDA/11.4
-python OutlierDetection/our_training_conv.py --no-mps 
+python OutlierDetection/our_Preprocessing_2.py --no-mps 
 
 
 

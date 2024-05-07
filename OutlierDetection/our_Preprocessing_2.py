@@ -121,7 +121,6 @@ for subject in tqdm(all_subjects):
     segm_np = sitk.GetArrayFromImage(msk_nib)
     if np.sum(segm_np == label_id) == 0:
         print(f"Label {label_id} not found in {segm_name}")
-        return
     com_np = ndimage.center_of_mass(segm_np == label_id)
 
     # Do the transpose of the coordinates (SimpleITK vs. numpy)

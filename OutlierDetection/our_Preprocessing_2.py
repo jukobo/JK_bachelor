@@ -127,10 +127,6 @@ for subject in tqdm(all_subjects):
     com_itk = [com_np[2], com_np[1], com_np[0]]
     # Transform the index to physical coordinates
     com_phys = img_segm.TransformIndexToPhysicalPoint([int(com_itk[0]), int(com_itk[1]), int(com_itk[2])])
-    with open(com_name, 'w') as f:
-        f.write(f"{com_phys[0]} {com_phys[1]} {com_phys[2]}\n")
-    # print(com_phys)
-
     # Compute the crop around the center of mass
     # The crop is defined in physical coordinates
     crop_center = [com_phys[0], com_phys[1], com_phys[2]]

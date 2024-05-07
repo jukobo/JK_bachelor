@@ -45,7 +45,7 @@ Padding_output_directory = f'/scratch/{student_id}/Verse20/Outlier_detection/Pad
 Padding_output_filename = f'pad_{Type}' 
 
 
-
+label_id = 20
 #Define rescale and reorientation parameters
 New_orientation = ('L', 'A', 'S')
 New_voxel_size = 0.5 # [mm]
@@ -71,7 +71,7 @@ if all_scans:
 else:
     all_subjects = list_of_subjects
 
-print(all_subjects)
+# print(all_subjects)
 padding_specifications = {}
 
 #Create folders for saving data
@@ -118,11 +118,28 @@ for subject in tqdm(all_subjects):
     img_nib = nib.Nifti1Image(data_img, img_nib.affine)
 
     #RESAMPLE AND REORIENT
+    segm_np = sitk.GetArrayFromImage(msk_nib)
+    if np.sum(segm_np == label_id) == 0:
+        print(f"Label {label_id} not found in {segm_name}")
+        return
+    com_np = ndimage.center_of_mass(segm_np == label_id)
+
+    # Do the transpose of the coordinates (SimpleITK vs. numpy)
+    com_itk = [com_np[2], com_np[1], com_np[0]]
+    # Transform the index to physical coordinates
+    com_phys = img.TransformIndexToPhysicalPoint([int(com_itk[0]), int(com_itk[1]), int(com_itk[2])])
+    with open(com_name, 'w') as f:
+        f.write(f"{com_phys[0]} {com_phys[1]} {com_phys[2]}\n")
+    # print(com_phys)
+
+    # Compute the crop around the center of mass
+    # The crop is defined in physical coordinates
+    crop_center = [com_phys[0], com_phys[1], com_phys[2]]
     #Image
-    img_resampled = crop_and_resample_roi(img_nib, roi_center, new_dim, New_voxel_size, label_map=False)
+    img_resampled = crop_and_resample_roi(img_nib, crop_center, new_dim, New_voxel_size, label_map=False)
     img_resampled_reoriented = reorient_to(img_resampled, axcodes_to=New_orientation)
     #Mask
-    msk_resampled = resample_nib(msk_nib, roi_center, new_dim, New_voxel_size, label_map=True) # or resample based on img: resample_mask_to(msk_nib, img_iso)
+    msk_resampled = resample_nib(msk_nib, crop_center, new_dim, New_voxel_size, label_map=True) # or resample based on img: resample_mask_to(msk_nib, img_iso)
     msk_resampled_reoriented = reorient_to(msk_resampled, axcodes_to=New_orientation)
     #Centroids
     ctd_resampled = rescale_centroids(ctd_list, img_nib, vs)
@@ -140,42 +157,42 @@ for subject in tqdm(all_subjects):
     data_img = (HU_range_normalize[1]-HU_range_normalize[0])*(data_img - data_img.min()) / (data_img.max() - data_img.min()) + HU_range_normalize[0]
 
 
-    #Crop image and mask based on centroids!
-    for ctd in ctd_resampled_reoriented[1:]:
-        if ctd[0] == 20:
-            x = np.round(ctd[1]).astype(int)
-            y = np.round(ctd[2]).astype(int)
-            z = np.round(ctd[3]).astype(int)
+    # #Crop image and mask based on centroids!
+    # for ctd in ctd_resampled_reoriented[1:]:
+    #     if ctd[0] == 20:
+    #         x = np.round(ctd[1]).astype(int)
+    #         y = np.round(ctd[2]).astype(int)
+    #         z = np.round(ctd[3]).astype(int)
             
-            centroid = (x,y,z)
+    #         centroid = (x,y,z)
 
-            # #Crop image and mask
-            # data_img_temp, restrictions = center_and_pad(data=data_img, new_dim=new_dim, pad_value=-1,centroid=centroid)
-            # data_msk_temp, restrictions = center_and_pad(data=data_msk, new_dim=new_dim, pad_value=-1,centroid=centroid)
-            #Extract values
-            x_min_restrict, _, y_min_restrict, _, z_min_restrict, _ = restrictions
+    #         # #Crop image and mask
+    #         # data_img_temp, restrictions = center_and_pad(data=data_img, new_dim=new_dim, pad_value=-1,centroid=centroid)
+    #         # data_msk_temp, restrictions = center_and_pad(data=data_msk, new_dim=new_dim, pad_value=-1,centroid=centroid)
+    #         #Extract values
+    #         x_min_restrict, _, y_min_restrict, _, z_min_restrict, _ = restrictions
 
-            #Remove all other masks than the relevant one and convert to binary
-            data_msk_temp = np.where(data_msk_temp == ctd[0],1,0)
+    #         #Remove all other masks than the relevant one and convert to binary
+    #         data_msk_temp = np.where(data_msk_temp == ctd[0],1,0)
             
 
-            subject_ID = subject + '-' + str(ctd[0])
-            padding_specifications.update({subject_ID: restrictions}) #Burde jeg sige minus her?
+    #         subject_ID = subject + '-' + str(ctd[0])
+    #         padding_specifications.update({subject_ID: restrictions}) #Burde jeg sige minus her?
 
-            #Apply transformation to centroid coordinates (cropping and padding)
-            x+=x_min_restrict #PLUS, because we are applying changes. Not reverting.
-            y+=y_min_restrict #PLUS, because we are applying changes. Not reverting.
-            z+=z_min_restrict #PLUS, because we are applying changes. Not reverting.
+    #         #Apply transformation to centroid coordinates (cropping and padding)
+    #         x+=x_min_restrict #PLUS, because we are applying changes. Not reverting.
+    #         y+=y_min_restrict #PLUS, because we are applying changes. Not reverting.
+    #         z+=z_min_restrict #PLUS, because we are applying changes. Not reverting.
 
-            #Generate heatmap
-            origins = (x,y,z) #Convert for cropping and padding
-            meshgrid_dim = new_dim
-            heatmap = gaussian_kernel_3d_new(origins,meshgrid_dim,gamma = 1,sigma = sigma)
-            #Normalize
-            heatmap = (heatmap - heatmap.min()) / (heatmap.max() - heatmap.min())
+    #         #Generate heatmap
+    #         origins = (x,y,z) #Convert for cropping and padding
+    #         meshgrid_dim = new_dim
+    #         heatmap = gaussian_kernel_3d_new(origins,meshgrid_dim,gamma = 1,sigma = sigma)
+    #         #Normalize
+    #         heatmap = (heatmap - heatmap.min()) / (heatmap.max() - heatmap.min())
 
-            #Thresholding
-            heatmap[heatmap < 0.001] = 0
+    #         #Thresholding
+    #         heatmap[heatmap < 0.001] = 0
 
             #Define filenames and save data
             img_filename = subject_ID + "_img.npy" #Input

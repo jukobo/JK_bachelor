@@ -23,10 +23,10 @@ from scipy import ndimage
 #Define scans
 all_scans = 1 #Set to 1 if you want to preprocess all scans
 # list_of_subjects = ['sub-verse813'] #List of subjects 521, 820
-with open("OutlierDetection/Lists_preproces/list_of_subjects_training_VERSE", "rb") as fp:   # Unpickling
-    list_of_subjects = pickle.load(fp)
+# with open("OutlierDetection/Lists_preproces/list_of_subjects_training_VERSE", "rb") as fp:   # Unpickling
+#     list_of_subjects = pickle.load(fp)
 sigma = 5 #Parameter for heatmaps
-
+Type = "test"
 new_dim = (128,128,96)
 #######################################################
 #######################################################
@@ -35,14 +35,14 @@ new_dim = (128,128,96)
 #Define directories
 
 ### GPU CLUSTER ###
-dir_data = 'Data/Verse20/Outlier_detection/crops_test_unpacked' #Overall folder. Defining specific below #'/scratch/s174197/data/Verse20/Verse20_test_unpacked' #'/Users/andreasaspe/Documents/Data/Verse20/Verse20_test_unpacked'
+dir_data = f'Data/Verse20/Outlier_detection/crops_{Type}_unpacked' #Overall folder. Defining specific below #'/scratch/s174197/data/Verse20/Verse20_test_unpacked' #'/Users/andreasaspe/Documents/Data/Verse20/Verse20_test_unpacked'
 #ONLY FOR SAVING TIME AND GETTING THE RIGHT SUBJECTS
-dir_data_localisation = 'Data/Verse20_validation_unpacked_spinetools/raw' #list of images, rember to remove files, that spinetools haven't used
+dir_data_localisation = f'Data/Verse20_{Type}_unpacked_spinetools/raw' #list of images, rember to remove files, that spinetools haven't used
 #Outputs
-Output_folder = 'Data/Verse20/Outlier_detection/crops_validation_prep'
+Output_folder = f'Data/Verse20/Outlier_detection/crops_{Type}_prep'
 #Padding
 Padding_output_directory = 'Data/Verse20/Outlier_detection/Padding_specifications'
-Padding_output_filename = 'pad_validation' # NOTE: Remember to change!
+Padding_output_filename = f'pad_{Type}' # NOTE: Remember to change!
 
 
 

@@ -14,6 +14,8 @@ def load_model(model_path, dim):
 
     return model
 
+
+
 def evaluate_model(model, img):
     # Load model
     rec_img = model(img)
@@ -27,15 +29,28 @@ def evaluate_model(model, img):
 
 def plot_histograms(loss_healthy, loss_outlier, no_bins):
 
-    # Plotting the histogram of one loss
-    # plt.hist(losses, bins=no_bins, color='blue', edgecolor='black')
+    # Calculate the range for bins based on each set of losses
+    max_value1 = max(loss_healthy)
+    min_value1 = min(loss_healthy)
+    bin_range1 = (max_value1 - min_value1) / no_bins
+    bins1 = [min_value1 + i * bin_range1 for i in range(no_bins+1)]
+
+    max_value2 = max(loss_outlier)
+    min_value2 = min(loss_outlier)
+    bin_range2 = (max_value2 - min_value2) / no_bins
+    bins2 = [min_value2 + i * bin_range2 for i in range(no_bins+1)]
+
+    # Saving the histogram values for both sets of losses
+    hist_values1, _ = np.histogram(loss_healthy, bins=bins1)
+    hist_values2, _ = np.histogram(loss_outlier, bins=bins2)
+
 
     # Plotting the histogram of two losses
-        # Plotting the histogram for the first set of losses (blue)
-    plt.hist(loss_healthy, bins=no_bins, color='blue', edgecolor='black', alpha=0.5, label='Losses healthy')
+    # Plotting the histogram for the first set of losses (blue)
+    plt.hist(loss_healthy, bins=bins1, color='blue', edgecolor='black', alpha=0.5, label='Losses healthy')
 
     # Plotting the histogram for the second set of losses (red)
-    plt.hist(loss_outlier, bins=no_bins, color='red', edgecolor='black', alpha=0.5, label='Losses outliers')
+    plt.hist(loss_outlier, bins=bins2, color='red', edgecolor='black', alpha=0.5, label='Losses outliers')
 
 
     # Adding labels and title
@@ -46,7 +61,9 @@ def plot_histograms(loss_healthy, loss_outlier, no_bins):
     # Displaying the plot
     plt.show()
 
-    return 
+    return hist_values1, hist_values2, bins1, bins2
+
+
 
 def plot_histogrgrams2(losses, no_bins):
     hist_values, bin_edges = np.histogram(losses, bins=no_bins, range=(0, 0.1))
@@ -63,3 +80,4 @@ def plot_histogrgrams2(losses, no_bins):
     plt.show()
 
     return hist_values, bin_edges
+

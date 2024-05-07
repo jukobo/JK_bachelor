@@ -49,7 +49,7 @@ def plot_histograms(loss_healthy, loss_outlier, no_bins):
     return 
 
 def plot_histogrgrams2(losses, no_bins):
-    hist_values, bin_edges = np.histogram(losses, bins=no_bins)
+    hist_values, bin_edges = np.histogram(losses, bins=no_bins, range=(0, 0.1))
 
     # Plotting the histogram
     plt.bar(bin_edges[:-1], hist_values, width=np.diff(bin_edges), color='blue', edgecolor='black')

@@ -26,7 +26,7 @@ all_scans = 1 #Set to 1 if you want to preprocess all scans
 # with open("OutlierDetection/Lists_preproces/list_of_subjects_training_VERSE", "rb") as fp:   # Unpickling
 #     list_of_subjects = pickle.load(fp)
 sigma = 5 #Parameter for heatmaps
-Type = "test"
+Type = "validation"
 new_dim = (128,128,96)
 #######################################################
 #######################################################

@@ -1,5 +1,5 @@
 {
-    "base_dir": "\\..\\..\\..\\scratch\\s214725\\Data\\Output_spinetools\\test",
+    "base_dir": "\\Data\\Output_spinetools\\test",
     "image_dir": "\\scratch\\s214725\\Data\\Verse20\\Verse20_test_unpacked_spinetools\\raw\\",
     "segmentation_dir": "\\scratch\\s214725\\Data\\Verse20\\Verse20_test_unpacked_spinetools\\msk\\",
     "elastix_settings_dir": "\\home\\s214725\\ElastixSettings\\",

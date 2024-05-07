@@ -118,7 +118,7 @@ for subject in tqdm(all_subjects):
     img_nib = nib.Nifti1Image(data_img, img_nib.affine)
 
     #RESAMPLE AND REORIENT
-    segm_np = sitk.GetArrayFromImage(os.path.join(dir_data,filename_msk))
+    segm_np = sitk.GetArrayFromImage(sitk.ReadImage(os.path.join(dir_data,filename_msk)))
     if np.sum(segm_np == label_id) == 0:
         print(f"Label {label_id} not found in {segm_name}")
     com_np = ndimage.center_of_mass(segm_np == label_id)

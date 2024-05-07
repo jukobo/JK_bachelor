@@ -23,7 +23,7 @@ fi
 
 source ~/JK_bachelor/.bashrc
 module load CUDA/11.4
-python OutlierDetection/VerSe_dataset_unpacking.py --no-mps 
+python OutlierDetection/our_Preprocessing_2.py --no-mps 
 
 
 

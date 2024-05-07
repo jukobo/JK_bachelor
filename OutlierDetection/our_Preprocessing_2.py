@@ -116,9 +116,9 @@ for subject in tqdm(all_subjects):
     data_img = gaussian_filter(data_img, sigma=sigma_smooth)
     #Save as Nifti file
     img_nib = nib.Nifti1Image(data_img, img_nib.affine)
-
+    img_segm = sitk.ReadImage(os.path.join(dir_data,filename_msk))
     #RESAMPLE AND REORIENT
-    segm_np = sitk.GetArrayFromImage(sitk.ReadImage(os.path.join(dir_data,filename_msk)))
+    segm_np = sitk.GetArrayFromImage(img_segm)
     if np.sum(segm_np == label_id) == 0:
         print(f"Label {label_id} not found in {segm_name}")
     com_np = ndimage.center_of_mass(segm_np == label_id)
@@ -126,7 +126,7 @@ for subject in tqdm(all_subjects):
     # Do the transpose of the coordinates (SimpleITK vs. numpy)
     com_itk = [com_np[2], com_np[1], com_np[0]]
     # Transform the index to physical coordinates
-    com_phys = img.TransformIndexToPhysicalPoint([int(com_itk[0]), int(com_itk[1]), int(com_itk[2])])
+    com_phys = img_segm.TransformIndexToPhysicalPoint([int(com_itk[0]), int(com_itk[1]), int(com_itk[2])])
     with open(com_name, 'w') as f:
         f.write(f"{com_phys[0]} {com_phys[1]} {com_phys[2]}\n")
     # print(com_phys)

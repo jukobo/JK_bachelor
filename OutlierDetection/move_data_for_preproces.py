@@ -4,11 +4,11 @@ import shutil
 
     
 #Input directories
-dir_crops = 'Data/Output_spinetools/validation/crops'  #Output folder from Spinetools
+dir_crops = 'Data/Output_spinetools/test/crops'  #Output folder from Spinetools
 # dir_crops = 'Data/Output_spinetools/dist_fields'  #Output folder from Spinetools
 
 
-dir_destination = 'Data/Verse20/Outlier_detection/crops_validation_unpacked' 
+dir_destination = 'Data/Verse20/Outlier_detection/crops_test_unpacked' 
  
 
 
@@ -54,12 +54,12 @@ for subject in scans:
         dir_destination_img = os.path.join(dir_destination,subject)
         dir_destination_dist = os.path.join(dir_destination,subject)
         #Move files
-        shutil.move(source_img, dir_destination_img)
-        print("Subject "+str(subject)+" has been moved.")
+        shutil.copy(source_img, dir_destination_img)
+        print("Subject "+str(subject)+" has been copied.")
     
     except shutil.Error as e:
         if "already exists" in str(e):
-            print("Subject "+str(subject)+" has already been moved.")
+            print("Subject "+str(subject)+" has already been copied.")
         else:
             raise e
 
@@ -68,10 +68,10 @@ for subject in scans:
 
 # Move distfields
 
-dir_dist = 'Data/Output_spinetools/validation/dist_fields'  #Output folder from Spinetools
+dir_dist = 'Data/Output_spinetools/test/dist_fields'  #Output folder from Spinetools
 
 
-dir_destination = 'Data/Verse20/Outlier_detection/crops_validation_unpacked' 
+dir_destination = 'Data/Verse20/Outlier_detection/crops_test_unpacked' 
  
 
 
@@ -100,12 +100,12 @@ for subject in scans:
         #Get final directory of destination
         dir_destination_dist = os.path.join(dir_destination,subject)
         #Move files
-        shutil.move(source_img, dir_destination_dist)
-        print("Subject "+str(subject)+" has been moved.")
+        shutil.copy(source_img, dir_destination_dist)
+        print("Subject "+str(subject)+" has been copied.")
     
     except shutil.Error as e:
         if "already exists" in str(e):
-            print("Subject "+str(subject)+" has already been moved.")
+            print("Subject "+str(subject)+" has already been copied.")
         else:
             raise e
 

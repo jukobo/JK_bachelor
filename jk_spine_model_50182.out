@@ -1,9 +1,0 @@
-Node: comp-gpu06
-Start: 2024-05-07-11:09:54
-Working dir: /home/s214725/JK_bachelor
-
-/var/lib/slurm/slurmd/job50182/slurm_script: line 24: /home/s214725/JK_bachelor/.bashrc: No such file or directory
-  File "/home/s214725/JK_bachelor/OutlierDetection/our_Preprocessing_2.py", line 198
-    img_filename = subject_ID + "_img.npy" #Input
-IndentationError: unexpected indent
-Done: 2024-05-07-11:09:55

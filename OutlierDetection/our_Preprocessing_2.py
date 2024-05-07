@@ -37,7 +37,7 @@ Type = 'test'
 ### GPU CLUSTER ###
 dir_data = f'/scratch/{student_id}/Data/Verse20/Verse20_{Type}_unpacked' #Overall folder. Defining specific below #'/scratch/s174197/data/Verse20/Verse20_test_unpacked' #'/Users/andreasaspe/Documents/Data/Verse20/Verse20_test_unpacked'
 #ONLY FOR SAVING TIME AND GETTING THE RIGHT SUBJECTS
-dir_data_localisation = f'/scratch/{student_id}/Data/Verse20/dataset-verse20{Type}/rawdata' #list of images, rember to remove files, that spinetools haven't used
+dir_data_localisation = f'/scratch/{student_id}/Data/Verse20/Verse20_{Type}_unpacked' #list of images, rember to remove files, that spinetools haven't used
 #Outputs
 Output_folder = f'/scratch/{student_id}/Data/Verse20/Outlier_detection/crops_{Type}_prep'
 #Padding
@@ -71,7 +71,7 @@ if all_scans:
 else:
     all_subjects = list_of_subjects
 
-
+print(all_subjects)
 padding_specifications = {}
 
 #Create folders for saving data

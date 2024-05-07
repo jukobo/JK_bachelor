@@ -118,12 +118,11 @@ for subject in tqdm(all_subjects):
     img_nib = nib.Nifti1Image(data_img, img_nib.affine)
 
     #RESAMPLE AND REORIENT
-    vs = (New_voxel_size,New_voxel_size,New_voxel_size)
     #Image
-    img_resampled = resample_nib(img_nib, voxel_spacing=vs, order=3)
+    img_resampled = crop_and_resample_roi(img_nib, roi_center, new_dim, New_voxel_size, label_map=False)
     img_resampled_reoriented = reorient_to(img_resampled, axcodes_to=New_orientation)
     #Mask
-    msk_resampled = resample_nib(msk_nib, voxel_spacing=vs, order=0) # or resample based on img: resample_mask_to(msk_nib, img_iso)
+    msk_resampled = resample_nib(msk_nib, roi_center, new_dim, New_voxel_size, label_map=True) # or resample based on img: resample_mask_to(msk_nib, img_iso)
     msk_resampled_reoriented = reorient_to(msk_resampled, axcodes_to=New_orientation)
     #Centroids
     ctd_resampled = rescale_centroids(ctd_list, img_nib, vs)
@@ -150,9 +149,9 @@ for subject in tqdm(all_subjects):
             
             centroid = (x,y,z)
 
-            #Crop image and mask
-            data_img_temp, restrictions = center_and_pad(data=data_img, new_dim=new_dim, pad_value=-1,centroid=centroid)
-            data_msk_temp, restrictions = center_and_pad(data=data_msk, new_dim=new_dim, pad_value=-1,centroid=centroid)
+            # #Crop image and mask
+            # data_img_temp, restrictions = center_and_pad(data=data_img, new_dim=new_dim, pad_value=-1,centroid=centroid)
+            # data_msk_temp, restrictions = center_and_pad(data=data_msk, new_dim=new_dim, pad_value=-1,centroid=centroid)
             #Extract values
             x_min_restrict, _, y_min_restrict, _, z_min_restrict, _ = restrictions
 

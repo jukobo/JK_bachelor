@@ -1,0 +1,7 @@
+Node: comp-gpu06
+Start: 2024-05-07-11:45:39
+Working dir: /home/s214725/JK_bachelor
+
+/var/lib/slurm/slurmd/job50193/slurm_script: line 24: /home/s214725/JK_bachelor/.bashrc: No such file or directory
+python: can't open file '/home/s214725/JK_bachelor/Spinetools\\dtu_spine_tools.py': [Errno 2] No such file or directory
+Done: 2024-05-07-11:45:39

@@ -48,10 +48,9 @@ train_loader = DataLoader(VerSe_train, batch_size=batch_size, shuffle=False, num
 # exit()
 
 ## Generere dataset med angivet antal 2D images
-n = 50
+n = 39
 dataset = generate_dataset(train_loader, n)
-print(len(dataset))
-exit()
+
 
 # run_name = 'Test_AE2'
 # run_name2 = 'rec_img'

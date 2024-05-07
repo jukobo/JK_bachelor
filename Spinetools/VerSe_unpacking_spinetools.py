@@ -1,11 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Mar 29 12:04:46 2023
-
-@author: s174197
-"""
-
 from os import listdir
 import os
 import shutil
@@ -57,9 +49,9 @@ for subject in scans:
         dir_destination_msk = os.path.join(msk_dir_destination,new_filename_msk)
         dir_destination_ctd = os.path.join(ctd_dir_destination,filename_ctd)
         #Move files
-        shutil.move(source_img, dir_destination_img)
-        shutil.move(source_msk, dir_destination_msk)
-        shutil.move(source_ctd, dir_destination_ctd)
-        print("Subject "+str(subject)+" has been moved.")
+        shutil.copy(source_img, dir_destination_img)
+        shutil.copy(source_msk, dir_destination_msk)
+        shutil.copy(source_ctd, dir_destination_ctd)
+        print("Subject "+str(subject)+" has been copied.")
     except:
         print("Subject "+str(subject)+" has already been moved.")

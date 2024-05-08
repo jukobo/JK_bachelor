@@ -26,7 +26,7 @@ wd = parameters_dict['weight_decay']
 
 ## Loading data
 study_no_data = 's214704'
-study_no_save = 's214704'
+study_no_save = 's214725'
 
 # img_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/img"
 # heatmap_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/heatmaps"
@@ -36,7 +36,7 @@ heatmap_dir_training = f"/scratch/{study_no_data}/Data/crops_training_prep/heatm
 msk_dir_training = f"/scratch/{study_no_data}/Data/crops_training_prep/msk"
 
 VerSe_train = LoadData(img_dir=img_dir_training, msk_dir = msk_dir_training, distfield_dir=heatmap_dir_training)
-train_loader = DataLoader(VerSe_train, batch_size=batch_size, shuffle=False, num_workers=0)
+train_loader = DataLoader(VerSe_train, batch_size=batch_size, shuffle=True, num_workers=0)
     # 39 elements (images) in train_loader
     # Each element is a tuple of 3 elements: (img, heatmap, msk)
     # img: torch.Size([2, 128, 128, 96])
@@ -48,7 +48,7 @@ train_loader = DataLoader(VerSe_train, batch_size=batch_size, shuffle=False, num
 # exit()
 
 ## Generere dataset med angivet antal 2D images
-n = 20
+n = 100
 dataset = generate_dataset(train_loader, n)
 
 

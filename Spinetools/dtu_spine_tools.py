@@ -586,8 +586,8 @@ def spine_tools(cfg):
         scan_id = idx[0].strip()
         scan_image = idx[1].strip()
         print(f"Processing scan {scan_id} with image {scan_image}")
-        extract_crop_around_vertebra(cfg.settings, scan_id, scan_image, label_id)
-        extract_label_surfaces(cfg.settings, scan_id, label_id=label_id, on_crop=True)
+        # extract_crop_around_vertebra(cfg.settings, scan_id, scan_image, label_id)
+        # extract_label_surfaces(cfg.settings, scan_id, label_id=label_id, on_crop=True)
         compute_distance_fields(cfg.settings, scan_id=scan_id, label_id=label_id, on_crop=True)
         # register_segmentations(cfg.settings, template_id=template_id, target_id=scan_id, label_id=label_id,
         #                        on_outlier=False)

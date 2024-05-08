@@ -54,12 +54,12 @@ for subject in scans:
         dir_destination_img = os.path.join(dir_destination,subject)
         dir_destination_dist = os.path.join(dir_destination,subject)
         #Move files
-        shutil.move(source_img, dir_destination_img)
-        print("Subject "+str(subject)+" has been moved.")
+        shutil.copy(source_img, dir_destination_img)
+        print("Subject "+str(subject)+" has been copied.")
     
     except shutil.Error as e:
         if "already exists" in str(e):
-            print("Subject "+str(subject)+" has already been moved.")
+            print("Subject "+str(subject)+" has already been copied.")
         else:
             raise e
 
@@ -100,12 +100,12 @@ for subject in scans:
         #Get final directory of destination
         dir_destination_dist = os.path.join(dir_destination,subject)
         #Move files
-        shutil.move(source_img, dir_destination_dist)
-        print("Subject "+str(subject)+" has been moved.")
+        shutil.copy(source_img, dir_destination_dist)
+        print("Subject "+str(subject)+" has been copied.")
     
     except shutil.Error as e:
         if "already exists" in str(e):
-            print("Subject "+str(subject)+" has already been moved.")
+            print("Subject "+str(subject)+" has already been copied.")
         else:
             raise e
 

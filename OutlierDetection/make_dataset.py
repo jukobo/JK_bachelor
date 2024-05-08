@@ -51,19 +51,17 @@ def create_outlier(i, image, radius):
         image[outlier_mask] = torch.mean(image)
     elif i == 2:
       # Square 
-        half_size = radius // 2
         h, w = image.shape[0], image.shape[1]
-        center = [w // 2, h // 2]
+        center = [ h // 2, w // 2]
 
-        start = [max(0, center[0] - half_size), max(0, center[1] - half_size)]
-        end = [min(image.shape[0], center[0] + half_size), min(image.shape[1], center[1] + half_size)]
+        start = [max(0, center[0] - radius), max(0, center[1] - radius)]
+        end = [min(image.shape[0], center[0] + radius), min(image.shape[1], center[1] + radius)]
         image[start[0]:end[0], start[1]:end[1]] = torch.mean(image)
     return image
 
 
-def generate_dataset_outlier(trainloader, no):
+def generate_dataset_outlier(trainloader, no, radius):
     ## Generate a dataset with outliers from a trainloader
-    radius = 30
     dataset = []
     
     for i, (x, y, z) in enumerate(trainloader):

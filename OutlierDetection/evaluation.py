@@ -2,7 +2,7 @@ import torch
 import numpy as np
 import matplotlib.pyplot as plt
 
-from our_VAE import conv_AE_UNet, loss_function
+from AE_functions import conv_AE_UNet, loss_function
 
 ## Planen er at starte på evaluerigen af billederne, altså hvor vi indlæser modellerne og laver histogrammer
 

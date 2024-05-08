@@ -4,7 +4,7 @@ import torch.optim as optim
 from torch.utils.data import DataLoader
 import numpy as np
 
-from VAE import *
+from AE_functions import *
 
 n = 10
 

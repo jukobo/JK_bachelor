@@ -5,7 +5,7 @@ import torch.optim as optim
 from torch.utils.data import DataLoader 
 import numpy as np
 
-from our_VAE import *
+from AE_functions import *
 from dataset import *
 
 

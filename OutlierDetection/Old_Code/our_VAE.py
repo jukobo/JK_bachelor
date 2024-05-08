@@ -463,6 +463,3 @@ def display_tensor_as_image(tensor):
 
 
 
-def save_model(model, path, name):
-    torch.save(model, os.path.join(path, name))
-    print('Model saved')

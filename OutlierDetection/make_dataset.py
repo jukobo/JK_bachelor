@@ -1,5 +1,5 @@
 import numpy as np
-
+import torch
 def generate_dataset(trainloader, no):
     
     ## Generate a dataset from a trainloader
@@ -34,52 +34,62 @@ def generate_dataset(trainloader, no):
 
 
 
+
 def generate_dataset_outlier(trainloader, no):
     ## Generate a dataset with outliers from a trainloader
-
-    if no > 3 * len(trainloader): 
-        print(f'Not enough data')
-        return None
-        
     radius = 30
     dataset = []
-    dataset_temp =[]
+    
     for i, (x, y, z) in enumerate(trainloader):
-
-        dataset_temp = x[0][0,64,:,:].unsqueeze(dim=0)
-        mean = np.mean(dataset_temp, axis=(1, 2))  # Compute mean along spatial dimensions
-        center = [dataset_temp.shape[2] // 2, dataset_temp.shape[3] // 2]  # Calculate center
-        x_1, y_1 = np.ogrid[0:dataset_temp.shape[2], 0:dataset_temp.shape[3]]
-        dist = np.sqrt((x_1 - center[0]) ** 2 + (y_1 - center[1]) ** 2)
-
-        dataset_temp[dist < radius] = mean.reshape(-1, 1, 1)  # Broadcast mean value
-        dataset.append(dataset_temp)
-
-        if len(dataset) == no:
-            return dataset
+        image = x[0][0, 64, :, :]
+        # Create a meshgrid of indices
+        h, w = image.shape[0], image.shape[1]
+        y_indices, x_indices = torch.meshgrid(torch.arange(h), torch.arange(w))
+        
+        # Calculate distance from the center
+        center_x, center_y = w // 2, h // 2
+        dist = torch.sqrt((x_indices - center_x) ** 2 + (y_indices - center_y) ** 2)
+        
+        # Add an outlier as a sphere
+        outlier_mask = dist < radius
+        image[outlier_mask] = torch.mean(image)
+        
+        dataset.append(image.unsqueeze(dim=0))
 
     for j in range(len(trainloader)):
-        dataset_temp = x[0][0,50,:,:].unsqueeze(dim=0)
-        mean = np.mean(dataset_temp, axis=(1, 2))  # Compute mean along spatial dimensions
-        center = [dataset_temp.shape[2] // 2, dataset_temp.shape[3] // 2]  # Calculate center
-        x_1, y_1 = np.ogrid[0:dataset_temp.shape[2], 0:dataset_temp.shape[3]]
-        dist = np.sqrt((x_1 - center[0]) ** 2 + (y_1 - center[1]) ** 2)
-
-        dataset_temp[dist < radius] = mean.reshape(-1, 1, 1)  # Broadcast mean value
-        dataset.append(dataset_temp)
+        image = x[0][0, 50, :, :]
+        # Create a meshgrid of indices
+        h, w = image.shape[0], image.shape[1]
+        y_indices, x_indices = torch.meshgrid(torch.arange(h), torch.arange(w))
+        
+        # Calculate distance from the center
+        center_x, center_y = w // 2, h // 2
+        dist = torch.sqrt((x_indices - center_x) ** 2 + (y_indices - center_y) ** 2)
+        
+        # Add an outlier as a sphere
+        outlier_mask = dist < radius
+        image[outlier_mask] = torch.mean(image)
+        
+        dataset.append(image.unsqueeze(dim=0))
 
         if len(dataset) == no:
             return dataset
 
     for k in range(len(trainloader)):
-        dataset_temp = x[0][0,80,:,:].unsqueeze(dim=0)
-        mean = np.mean(dataset_temp, axis=(1, 2))  # Compute mean along spatial dimensions
-        center = [dataset_temp.shape[2] // 2, dataset_temp.shape[3] // 2]  # Calculate center
-        x_1, y_1 = np.ogrid[0:dataset_temp.shape[2], 0:dataset_temp.shape[3]]
-        dist = np.sqrt((x_1 - center[0]) ** 2 + (y_1 - center[1]) ** 2)
-
-        dataset_temp[dist < radius] = mean.reshape(-1, 1, 1)  # Broadcast mean value
-        dataset.append(dataset_temp)
+        image = x[0][0, 80, :, :]
+        # Create a meshgrid of indices
+        h, w = image.shape[0], image.shape[1]
+        y_indices, x_indices = torch.meshgrid(torch.arange(h), torch.arange(w))
+        
+        # Calculate distance from the center
+        center_x, center_y = w // 2, h // 2
+        dist = torch.sqrt((x_indices - center_x) ** 2 + (y_indices - center_y) ** 2)
+        
+        # Add an outlier as a sphere
+        outlier_mask = dist < radius
+        image[outlier_mask] = torch.mean(image)
+        
+        dataset.append(image.unsqueeze(dim=0))
 
         if len(dataset) == no:
             return dataset

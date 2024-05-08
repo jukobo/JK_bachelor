@@ -34,6 +34,26 @@ def generate_dataset(trainloader, no):
 
 
 
+def create_outlier(i, image, radius):
+    if i==0:
+      # Create a meshgrid of indices
+        h, w = image.shape[0], image.shape[1]
+        y_indices, x_indices = torch.meshgrid(torch.arange(h), torch.arange(w))
+        
+        # Calculate distance from the center
+        center_x, center_y = w // 2, h // 2
+        dist = torch.sqrt((x_indices - center_x) ** 2 + (y_indices - center_y) ** 2)
+        
+        # Add an outlier as a sphere
+        outlier_mask = dist < radius
+        image[outlier_mask] = torch.mean(image)
+    elif i==1:
+        xxx
+    else:
+        xxx
+
+    return image
+
 
 def generate_dataset_outlier(trainloader, no):
     ## Generate a dataset with outliers from a trainloader
@@ -42,56 +62,31 @@ def generate_dataset_outlier(trainloader, no):
     
     for i, (x, y, z) in enumerate(trainloader):
         image = x[0][0, 64, :, :]
-        # Create a meshgrid of indices
-        h, w = image.shape[0], image.shape[1]
-        y_indices, x_indices = torch.meshgrid(torch.arange(h), torch.arange(w))
+        i=0
+        image_out = create_outlier(i, image, radius)
         
-        # Calculate distance from the center
-        center_x, center_y = w // 2, h // 2
-        dist = torch.sqrt((x_indices - center_x) ** 2 + (y_indices - center_y) ** 2)
-        
-        # Add an outlier as a sphere
-        outlier_mask = dist < radius
-        image[outlier_mask] = torch.mean(image)
-        
-        dataset.append(image.unsqueeze(dim=0))
+        dataset.append(image_out.unsqueeze(dim=0))
 
     for j in range(len(trainloader)):
         image = x[0][0, 50, :, :]
-        # Create a meshgrid of indices
-        h, w = image.shape[0], image.shape[1]
-        y_indices, x_indices = torch.meshgrid(torch.arange(h), torch.arange(w))
+        i=0
+        image_out = create_outlier(i, image, radius)
         
-        # Calculate distance from the center
-        center_x, center_y = w // 2, h // 2
-        dist = torch.sqrt((x_indices - center_x) ** 2 + (y_indices - center_y) ** 2)
-        
-        # Add an outlier as a sphere
-        outlier_mask = dist < radius
-        image[outlier_mask] = torch.mean(image)
-        
-        dataset.append(image.unsqueeze(dim=0))
+        dataset.append(image_out.unsqueeze(dim=0))
 
         if len(dataset) == no:
             return dataset
 
     for k in range(len(trainloader)):
         image = x[0][0, 80, :, :]
-        # Create a meshgrid of indices
-        h, w = image.shape[0], image.shape[1]
-        y_indices, x_indices = torch.meshgrid(torch.arange(h), torch.arange(w))
+        i=0
+        image_out = create_outlier(i, image, radius)
         
-        # Calculate distance from the center
-        center_x, center_y = w // 2, h // 2
-        dist = torch.sqrt((x_indices - center_x) ** 2 + (y_indices - center_y) ** 2)
-        
-        # Add an outlier as a sphere
-        outlier_mask = dist < radius
-        image[outlier_mask] = torch.mean(image)
-        
-        dataset.append(image.unsqueeze(dim=0))
+        dataset.append(image_out.unsqueeze(dim=0))
 
         if len(dataset) == no:
             return dataset
 
     return dataset
+
+

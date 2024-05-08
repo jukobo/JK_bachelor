@@ -73,6 +73,9 @@ def generate_dataset_outlier(trainloader, no):
         
         dataset.append(image_out.unsqueeze(dim=0))
 
+        if len(dataset) == no:
+            return dataset
+
     for j in range(len(trainloader)):
         image = x[0][0, 50, :, :]
         Type = random.randint(1, 2)

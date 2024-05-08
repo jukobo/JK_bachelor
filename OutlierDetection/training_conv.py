@@ -6,7 +6,7 @@ from torch.utils.data import DataLoader
 import numpy as np
 
 from AE_functions import *
-from dataset import *
+from OutlierDetection.make_dataset import *
 
 
 #Define paramters
@@ -79,138 +79,6 @@ train_loss = []
 val_loss = []
 
 ## Train model
-
-def train2D_conv_simple(model, optimizer, epochs, device):
-    model.train()
-    step = -1
-
-    for epoch in range(epochs):
-
-        overall_loss = 0
-
-        # for batch_idx, (x, _) in enumerate(train_loader.dataset[n]): #NOTE insert data loader here
-        for batch_idx in range(1):
-            x = input_train[0][64,:,:].unsqueeze(dim=0)
-            x = x.to(device)
-            # plt.imshow(x, cmap='gray')
-            # plt.title('Original')
-            # plt.show()
-            # print(x.shape)
-            # exit()
-
-            x_reconstructed = model(x)
-
-            loss = loss_function_re(x_reconstructed, x)
-            overall_loss += loss.item()
-            o_loss.append(overall_loss)
-
-            optimizer.zero_grad()
-            loss. backward()
-            optimizer.step()
-    
-            # Update step
-            step+=1
-
-            # Do evaluation every 50 step
-            if step%500 == 0:
-                print("EVALUATION!")
-                model.eval() #Set to evaluation
-
-                #Training evaluation
-                # train_loss_eval = []
-                # with torch.no_grad():
-                    # for i in range(5):
-                    # for i in range(1):
-                    #     # inputs, _   = next(iter(train_loader_EVAL.dataset[n]))
-                    #     inputs = input_train_EVAL[0]
-                    #     inputs = inputs[64, :, :].squeeze(dim=0) # Dim is now 128x96
-                    #     inputs = inputs.to(device)
-                    #     # inputs = inputs.to(device)
-                    #     # inputs = inputs[:, 0, :, :, :].squeeze(dim=0) # Dim is now 128x96
-
-                    #     x_reconstructed = model(inputs)
-                    #     # print(x_reconstructed.shape)
-
-                    #     loss = loss_function_re(x_reconstructed, inputs)
-
-                    #     # Save loss
-                    #     train_loss_eval.append(loss.item())
-
-                # avg_loss_train = np.mean(train_loss_eval)
-                # print("Train loss: "+str(avg_loss_train))
-                # train_loss.append(avg_loss_train)
-
-                #Training evaluation
-                val_loss_eval = []
-                with torch.no_grad():
-                    # for i in range(5): #10 random batches
-                    for i in range(1):
-                        inputs = input_train[0]
-                        # inputs, _  = next(iter(val_loader.dataset[n]))
-                        inputs = inputs[64, :, :].unsqueeze(dim=0) # Dim is now 128x96
-                        inputs = inputs.to(device)
-
-                        x_reconstructed = model(inputs)
-                        loss = loss_function_re(x_reconstructed, inputs)
-                        
-                        # Save reconstructed images
-                        numpy_array = x_reconstructed.cpu().numpy()
-                        np.save(f'/scratch/s214725/Data/rec_data/reconstruction{epoch}.npy', numpy_array)
-
-
-                        # Save loss
-                        val_loss_eval.append(loss.item())
-                avg_loss_val = np.mean(val_loss_eval)
-                print("Validation loss: "+str(avg_loss_val))
-                val_loss.append(avg_loss_val)
-
-                # #Save checkpoint
-                # checkpoint = {
-                #     'model_state_dict': model.state_dict(),
-                #     'optimizer_state_dict': optimizer.state_dict(),
-                #     'epoch': epoch,
-                #     'train_loss': train_loss,
-                #     'val_loss': val_loss,
-                #     'parameters_dict': parameters_dict,
-                #     'run_name': run_name,
-                # }
-                # torch.save(checkpoint, os.path.join(checkpoint_dir,str(run_name)+'_step'+str(step)+'_batchsize'+str(batch_size)+'_lr'+str(lr)+'_wd'+str(wd)+'.pth'))
-
-
-        # print(f'Epoch {epoch+1}, Average loss: {overall_loss/len(train_loader)}')    
-
-
-
-    # Plotting the loss
-    fig, ax = plt.subplots()
-    ax.set_title(f'Model Loss, batch_size={batch_size}, lr={lr}, wd={wd}')
-    ax.set_xlabel('Epoch')
-    ax.set_ylabel('Avg. loss')
-    ax.set_xticks(np.arange(0, num_epochs, step= 1000))
-
-    ax.plot(list(range(1, num_epochs+1, 1)), o_loss, label='Training loss', color='b')  # Update the plot with the current loss
-    ax.plot(list(range(500, num_epochs+1, 500)), val_loss, label='Validation loss', color='r')
-    
-    ax.legend()
-    # plt.show()
-    fig.savefig('model_loss_conv.png')  # Save the plot as a PNG file
-
-
-    # Plotting the loss
-    fig2, ax2 = plt.subplots()
-    ax2.set_title(f'Model Loss, batch_size={batch_size}, lr={lr}, wd={wd}')
-    ax2.set_xlabel('Epoch')
-    ax2.set_ylabel('Avg. loss')
-    ax2.set_xticks(np.arange(0, num_epochs, step=1000))
-
-    ax2.plot(list(range(601, num_epochs+1, 1)), o_loss[600:], label='Training loss', color='b')  # Update the plot with the current loss
-    ax2.plot(list(range(1000, num_epochs+1, 500)), val_loss[1:], label='Validation loss', color='r') ## NOTE ikke helt rigtig ved x/y-akse
-    
-    ax2.legend()
-    # plt.show()
-    fig2.savefig('model_loss_conv2.png')  # Save the plot as a PNG file
-
-
 def train2D_conv(model, optimizer, epochs, device):
     model.train()
     step = -1
@@ -308,8 +176,8 @@ def train2D_conv(model, optimizer, epochs, device):
             torch.save(model.state_dict(), f'/scratch/{study_no_save}/Data/model_conv_{epoch}.pth')
             print('Model saved')
 
-    # np.save('OutlierDetection/o_loss3.npy', o_loss)
-    # np.save('OutlierDetection/val_loss3.npy', val_loss)
+    # np.save('OutlierDetection/o_loss.npy', o_loss)
+    # np.save('OutlierDetection/val_loss.npy', val_loss)
     np.save(f'/scratch/{study_no_save}/Data/o_loss.npy', o_loss)
     np.save(f'/scratch/{study_no_save}/Data/Val_loss.npy', val_loss)
 

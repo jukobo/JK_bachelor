@@ -69,7 +69,7 @@ if all_scans:
     #Sorterer fil '.DS' fra
     all_subjects = all_subjects[all_subjects != '.DS']
 else:
-    all_subjects = list_of_subjects
+    all_subjects = []
 
 
 padding_specifications = {}

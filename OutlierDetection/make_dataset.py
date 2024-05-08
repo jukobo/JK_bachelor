@@ -1,5 +1,6 @@
 import numpy as np
 import torch
+import random
 def generate_dataset(trainloader, no):
     
     ## Generate a dataset from a trainloader
@@ -35,7 +36,7 @@ def generate_dataset(trainloader, no):
 
 
 def create_outlier(i, image, radius):
-    if i == 0:
+    if i == 1:
       #Sphere  
       # Create a meshgrid of indices
         h, w = image.shape[0], image.shape[1]
@@ -48,7 +49,7 @@ def create_outlier(i, image, radius):
         # Add an outlier as a sphere
         outlier_mask = dist < radius
         image[outlier_mask] = torch.mean(image)
-    elif i == 1:
+    elif i == 2:
       # Square 
         half_size = radius // 2
         h, w = image.shape[0], image.shape[1]
@@ -67,15 +68,15 @@ def generate_dataset_outlier(trainloader, no):
     
     for i, (x, y, z) in enumerate(trainloader):
         image = x[0][0, 64, :, :]
-        i=0
-        image_out = create_outlier(i, image, radius)
+        Type = random.randint(1, 2)
+        image_out = create_outlier(Type, image, radius)
         
         dataset.append(image_out.unsqueeze(dim=0))
 
     for j in range(len(trainloader)):
         image = x[0][0, 50, :, :]
-        i=0
-        image_out = create_outlier(i, image, radius)
+        Type = random.randint(1, 2)
+        image_out = create_outlier(Type, image, radius)
         
         dataset.append(image_out.unsqueeze(dim=0))
 
@@ -84,8 +85,8 @@ def generate_dataset_outlier(trainloader, no):
 
     for k in range(len(trainloader)):
         image = x[0][0, 80, :, :]
-        i=0
-        image_out = create_outlier(i, image, radius)
+        Type = random.randint(1, 2)
+        image_out = create_outlier(Type, image, radius)
         
         dataset.append(image_out.unsqueeze(dim=0))
 

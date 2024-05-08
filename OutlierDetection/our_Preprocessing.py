@@ -104,14 +104,14 @@ if not os.path.exists(heatmap_path):
 
 
 for subject in tqdm(all_subjects):
-    #LOAD IMAGE
+    # #LOAD IMAGE
     filename_img = [f for f in listdir(dir_data) if (f.startswith(subject) and f.endswith('crop_img.nii.gz'))][0]
     img_nib = nib.load(os.path.join(dir_data,filename_img))
 
     # filename_img_out = [f for f in listdir(dir_data) if (f.startswith(subject) and f.endswith('outlier_img.nii.gz'))][0]
     # img_out_nib = nib.load(os.path.join(dir_data,filename_img_out))
 
-    #LOAD MASK
+    # #LOAD MASK
     filename_msk = [f for f in listdir(dir_data) if (f.startswith(subject) and f.endswith('msk.nii.gz'))][0]
     msk_nib = nib.load(os.path.join(dir_data,filename_msk))
 
@@ -148,7 +148,7 @@ for subject in tqdm(all_subjects):
     data_img = gaussian_filter(data_img, sigma=sigma_smooth)
     # data_img_out = gaussian_filter(data_img_out, sigma=sigma_smooth)
 
-    #Save as Nifti file
+    # #Save as Nifti file
     img_nib = nib.Nifti1Image(data_img, img_nib.affine)
     # img_out_nib = nib.Nifti1Image(data_img_out, img_out_nib.affine)
 
@@ -159,12 +159,12 @@ for subject in tqdm(all_subjects):
     img_resampled = resample_nib(img_nib, voxel_spacing=vs, order=3) # NOTE: her er der problemer ved crops!
     img_resampled_reoriented = reorient_to(img_nib, axcodes_to=New_orientation)
 
-    # img_out_resampled = resample_nib(img_out_nib, voxel_spacing=vs, order=3)
-    # img_out_resampled_reoriented = reorient_to(img_out_nib, axcodes_to=New_orientation)
+    # # img_out_resampled = resample_nib(img_out_nib, voxel_spacing=vs, order=3)
+    # # img_out_resampled_reoriented = reorient_to(img_out_nib, axcodes_to=New_orientation)
     
-    #Mask
-    msk_resampled = resample_nib(msk_nib, voxel_spacing=vs, order=0) # or resample based on img: resample_mask_to(msk_nib, img_iso)
-    msk_resampled_reoriented = reorient_to(msk_nib, axcodes_to=New_orientation)
+    # #Mask
+    # msk_resampled = resample_nib(msk_nib, voxel_spacing=vs, order=0) # or resample based on img: resample_mask_to(msk_nib, img_iso)
+    # msk_resampled_reoriented = reorient_to(msk_nib, axcodes_to=New_orientation)
 
     # msk_out_resampled = resample_nib(msk_out_nib, voxel_spacing=vs, order=0) # or resample based on img: resample_mask_to(msk_nib, img_iso)
     # msk_out_resampled_reoriented = reorient_to(msk_out_nib, axcodes_to=New_orientation)
@@ -181,8 +181,8 @@ for subject in tqdm(all_subjects):
     # dist_out_resampled_reoriented = reorient_to(dist_out_nib, axcodes_to=New_orientation)
 
     #Load data
-    data_img = np.asanyarray(img_resampled_reoriented.dataobj, dtype=img_resampled_reoriented.dataobj.dtype)
-    data_msk = np.asanyarray(msk_resampled_reoriented.dataobj, dtype=msk_resampled_reoriented.dataobj.dtype)
+    # data_img = np.asanyarray(img_resampled_reoriented.dataobj, dtype=img_resampled_reoriented.dataobj.dtype)
+    # data_msk = np.asanyarray(msk_resampled_reoriented.dataobj, dtype=msk_resampled_reoriented.dataobj.dtype)
     data_dist = np.asanyarray(dist_resampled_reoriented.dataobj, dtype=dist_resampled_reoriented.dataobj.dtype)
 
     # data_img_out = np.asanyarray(img_out_resampled_reoriented.dataobj, dtype=img_out_resampled_reoriented.dataobj.dtype)
@@ -191,14 +191,14 @@ for subject in tqdm(all_subjects):
 
 
     #Change hounsfield units
-    data_img[data_img<HU_range_cutoff[0]] = HU_range_cutoff[0]
-    data_img[data_img>HU_range_cutoff[1]] = HU_range_cutoff[1]
+    # data_img[data_img<HU_range_cutoff[0]] = HU_range_cutoff[0]
+    # data_img[data_img>HU_range_cutoff[1]] = HU_range_cutoff[1]
 
     # data_img_out[data_img_out<HU_range_cutoff[0]] = HU_range_cutoff[0]
     # data_img_out[data_img_out>HU_range_cutoff[1]] = HU_range_cutoff[1]
 
     #Normalize HU
-    data_img = (HU_range_normalize[1]-HU_range_normalize[0])*(data_img - data_img.min()) / (data_img.max() - data_img.min()) + HU_range_normalize[0]
+    # data_img = (HU_range_normalize[1]-HU_range_normalize[0])*(data_img - data_img.min()) / (data_img.max() - data_img.min()) + HU_range_normalize[0]
     # data_img_out = (HU_range_normalize[1]-HU_range_normalize[0])*(data_img_out - data_img_out.min()) / (data_img_out.max() - data_img_out.min()) + HU_range_normalize[0]
 
 
@@ -221,41 +221,41 @@ for subject in tqdm(all_subjects):
             centroid = (x,y,z)
 
             #Crop image and mask
-            data_img_temp, restrictions = center_and_pad(data=data_img, new_dim=new_dim, pad_value=-1, centroid=centroid)
-            # data_img_out_temp, restrictions = center_and_pad(data=data_img_out, new_dim=new_dim, pad_value=-1, centroid=centroid)
+            # data_img_temp, restrictions = center_and_pad(data=data_img, new_dim=new_dim, pad_value=-1, centroid=centroid)
+            # # data_img_out_temp, restrictions = center_and_pad(data=data_img_out, new_dim=new_dim, pad_value=-1, centroid=centroid)
 
-            data_msk_temp, restrictions = center_and_pad(data=data_msk, new_dim=new_dim, pad_value=-1, centroid=centroid)
-            # data_msk_out_temp, restrictions = center_and_pad(data=data_msk_out, new_dim=new_dim, pad_value=-1, centroid=centroid)
+            # data_msk_temp, restrictions = center_and_pad(data=data_msk, new_dim=new_dim, pad_value=-1, centroid=centroid)
+            # # data_msk_out_temp, restrictions = center_and_pad(data=data_msk_out, new_dim=new_dim, pad_value=-1, centroid=centroid)
 
             data_dist_temp, restrictions = center_and_pad(data=data_dist, new_dim=new_dim, pad_value=-1, centroid=centroid)
             # data_dist_out_temp, restrictions = center_and_pad(data=data_dist_out, new_dim=new_dim, pad_value=-1, centroid=centroid)
 
 
-            #Extract values
-            x_min_restrict, _, y_min_restrict, _, z_min_restrict, _ = restrictions
+            # #Extract values
+            # x_min_restrict, _, y_min_restrict, _, z_min_restrict, _ = restrictions
 
-            #Remove all other masks than the relevant one and convert to binary
-            data_msk_temp = np.where(data_msk_temp == ctd[0],1,0)
-            # data_msk_out_temp = np.where(data_msk_out_temp == ctd[0],1,0)
+            # #Remove all other masks than the relevant one and convert to binary
+            # data_msk_temp = np.where(data_msk_temp == ctd[0],1,0)
+            # # data_msk_out_temp = np.where(data_msk_out_temp == ctd[0],1,0)
 
 
             subject_ID = subject + '-' + str(ctd[0])
-            padding_specifications.update({subject_ID: restrictions}) #Burde jeg sige minus her?
+            # padding_specifications.update({subject_ID: restrictions}) #Burde jeg sige minus her?
 
-            #Apply transformation to centroid coordinates (cropping and padding)
-            x+=x_min_restrict #PLUS, because we are applying changes. Not reverting.
-            y+=y_min_restrict #PLUS, because we are applying changes. Not reverting.
-            z+=z_min_restrict #PLUS, because we are applying changes. Not reverting.
+            # #Apply transformation to centroid coordinates (cropping and padding)
+            # x+=x_min_restrict #PLUS, because we are applying changes. Not reverting.
+            # y+=y_min_restrict #PLUS, because we are applying changes. Not reverting.
+            # z+=z_min_restrict #PLUS, because we are applying changes. Not reverting.
 
-            #Generate heatmap
-            origins = (x,y,z) #Convert for cropping and padding
-            meshgrid_dim = new_dim
-            heatmap = gaussian_kernel_3d_new(origins,meshgrid_dim,gamma = 1,sigma = sigma)
-            #Normalize
-            heatmap = (heatmap - heatmap.min()) / (heatmap.max() - heatmap.min())
+            # #Generate heatmap
+            # origins = (x,y,z) #Convert for cropping and padding
+            # meshgrid_dim = new_dim
+            # heatmap = gaussian_kernel_3d_new(origins,meshgrid_dim,gamma = 1,sigma = sigma)
+            # #Normalize
+            # heatmap = (heatmap - heatmap.min()) / (heatmap.max() - heatmap.min())
 
-            #Thresholding
-            heatmap[heatmap < 0.001] = 0
+            # #Thresholding
+            # heatmap[heatmap < 0.001] = 0
 
 
             #Define filenames and save data
@@ -271,16 +271,16 @@ for subject in tqdm(all_subjects):
             heatmap_filename = subject_ID + "_heatmap.npy" #Input
 
             # save files
-            np.save(os.path.join(img_path,img_filename), data_img_temp)
-            # np.save(os.path.join(img_out_path,img_out_filename), data_img_out_temp)
+            # np.save(os.path.join(img_path,img_filename), data_img_temp)
+            # # np.save(os.path.join(img_out_path,img_out_filename), data_img_out_temp)
 
-            np.save(os.path.join(msk_path,msk_filename), data_msk_temp)
-            # np.save(os.path.join(msk_out_path,msk_out_filename), data_msk_out_temp)
+            # np.save(os.path.join(msk_path,msk_filename), data_msk_temp)
+            # # np.save(os.path.join(msk_out_path,msk_out_filename), data_msk_out_temp)
 
             np.save(os.path.join(dist_path,dist_filename), data_dist_temp)
-            # np.save(os.path.join(dist_out_path,dist_out_filename), data_dist_out_temp)
+            # # np.save(os.path.join(dist_out_path,dist_out_filename), data_dist_out_temp)
 
-            np.save(os.path.join(heatmap_path,heatmap_filename), heatmap)
+            # np.save(os.path.join(heatmap_path,heatmap_filename), heatmap)
 
 
 

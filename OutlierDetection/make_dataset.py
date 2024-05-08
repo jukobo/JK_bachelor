@@ -35,7 +35,8 @@ def generate_dataset(trainloader, no):
 
 
 def create_outlier(i, image, radius):
-    if i==0:
+    if i == 0:
+      #Sphere  
       # Create a meshgrid of indices
         h, w = image.shape[0], image.shape[1]
         y_indices, x_indices = torch.meshgrid(torch.arange(h), torch.arange(w))
@@ -47,11 +48,15 @@ def create_outlier(i, image, radius):
         # Add an outlier as a sphere
         outlier_mask = dist < radius
         image[outlier_mask] = torch.mean(image)
-    elif i==1:
-        xxx
-    else:
-        xxx
+    elif i == 1:
+      # Square 
+        half_size = radius // 2
+        h, w = image.shape[0], image.shape[1]
+        center = [w // 2, h // 2]
 
+        start = [max(0, center[0] - half_size), max(0, center[1] - half_size), max(0, center[2] - half_size)]
+        end = [min(image.shape[0], center[0] + half_size), min(image.shape[1], center[1] + half_size), min(image.shape[2], center[2] + half_size)]
+        image[start[0]:end[0], start[1]:end[1], start[2]:end[2]] = torch.mean(image)
     return image
 
 

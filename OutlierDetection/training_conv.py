@@ -4,7 +4,7 @@ from torch.utils.data import DataLoader
 import numpy as np
 
 from AE_functions import *
-from OutlierDetection.make_dataset import *
+from make_dataset import *
 
 
 #Define paramters

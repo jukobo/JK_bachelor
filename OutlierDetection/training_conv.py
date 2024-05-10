@@ -140,9 +140,9 @@ def train2D_conv(model, optimizer, epochs, device):
                     v_loss = torch.mean(loss_temp, dim=1).squeeze()
                     
                     # Save reconstructed images
-                    numpy_array = inputs_reconstructed.cpu().numpy()
+                    # numpy_array = inputs_reconstructed.cpu().numpy()
                     # np.save(f'OutlierDetection/rec_data3/reconstruction{epoch}.npy', numpy_array)
-                    np.save(f'/scratch/{study_no_save}/Data/rec_data/reconstruction{epoch}.npy', numpy_array)
+                    # np.save(f'/scratch/{study_no_save}/Data/rec_data/reconstruction{epoch}.npy', numpy_array)
 
 
                     # Save loss
@@ -167,13 +167,24 @@ def train2D_conv(model, optimizer, epochs, device):
         if epoch%100 == 0:
             print(f'Epoch {epoch+1}, Average loss: {overall_loss/n}')    
 
+
         ## Save model
         if epoch == 0:
+            torch.save(model.state_dict(), f'/scratch/{study_no_save}/Data/model_conv_{epoch}.pth')
+            print('Model saved')
+        elif epoch == 100:
+            torch.save(model.state_dict(), f'/scratch/{study_no_save}/Data/model_conv_{epoch}.pth')
+            print('Model saved')
+        elif epoch == 250:
+            torch.save(model.state_dict(), f'/scratch/{study_no_save}/Data/model_conv_{epoch}.pth')
+            print('Model saved')
+        elif epoch == 500:
             torch.save(model.state_dict(), f'/scratch/{study_no_save}/Data/model_conv_{epoch}.pth')
             print('Model saved')
         elif epoch == epochs-1:
             torch.save(model.state_dict(), f'/scratch/{study_no_save}/Data/model_conv_{epoch}.pth')
             print('Model saved')
+
 
     # np.save('OutlierDetection/o_loss.npy', o_loss)
     # np.save('OutlierDetection/val_loss.npy', val_loss)

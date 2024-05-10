@@ -3,9 +3,23 @@ import torch
 import random
 
 
+def healthy_outlier(trainloader):
+    dataset_healthy = []
+    dataset_outlier = []
 
-def generate_dataset(trainloader, no):
-    
+    for i, (x, y, z) in enumerate(trainloader):
+
+        split = np.ceil(len(trainloader)/2)
+
+        if i >= split:
+            dataset_healthy.append(x[0])
+        elif i < split:
+            dataset_outlier.append(x[0])
+
+    return dataset_healthy, dataset_outlier
+
+
+def generate_dataset_training(trainloader, no):
     ## Generate a dataset from a trainloader
 
     if no > 3*len(trainloader): 
@@ -37,6 +51,47 @@ def generate_dataset(trainloader, no):
     return dataset
 
 
+def generate_dataset(dataset, no):
+    
+    ## Generate a dataset from a trainloader
+
+    if no > 3*len(dataset): 
+        return print(f'Not enough data')
+        
+
+    dataset_new = []
+    for i, x in enumerate(dataset):
+
+        dataset_new.append(x[0,64,:,:].unsqueeze(dim=0))
+
+        if len(dataset_new) == no:
+            return dataset_new
+
+
+    for j, x in enumerate(dataset):
+        dataset_new.append(x[0,55,:,:].unsqueeze(dim=0))
+
+        if len(dataset_new) == no:
+            return dataset_new
+        
+
+    for k, x in enumerate(dataset):
+        dataset_new.append(x[0,75,:,:].unsqueeze(dim=0))
+
+        if len(dataset_new) == no:
+            return dataset_new
+
+      
+    for k, x in enumerate(dataset):
+        dataset_new.append(x[0,45,:,:].unsqueeze(dim=0))
+
+        if len(dataset_new) == no:
+            return dataset_new
+
+
+    return dataset_new
+
+
 
 def create_outlier(i, image, radius):
     if i == 1:
@@ -63,40 +118,42 @@ def create_outlier(i, image, radius):
     return image
 
 
-def generate_dataset_outlier(trainloader, no, radius):
+def generate_dataset_outlier(dataset, no, radius):
     ## Generate a dataset with outliers from a trainloader
-    dataset = []
+    dataset_new = []
     
-    for i, (x, y, z) in enumerate(trainloader):
-        image = x[0][0, 64, :, :]
+    for i, x in enumerate(dataset):
+        image = x[0, 64, :, :]
         Type = random.randint(1, 2)
         image_out = create_outlier(Type, image, radius)
         
-        dataset.append(image_out.unsqueeze(dim=0))
+        dataset_new.append(image_out.unsqueeze(dim=0))
 
-        if len(dataset) == no:
-            return dataset
+        if len(dataset_new) == no:
+            return dataset_new
 
-    for j in range(len(trainloader)):
-        image = x[0][0, 50, :, :]
+    for j, x in enumerate(dataset):
+        image = x[0, 55, :, :]
         Type = random.randint(1, 2)
         image_out = create_outlier(Type, image, radius)
         
-        dataset.append(image_out.unsqueeze(dim=0))
+        dataset_new.append(image_out.unsqueeze(dim=0))
 
-        if len(dataset) == no:
-            return dataset
+        if len(dataset_new) == no:
+            return dataset_new
 
-    for k in range(len(trainloader)):
-        image = x[0][0, 80, :, :]
+    for k, x in enumerate(dataset):
+        image = x[0, 75, :, :]
         Type = random.randint(1, 2)
         image_out = create_outlier(Type, image, radius)
         
-        dataset.append(image_out.unsqueeze(dim=0))
+        dataset_new.append(image_out.unsqueeze(dim=0))
 
-        if len(dataset) == no:
-            return dataset
+        if len(dataset_new) == no:
+            return dataset_new
 
-    return dataset
+    return dataset_new
+
+
 
 

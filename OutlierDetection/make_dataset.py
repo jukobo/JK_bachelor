@@ -55,7 +55,7 @@ def generate_dataset(dataset, no):
     
     ## Generate a dataset from a trainloader
 
-    if no > 3*len(dataset): 
+    if no > 5*len(dataset): 
         return print(f'Not enough data')
         
 
@@ -75,15 +75,22 @@ def generate_dataset(dataset, no):
             return dataset_new
         
 
-    for k, x in enumerate(dataset):
+    for l, x in enumerate(dataset):
         dataset_new.append(x[0,75,:,:].unsqueeze(dim=0))
 
         if len(dataset_new) == no:
             return dataset_new
 
       
-    for k, x in enumerate(dataset):
+    for m, x in enumerate(dataset):
         dataset_new.append(x[0,45,:,:].unsqueeze(dim=0))
+
+        if len(dataset_new) == no:
+            return dataset_new
+
+
+    for k, x in enumerate(dataset):
+        dataset_new.append(x[0,85,:,:].unsqueeze(dim=0))
 
         if len(dataset_new) == no:
             return dataset_new
@@ -151,6 +158,27 @@ def generate_dataset_outlier(dataset, no, radius):
 
         if len(dataset_new) == no:
             return dataset_new
+
+    for l, x in enumerate(dataset):
+        image = x[0, 45, :, :]
+        Type = random.randint(1, 2)
+        image_out = create_outlier(Type, image, radius)
+        
+        dataset_new.append(image_out.unsqueeze(dim=0))
+
+        if len(dataset_new) == no:
+            return dataset_new
+
+    for m, x in enumerate(dataset):
+        image = x[0, 85, :, :]
+        Type = random.randint(1, 2)
+        image_out = create_outlier(Type, image, radius)
+        
+        dataset_new.append(image_out.unsqueeze(dim=0))
+
+        if len(dataset_new) == no:
+            return dataset_new
+
 
     return dataset_new
 

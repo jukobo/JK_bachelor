@@ -121,8 +121,8 @@ def train2D_conv(model, optimizer, epochs, device):
                     # inputs = input_train[0][0,64,:,:].unsqueeze(dim=0)
                     inputs = dataset[0]
 
-                    org_img = inputs.cpu().numpy()
-                    np.save(f'/scratch/{study_no_save}/Data/rec_data/original.npy', org_img)
+                    # org_img = inputs.cpu().numpy()
+                    # np.save(f'/scratch/{study_no_save}/Data/rec_data/original.npy', org_img)
 
                     #-- Plotting the original image
                     # plt.imshow(inputs.squeeze(), cmap='gray')

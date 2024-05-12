@@ -1,0 +1,157 @@
+Node: comp-gpu04
+Start: 2024-05-12-19:24:59
+Working dir: /home/s214725/JK_bachelor
+
+/var/lib/slurm/slurmd/job50896/slurm_script: line 24: /home/s214725/JK_bachelor/.bashrc: No such file or directory
+conv_AE2D(
+  (encoder): Sequential(
+    (0): Conv2d(1, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (1): ReLU()
+    (2): Conv2d(32, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (3): ReLU()
+    (4): Conv2d(16, 8, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  )
+  (decoder): Sequential(
+    (0): Conv2d(8, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (1): ReLU()
+    (2): Conv2d(16, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (3): ReLU()
+    (4): Conv2d(32, 1, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  )
+)
+
+EVALUATION!
+Validation loss: 0.33270642161369324
+Epoch 1, Average loss: 0.02212654907023534
+Model saved
+
+EVALUATION!
+Validation loss: 1.4954302969272248e-05
+
+EVALUATION!
+Validation loss: 6.037359526089858e-06
+
+EVALUATION!
+Validation loss: 7.847967935958877e-06
+
+EVALUATION!
+Validation loss: 9.651793334342074e-06
+Epoch 101, Average loss: 7.859640254537225e-06
+Model saved
+
+EVALUATION!
+Validation loss: 4.1851531022985e-06
+
+EVALUATION!
+Validation loss: 2.2277881726040505e-06
+
+EVALUATION!
+Validation loss: 2.4709449917281745e-06
+
+EVALUATION!
+Validation loss: 1.5100974906090414e-06
+Epoch 201, Average loss: 1.4811943157155837e-06
+
+EVALUATION!
+Validation loss: 1.431336386303883e-06
+
+EVALUATION!
+Validation loss: 1.3598503301182063e-06
+Model saved
+
+EVALUATION!
+Validation loss: 2.733335122684366e-06
+
+EVALUATION!
+Validation loss: 9.394901780979126e-07
+Epoch 301, Average loss: 3.539562893308812e-05
+
+EVALUATION!
+Validation loss: 3.561488483683206e-06
+
+EVALUATION!
+Validation loss: 8.764432095631491e-07
+
+EVALUATION!
+Validation loss: 1.7797826785681536e-06
+
+EVALUATION!
+Validation loss: 8.771843340582564e-07
+Epoch 401, Average loss: 1.0002418262047286e-05
+
+EVALUATION!
+Validation loss: 7.521898623963352e-07
+
+EVALUATION!
+Validation loss: 7.54014195081254e-07
+
+EVALUATION!
+Validation loss: 6.14444957136584e-07
+
+EVALUATION!
+Validation loss: 5.297954430716345e-07
+Epoch 501, Average loss: 3.8092809413114992e-06
+Model saved
+
+EVALUATION!
+Validation loss: 5.724247671423655e-07
+
+EVALUATION!
+Validation loss: 7.398167781502707e-06
+
+EVALUATION!
+Validation loss: 1.010476125884452e-06
+
+EVALUATION!
+Validation loss: 6.866206945232989e-07
+Epoch 601, Average loss: 9.260093150942339e-07
+
+EVALUATION!
+Validation loss: 5.648632281918253e-07
+
+EVALUATION!
+Validation loss: 6.930038125574356e-07
+
+EVALUATION!
+Validation loss: 5.416275143943494e-07
+
+EVALUATION!
+Validation loss: 5.044928457209608e-07
+Epoch 701, Average loss: 1.1821387026600406e-06
+
+EVALUATION!
+Validation loss: 5.295136134009226e-07
+
+EVALUATION!
+Validation loss: 4.6234720230131643e-07
+
+EVALUATION!
+Validation loss: 5.710723485208291e-07
+
+EVALUATION!
+Validation loss: 6.978772262300481e-07
+Epoch 801, Average loss: 6.146143259400106e-07
+
+EVALUATION!
+Validation loss: 6.983240723457129e-07
+
+EVALUATION!
+Validation loss: 4.566753375456756e-07
+
+EVALUATION!
+Validation loss: 4.4106272412136605e-07
+
+EVALUATION!
+Validation loss: 6.017207851982675e-07
+Epoch 901, Average loss: 2.6491973265763134e-06
+
+EVALUATION!
+Validation loss: 4.1725942878656497e-07
+
+EVALUATION!
+Validation loss: 4.288106936201075e-07
+
+EVALUATION!
+Validation loss: 7.258673804244609e-07
+Model saved
+Done: 2024-05-12-19:28:26

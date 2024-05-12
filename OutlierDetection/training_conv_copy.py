@@ -64,7 +64,7 @@ dataset = generate_dataset_training(train_loader, n)
 # For simple AE
 # model = conv_AE_UNet([1, 16, 32, 64, 128]) 
 # model = conv_AE_UNet([1, 8, 16, 32, 64]) 
-model = conv_AE_UNet([1, 32, 64, 128, 256]) 
+model = conv_AE2D([1, 32, 16, 8]) 
 
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu') 

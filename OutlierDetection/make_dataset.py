@@ -100,9 +100,9 @@ def generate_dataset(dataset, no):
 
 
 
-def create_outlier(i, image, radius, mode=""):
+def create_outlier(i, image, radius, mode):
     if mode.lower() == "black":
-        value = -100
+        value = -1
     else:
         value = torch.mean(image)
 
@@ -131,7 +131,7 @@ def create_outlier(i, image, radius, mode=""):
     return image
 
 
-def generate_dataset_outlier(dataset, no, radius, mode):
+def generate_dataset_outlier(dataset, no, radius, mode=""):
     ## Generate a dataset with outliers from a trainloader
     dataset_new = []
     

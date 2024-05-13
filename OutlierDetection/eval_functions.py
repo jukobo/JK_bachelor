@@ -2,12 +2,13 @@ import torch
 import numpy as np
 import matplotlib.pyplot as plt
 
-from AE_functions import conv_AE_UNet, loss_function
+from AE_functions import conv_AE_UNet, loss_function,conv_AE2D
 
 ## Planen er at starte på evaluerigen af billederne, altså hvor vi indlæser modellerne og laver histogrammer
 
 def load_model(model_path, dim):
-    model = conv_AE_UNet(dim)
+    # model = conv_AE_UNet(dim)
+    model = conv_AE2D(dim)
     state_dict = torch.load(model_path, map_location=torch.device('cpu'))
     model.load_state_dict(state_dict)
     model.eval()

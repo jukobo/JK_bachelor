@@ -158,7 +158,7 @@ def generate_dataset_outlier(dataset, no, radius, mode=""):
     for k, x in enumerate(dataset):
         image = x[0, 75, :, :]
         Type = random.randint(1, 2)
-        image_out = create_outlier(Type, image, radius)
+        image_out = create_outlier(Type, image, radius,mode)
         
         dataset_new.append(image_out.unsqueeze(dim=0))
 
@@ -168,7 +168,7 @@ def generate_dataset_outlier(dataset, no, radius, mode=""):
     for l, x in enumerate(dataset):
         image = x[0, 45, :, :]
         Type = random.randint(1, 2)
-        image_out = create_outlier(Type, image, radius)
+        image_out = create_outlier(Type, image, radius,mode)
         
         dataset_new.append(image_out.unsqueeze(dim=0))
 
@@ -178,7 +178,7 @@ def generate_dataset_outlier(dataset, no, radius, mode=""):
     for m, x in enumerate(dataset):
         image = x[0, 85, :, :]
         Type = random.randint(1, 2)
-        image_out = create_outlier(Type, image, radius)
+        image_out = create_outlier(Type, image, radius, mode)
         
         dataset_new.append(image_out.unsqueeze(dim=0))
 

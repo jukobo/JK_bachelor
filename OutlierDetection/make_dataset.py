@@ -100,7 +100,7 @@ def generate_dataset(dataset, no):
 
 
 
-def create_outlier(i, image, radius, mode):
+def create_outlier(i, image, radius, mode=None):
     if mode.lower() == "black":
         value = -100
     else:

@@ -88,10 +88,8 @@ def plot_histogrgrams2(losses, no_bins):
 
 def get_latent_representation(model, input_data):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    # Set the model to evaluation mode
-    model.eval()
 
-    # Move input data to the same device as the model
+    model.eval()
     input_data = input_data.to(device)
 
     # Pass the input data through the encoder
@@ -101,11 +99,10 @@ def get_latent_representation(model, input_data):
     return latent_representation
 
 
-# Define a function to collect latent representations
 def collect_latent_representations(model, data):
     latent_representations = []
     for item in data:
         input_data = item[0].unsqueeze(dim=0)
         latent_representation = get_latent_representation(model, input_data)
-        latent_representations.append(latent_representation.cpu().numpy())  # Convert to numpy array and move to CPU
+        latent_representations.append(latent_representation.cpu().numpy()) 
     return latent_representations

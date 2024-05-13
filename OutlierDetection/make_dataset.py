@@ -100,7 +100,13 @@ def generate_dataset(dataset, no):
 
 
 
-def create_outlier(i, image, radius):
+def create_outlier(i, image, radius, mode):
+    if mode.lower() == "black":
+        value = -100
+    else:
+        value = torch.mean(image)
+
+
     if i == 1:
       #Sphere  
       # Create a meshgrid of indices
@@ -113,7 +119,7 @@ def create_outlier(i, image, radius):
         
         # Add an outlier as a sphere
         outlier_mask = dist < radius
-        image[outlier_mask] = torch.mean(image)
+        image[outlier_mask] = value
     elif i == 2:
       # Square 
         h, w = image.shape[0], image.shape[1]
@@ -121,7 +127,7 @@ def create_outlier(i, image, radius):
 
         start = [max(0, center[0] - radius), max(0, center[1] - radius)]
         end = [min(image.shape[0], center[0] + radius), min(image.shape[1], center[1] + radius)]
-        image[start[0]:end[0], start[1]:end[1]] = torch.mean(image)
+        image[start[0]:end[0], start[1]:end[1]] = value
     return image
 
 

@@ -131,14 +131,14 @@ def create_outlier(i, image, radius, mode=None):
     return image
 
 
-def generate_dataset_outlier(dataset, no, radius):
+def generate_dataset_outlier(dataset, no, radius, mode =None):
     ## Generate a dataset with outliers from a trainloader
     dataset_new = []
     
     for i, x in enumerate(dataset):
         image = x[0, 64, :, :]
         Type = random.randint(1, 2)
-        image_out = create_outlier(Type, image, radius)
+        image_out = create_outlier(Type, image, radius, mode)
         
         dataset_new.append(image_out.unsqueeze(dim=0))
 
@@ -148,7 +148,7 @@ def generate_dataset_outlier(dataset, no, radius):
     for j, x in enumerate(dataset):
         image = x[0, 55, :, :]
         Type = random.randint(1, 2)
-        image_out = create_outlier(Type, image, radius)
+        image_out = create_outlier(Type, image, radius, mode)
         
         dataset_new.append(image_out.unsqueeze(dim=0))
 

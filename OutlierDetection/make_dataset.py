@@ -131,7 +131,7 @@ def create_outlier(i, image, radius, mode=None):
     return image
 
 
-def generate_dataset_outlier(dataset, no, radius, mode =None):
+def generate_dataset_outlier(dataset, no, radius, mode):
     ## Generate a dataset with outliers from a trainloader
     dataset_new = []
     

@@ -155,3 +155,15 @@ def collect_latent_representations(model, data):
         latent_representation = get_latent_representation(model, input_data)
         latent_representations.append(latent_representation.cpu().numpy()) 
     return latent_representations
+
+
+def collect_latent_representations2(model, data):
+    with torch.no_grad():
+
+        latent_representations = []
+        for item in data:
+            input_data = item[0].unsqueeze(dim=0)
+            latent_representation = get_latent_representation(model, input_data)
+            latent_representations.append(latent_representation.view(latent_representation.size(0), -1).cpu().numpy()) 
+        return latent_representations.np.concatenate(latent_representations, axis=0)
+

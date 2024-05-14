@@ -108,17 +108,17 @@ def plot_histograms_SSIM(ssim_healthy, ssim_outlier, no_bins):
 
     # Plotting the histogram of two losses
     # Plotting the histogram for the first set of losses (blue)
-    plt.hist(ssim_healthy, bins=bins1, color='blue', edgecolor='black', alpha=0.5, label='SSIM healthy', density=True)
+    plt.hist(ssim_healthy, bins=bins1, color='blue', edgecolor='black', alpha=0.5, label='SSIM healthy') #, density=True
 
-    y1 = ((1 / (np.sqrt(2 * np.pi) * std_healthy)) * np.exp(-0.5 * (1 / std_healthy * (bins1 - mean_healthy))**2))
-    plt.plot(bins1, y1, '--', color='blue', label='Normal distribution healthy')
+    # y1 = ((1 / (np.sqrt(2 * np.pi) * std_healthy)) * np.exp(-0.5 * (1 / std_healthy * (bins1 - mean_healthy))**2))
+    # plt.plot(bins1, y1, '--', color='blue', label='Normal distribution healthy')
 
 
     # Plotting the histogram for the second set of losses (red)
-    plt.hist(ssim_outlier, bins=bins2, color='red', edgecolor='black', alpha=0.5, label='SSIM outliers', density=True)
+    plt.hist(ssim_outlier, bins=bins2, color='red', edgecolor='black', alpha=0.5, label='SSIM outliers') #, density=True)
     
-    y2 = ((1 / (np.sqrt(2 * np.pi) * std_outlier)) * np.exp(-0.5 * (1 / std_outlier * (bins2 - mean_outlier))**2))
-    plt.plot(bins2, y2, '--', color='red', label='Normal distribution outliers')
+    # y2 = ((1 / (np.sqrt(2 * np.pi) * std_outlier)) * np.exp(-0.5 * (1 / std_outlier * (bins2 - mean_outlier))**2))
+    # plt.plot(bins2, y2, '--', color='red', label='Normal distribution outliers')
 
 
     # Adding labels and title

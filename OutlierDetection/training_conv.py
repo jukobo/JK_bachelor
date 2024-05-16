@@ -46,7 +46,7 @@ train_loader = DataLoader(VerSe_train, batch_size=batch_size, shuffle=True, num_
 # exit()
 
 ## Generere dataset med angivet antal 2D images
-n = 100
+n = 780
 dataset = generate_dataset_training(train_loader, n)
 
 

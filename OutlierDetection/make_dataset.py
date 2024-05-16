@@ -22,31 +22,18 @@ def healthy_outlier(trainloader):
 def generate_dataset_training(trainloader, no):
     ## Generate a dataset from a trainloader
 
-    if no > 3*len(trainloader): 
+    if no > 20*len(trainloader): 
         return print(f'Not enough data')
         
-
+    slices = [46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 80, 82, 84]
     dataset = []
     for i, (x, y, z) in enumerate(trainloader):
+        for sli in slices:
+            dataset.append(x[0][0,sli,:,:].unsqueeze(dim=0))
 
-        dataset.append(x[0][0,64,:,:].unsqueeze(dim=0))
+            if len(dataset) == no:
+                return dataset
 
-        if len(dataset) == no:
-            return dataset
-
-
-    for j in range(len(trainloader)):
-        dataset.append(x[0][0,50,:,:].unsqueeze(dim=0))
-
-        if len(dataset) == no:
-            return dataset
-        
-
-    for k in range(len(trainloader)):
-        dataset.append(x[0][0,80,:,:].unsqueeze(dim=0))
-
-        if len(dataset) == no:
-            return dataset
 
     return dataset
 

@@ -186,7 +186,7 @@ class AE(nn.Module): # Bruges ikke
         return x_reconstructed, x_classified
 
 
-class AE2(nn.Module): # Bruges ikke
+class AE2(nn.Module): # Bruges til simpel AE
     # def __init__(self, dropout):
     def __init__(self, dim, device=device): # dim is a list with the dimensions of input, hidden and latent space
         super(AE2, self).__init__()

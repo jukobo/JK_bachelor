@@ -164,6 +164,8 @@ class AE(nn.Module): # Bruges til simpel AE
         input_dim = dim[0]
         hidden_dim_1 = dim[1]
         hidden_dim_2 = dim[2]
+        # hidden_dim_3 = dim[3]
+        # latent_dim = dim[4]
         latent_dim = dim[3]
 
         # Encoder
@@ -173,17 +175,24 @@ class AE(nn.Module): # Bruges til simpel AE
             nn.Linear(hidden_dim_1, hidden_dim_2),
             nn.ReLU(),
             nn.Linear(hidden_dim_2, latent_dim)
+            # nn.Linear(hidden_dim_2, hidden_dim_3),
+            # nn.ReLU(),
+            # nn.Linear(hidden_dim_3, latent_dim)
         )
 
 
         # Decoder
         self.decoder = nn.Sequential(
+            # nn.Linear(latent_dim, hidden_dim_3),
+            # nn.ReLU(),
+            # nn.Linear(hidden_dim_3, hidden_dim_2),
             nn.Linear(latent_dim, hidden_dim_2),
             nn.ReLU(),
             nn.Linear(hidden_dim_2, hidden_dim_1),
             nn.ReLU(),
             nn.Linear(hidden_dim_1, input_dim),
-            nn.Sigmoid()
+            # nn.Sigmoid()
+            # nn.Tanh()
         )
 
     def encode(self, x):

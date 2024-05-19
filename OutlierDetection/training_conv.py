@@ -50,19 +50,11 @@ n = 780
 dataset = generate_dataset_training(train_loader, n)
 
 
-# run_name = 'Test_AE2'
-# run_name2 = 'rec_img'
-
-# checkpoint_dir = '/scratch/s214704/Data/Checkpoints/VertebraeSegmentation/Test_AE2'
-# checkpoint_dir2 = '/scratch/s214704/Data/Checkpoints/VertebraeSegmentation/rec_img'
-# #Create checkpoint parent folder if it does not exist
-# os.makedirs(checkpoint_dir, exist_ok=True)
-# os.makedirs(checkpoint_dir2, exist_ok=True)
-
 
 ## Define model
 # For simple AE
-model = conv_AE_UNet([1, 16, 32, 64, 128]) 
+model = conv_AE_UNet2([1, 4, 8, 16, 32])
+# model = conv_AE_UNet([1, 16, 32, 64, 128]) 
 # model = conv_AE_UNet([1, 8, 16, 32, 64]) 
 # model = conv_AE_UNet([1, 32, 64, 128, 256]) 
 
@@ -151,17 +143,6 @@ def train2D_conv(model, optimizer, epochs, device):
                 print("Validation loss: "+str(avg_loss_val))
                 val_loss.append(avg_loss_val)
 
-                # #Save checkpoint
-                # checkpoint = {
-                #     'model_state_dict': model.state_dict(),
-                #     'optimizer_state_dict': optimizer.state_dict(),
-                #     'epoch': epoch,
-                #     'train_loss': train_loss,
-                #     'val_loss': val_loss,
-                #     'parameters_dict': parameters_dict,
-                #     'run_name': run_name,
-                # }
-                # torch.save(checkpoint, os.path.join(checkpoint_dir,str(run_name)+'_step'+str(step)+'_batchsize'+str(batch_size)+'_lr'+str(lr)+'_wd'+str(wd)+'.pth'))
 
         o_loss.append(overall_loss/n)
         if epoch%100 == 0:

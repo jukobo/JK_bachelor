@@ -9,7 +9,7 @@ from make_dataset import *
 
 #Define paramters
 parameters_dict = {
-    'epochs': 1000,
+    'epochs': 5000,
     'learning_rate': 1e-3,
     'batch_size': 1, #Noget galt når batch size ændres til mere end 1
     'weight_decay': 5e-4 #1e-6
@@ -101,7 +101,7 @@ def train2D_conv(model, optimizer, epochs, device):
             step+=1
 
             # Do evaluation every 50 epoch
-            if step%2500 == 0:
+            if step%15600 == 0:
                 print()
                 print("EVALUATION!")
                 model.eval() #Set to evaluation

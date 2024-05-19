@@ -190,7 +190,7 @@ class conv_AE_UNet2(nn.Module):
             nn.ReLU(inplace=True),
             nn.MaxPool2d(kernel_size=2, stride=2), # output: 16x12x64
 
-            nn.Dropout2d(p=0.2), 
+            nn.Dropout(p=0.2), 
 
             # input: 16x12x64 # NOTE LATENT SPACE
             nn.Conv2d(hidden_dim_3, latent_dim, kernel_size = kernel_size, stride = stride, padding = padding), # output: 16x12x128

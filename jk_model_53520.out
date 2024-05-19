@@ -1,0 +1,7 @@
+Node: comp-gpu01
+Start: 2024-05-19-14:54:00
+Working dir: /home/s214704/JK_bachelor
+
+/var/lib/slurm/slurmd/job53520/slurm_script: line 24: /home/s214704/JK_bachelor/.bashrc: No such file or directory
+/home/s214704/.local/lib/python3.9/site-packages/torch/nn/functional.py:1354: UserWarning: dropout2d: Received a 3D input to dropout2d and assuming that channel-wise 1D dropout behavior is desired - input is interpreted as shape (N, C, L), where C is the channel dim. This behavior will change in a future release to interpret the input as one without a batch dimension, i.e. shape (C, H, W). To maintain the 1D channel-wise dropout behavior, please switch to using dropout1d instead.
+  warnings.warn("dropout2d: Received a 3D input to dropout2d and assuming that channel-wise "

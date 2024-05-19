@@ -150,7 +150,7 @@ class conv_AE_UNet(nn.Module):
 class conv_AE_UNet2(nn.Module):
     # def __init__(self, dropout):
     def __init__(self, dim, device=device): # dim is a list with the dimensions of input, hidden and latent space
-        super(conv_AE_UNet, self).__init__()
+        super(conv_AE_UNet2, self).__init__()
     
         # Define dimensions
         input_dim = dim[0]
@@ -190,7 +190,7 @@ class conv_AE_UNet2(nn.Module):
             nn.ReLU(inplace=True),
             nn.MaxPool2d(kernel_size=2, stride=2), # output: 16x12x64
 
-            nn.Dropout2d(p=0.2), 
+            nn.Dropout(p=0.2), 
 
             # input: 16x12x64 # NOTE LATENT SPACE
             nn.Conv2d(hidden_dim_3, latent_dim, kernel_size = kernel_size, stride = stride, padding = padding), # output: 16x12x128
@@ -203,10 +203,7 @@ class conv_AE_UNet2(nn.Module):
         # Decoder
         self.decoder = nn.Sequential(
 
-            nn.Conv2d(latent_dim, hidden_dim_3, kernel_size = kernel_size, stride = stride, padding = padding),
-            nn.ReLU(inplace=True),
-
-            nn.ConvTranspose2d(hidden_dim_3, hidden_dim_3, kernel_size=2, stride=2), # output: 32x24x64
+            nn.ConvTranspose2d(latent_dim, hidden_dim_3, kernel_size=2, stride=2), # output: 32x24x64
             # nn.ConvTranspose2d(kernel_size=2, stride=2), # output: 32x24x64
             nn.Conv2d(hidden_dim_3, hidden_dim_3, kernel_size = kernel_size, stride = stride, padding = padding), # output: 32x24x64
             nn.ReLU(inplace=True),

@@ -88,8 +88,7 @@ def train2D_conv(model, optimizer, epochs, device):
             x_reconstructed = model(x)
 
             #-- Loss function
-            squared_diff = (x_reconstructed - x) ** 2
-            loss = torch.mean(squared_diff)
+            loss = loss_function(x_reconstructed, x)
 
             overall_loss += loss.item()
 
@@ -127,9 +126,7 @@ def train2D_conv(model, optimizer, epochs, device):
                     inputs_reconstructed = model(inputs)
                     
                     #-- Loss function
-                    squared_diff = (inputs_reconstructed - inputs) ** 2
-                    loss_temp = torch.mean(squared_diff, dim=1)
-                    v_loss = torch.mean(loss_temp, dim=1).squeeze()
+                    v_loss = loss_function(inputs_reconstructed, inputs)
                     
                     # Save reconstructed images
                     # numpy_array = inputs_reconstructed.cpu().numpy()
@@ -167,8 +164,19 @@ def train2D_conv(model, optimizer, epochs, device):
             print('Model saved')
 
 
-    # np.save('OutlierDetection/o_loss.npy', o_loss)
-    # np.save('OutlierDetection/val_loss.npy', val_loss)
+        if epoch+1 == 1000:
+            np.save(f'/scratch/{study_no_save}/Data/o_loss1000.npy', o_loss)
+            np.save(f'/scratch/{study_no_save}/Data/Val_loss1000.npy', val_loss)
+        elif epoch+1 == 2000: 
+            np.save(f'/scratch/{study_no_save}/Data/o_loss2000.npy', o_loss)
+            np.save(f'/scratch/{study_no_save}/Data/Val_loss2000.npy', val_loss)
+        elif epoch+1 == 3000: 
+            np.save(f'/scratch/{study_no_save}/Data/o_loss3000.npy', o_loss)
+            np.save(f'/scratch/{study_no_save}/Data/Val_loss3000.npy', val_loss)
+        elif epoch+1 == 4000: 
+            np.save(f'/scratch/{study_no_save}/Data/o_loss4000.npy', o_loss)
+            np.save(f'/scratch/{study_no_save}/Data/Val_loss4000.npy', val_loss)
+
     np.save(f'/scratch/{study_no_save}/Data/o_loss.npy', o_loss)
     np.save(f'/scratch/{study_no_save}/Data/Val_loss.npy', val_loss)
 

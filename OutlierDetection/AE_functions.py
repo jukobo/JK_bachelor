@@ -284,8 +284,8 @@ class AE(nn.Module): # Bruges til simpel AE
             nn.Linear(hidden_dim_2, hidden_dim_1),
             nn.ReLU(),
             nn.Linear(hidden_dim_1, input_dim),
-            # nn.Sigmoid()
-            nn.Tanh()
+            nn.Sigmoid()
+            # nn.Tanh()
         )
 
     def encode(self, x):

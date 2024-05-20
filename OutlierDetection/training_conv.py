@@ -9,7 +9,7 @@ from make_dataset import *
 
 #Define paramters
 parameters_dict = {
-    'epochs': 5000,
+    'epochs': 2000,
     'learning_rate': 1e-3,
     'batch_size': 1, #Noget galt når batch size ændres til mere end 1
     'weight_decay': 5e-4 #1e-6
@@ -53,7 +53,7 @@ dataset = generate_dataset_training(train_loader, n)
 
 ## Define model
 # For simple AE
-model = conv_AE_UNet2([1, 4, 8, 16, 32])
+model = conv_AE_UNet2([1, 8, 16, 32, 64])
 # model = conv_AE_UNet([1, 16, 32, 64, 128]) 
 # model = conv_AE_UNet([1, 8, 16, 32, 64]) 
 # model = conv_AE_UNet([1, 32, 64, 128, 256]) 
@@ -167,15 +167,7 @@ def train2D_conv(model, optimizer, epochs, device):
         if epoch+1 == 1000:
             np.save(f'/scratch/{study_no_save}/Data/o_loss1000.npy', o_loss)
             np.save(f'/scratch/{study_no_save}/Data/Val_loss1000.npy', val_loss)
-        elif epoch+1 == 2000: 
-            np.save(f'/scratch/{study_no_save}/Data/o_loss2000.npy', o_loss)
-            np.save(f'/scratch/{study_no_save}/Data/Val_loss2000.npy', val_loss)
-        elif epoch+1 == 3000: 
-            np.save(f'/scratch/{study_no_save}/Data/o_loss3000.npy', o_loss)
-            np.save(f'/scratch/{study_no_save}/Data/Val_loss3000.npy', val_loss)
-        elif epoch+1 == 4000: 
-            np.save(f'/scratch/{study_no_save}/Data/o_loss4000.npy', o_loss)
-            np.save(f'/scratch/{study_no_save}/Data/Val_loss4000.npy', val_loss)
+
 
     np.save(f'/scratch/{study_no_save}/Data/o_loss.npy', o_loss)
     np.save(f'/scratch/{study_no_save}/Data/Val_loss.npy', val_loss)

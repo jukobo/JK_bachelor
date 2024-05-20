@@ -2,8 +2,8 @@
 
 #SBATCH --job-name=jk_model
 #SBATCH --output=jk_model_%J.out
-#SBATCH --cpus-per-task=1
-#SBATCH --time=07:00:00
+#SBATCH --cpus-per-task=2
+#SBATCH --time=14:00:00
 #SBATCH --mem=32gb
 #SBATCH --gres=gpu:2
 #SBATCH --mail-user=s214704@dtu.dk

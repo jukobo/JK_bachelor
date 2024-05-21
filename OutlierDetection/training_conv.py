@@ -100,7 +100,7 @@ def train2D_conv(model, optimizer, epochs, device):
             step+=1
 
             # Do evaluation every 50 epoch
-            if step%15600 == 0:
+            if step%12480 == 0:
                 print()
                 print("EVALUATION!")
                 model.eval() #Set to evaluation

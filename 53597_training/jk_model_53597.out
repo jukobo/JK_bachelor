@@ -1,0 +1,371 @@
+Node: comp-gpu01
+Start: 2024-05-20-21:11:46
+Working dir: /home/s214704/JK_bachelor
+
+/var/lib/slurm/slurmd/job53597/slurm_script: line 24: /home/s214704/JK_bachelor/.bashrc: No such file or directory
+conv_AE_UNet2(
+  (encoder): Sequential(
+    (0): Conv2d(1, 8, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (1): ReLU(inplace=True)
+    (2): Conv2d(8, 8, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (3): ReLU(inplace=True)
+    (4): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (5): Conv2d(8, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (6): ReLU(inplace=True)
+    (7): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (8): ReLU(inplace=True)
+    (9): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (10): Conv2d(16, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (11): ReLU(inplace=True)
+    (12): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (13): ReLU(inplace=True)
+    (14): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (15): Dropout(p=0.2, inplace=False)
+    (16): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (17): ReLU(inplace=True)
+    (18): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (19): ReLU(inplace=True)
+  )
+  (decoder): Sequential(
+    (0): ConvTranspose2d(64, 32, kernel_size=(2, 2), stride=(2, 2))
+    (1): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (2): ReLU(inplace=True)
+    (3): Conv2d(32, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (4): ReLU(inplace=True)
+    (5): ConvTranspose2d(16, 16, kernel_size=(2, 2), stride=(2, 2))
+    (6): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (7): ReLU(inplace=True)
+    (8): Conv2d(16, 8, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (9): ReLU(inplace=True)
+    (10): ConvTranspose2d(8, 8, kernel_size=(2, 2), stride=(2, 2))
+    (11): Conv2d(8, 8, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (12): ReLU(inplace=True)
+    (13): Conv2d(8, 1, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  )
+)
+
+EVALUATION!
+Validation loss: 0.24969959259033203
+Epoch 1, Average loss: 0.02032135429804046
+Model saved
+
+EVALUATION!
+Validation loss: 0.0008191570523194969
+
+EVALUATION!
+Validation loss: 0.0011468905722722411
+
+EVALUATION!
+Validation loss: 0.000701116572599858
+
+EVALUATION!
+Validation loss: 0.0007158906664699316
+
+EVALUATION!
+Validation loss: 0.0004844532231800258
+Epoch 101, Average loss: 0.0002959770301039008
+Model saved
+
+EVALUATION!
+Validation loss: 0.0004468212719075382
+
+EVALUATION!
+Validation loss: 0.0004375418066047132
+
+EVALUATION!
+Validation loss: 0.0005963536677882075
+
+EVALUATION!
+Validation loss: 0.0007014665752649307
+
+EVALUATION!
+Validation loss: 0.0006164106307551265
+Epoch 201, Average loss: 0.0002310719072575478
+
+EVALUATION!
+Validation loss: 0.0003577551688067615
+
+EVALUATION!
+Validation loss: 0.0005307875107973814
+Model saved
+
+EVALUATION!
+Validation loss: 0.00035173719516023993
+
+EVALUATION!
+Validation loss: 0.0004888846888206899
+
+EVALUATION!
+Validation loss: 0.0003315319772809744
+Epoch 301, Average loss: 0.0002608917953927094
+
+EVALUATION!
+Validation loss: 0.0002841057430487126
+
+EVALUATION!
+Validation loss: 0.0003341018164064735
+
+EVALUATION!
+Validation loss: 0.00025728470063768327
+
+EVALUATION!
+Validation loss: 0.0003434231912251562
+
+EVALUATION!
+Validation loss: 0.0003124478680547327
+Epoch 401, Average loss: 0.00023410476986520314
+
+EVALUATION!
+Validation loss: 0.0002902529085986316
+
+EVALUATION!
+Validation loss: 0.0007371485116891563
+
+EVALUATION!
+Validation loss: 0.0005207747453823686
+
+EVALUATION!
+Validation loss: 0.0006296384963206947
+
+EVALUATION!
+Validation loss: 0.00036710439599119127
+Epoch 501, Average loss: 0.00016613115236769097
+Model saved
+
+EVALUATION!
+Validation loss: 0.0002205552300438285
+
+EVALUATION!
+Validation loss: 0.00042443169513717294
+
+EVALUATION!
+Validation loss: 0.000269230455160141
+
+EVALUATION!
+Validation loss: 0.0003068391524720937
+
+EVALUATION!
+Validation loss: 0.0002934093354269862
+Epoch 601, Average loss: 0.00016410141425484862
+
+EVALUATION!
+Validation loss: 0.0001967843563761562
+
+EVALUATION!
+Validation loss: 0.00022984987299423665
+
+EVALUATION!
+Validation loss: 0.0002689764660317451
+
+EVALUATION!
+Validation loss: 0.00022501392231788486
+
+EVALUATION!
+Validation loss: 0.00022624898701906204
+Epoch 701, Average loss: 0.00020394302960668052
+
+EVALUATION!
+Validation loss: 0.00030646129744127393
+
+EVALUATION!
+Validation loss: 0.0002207742363680154
+
+EVALUATION!
+Validation loss: 0.0002161519805667922
+
+EVALUATION!
+Validation loss: 0.00022694122162647545
+
+EVALUATION!
+Validation loss: 0.00026418856577947736
+Epoch 801, Average loss: 0.00015716129871109913
+
+EVALUATION!
+Validation loss: 0.0003751010517589748
+
+EVALUATION!
+Validation loss: 0.00028783828020095825
+
+EVALUATION!
+Validation loss: 0.0002522098075132817
+
+EVALUATION!
+Validation loss: 0.00036324653774499893
+
+EVALUATION!
+Validation loss: 0.0004571257159113884
+Epoch 901, Average loss: 0.0001818267556583846
+
+EVALUATION!
+Validation loss: 0.0001764878397807479
+
+EVALUATION!
+Validation loss: 0.0002793649327941239
+
+EVALUATION!
+Validation loss: 0.00020276836585253477
+
+EVALUATION!
+Validation loss: 0.00025580148212611675
+
+EVALUATION!
+Validation loss: 0.0002693947753868997
+Epoch 1001, Average loss: 0.0001422544364546551
+
+EVALUATION!
+Validation loss: 0.00019510596757754683
+
+EVALUATION!
+Validation loss: 0.00022117336629889905
+
+EVALUATION!
+Validation loss: 0.00016000671894289553
+
+EVALUATION!
+Validation loss: 0.0002671652764547616
+
+EVALUATION!
+Validation loss: 0.0004629623144865036
+Epoch 1101, Average loss: 0.00015712595890923135
+
+EVALUATION!
+Validation loss: 0.0001677776308497414
+
+EVALUATION!
+Validation loss: 0.00017846838454715908
+
+EVALUATION!
+Validation loss: 0.00027725842664949596
+
+EVALUATION!
+Validation loss: 0.00016631800099276006
+
+EVALUATION!
+Validation loss: 0.0002521157148294151
+Epoch 1201, Average loss: 0.00016656908427625566
+
+EVALUATION!
+Validation loss: 0.00019627029541879892
+
+EVALUATION!
+Validation loss: 0.00015856378013268113
+
+EVALUATION!
+Validation loss: 0.00018142300541512668
+
+EVALUATION!
+Validation loss: 0.0002971448702737689
+
+EVALUATION!
+Validation loss: 0.0001569145533721894
+Epoch 1301, Average loss: 0.0001369962107883811
+
+EVALUATION!
+Validation loss: 0.00019128764688502997
+
+EVALUATION!
+Validation loss: 0.0002026984584517777
+
+EVALUATION!
+Validation loss: 0.0002486062003299594
+
+EVALUATION!
+Validation loss: 0.0007334809633903205
+
+EVALUATION!
+Validation loss: 0.000441420212155208
+Epoch 1401, Average loss: 0.00016535355665930695
+
+EVALUATION!
+Validation loss: 0.0001660087436903268
+
+EVALUATION!
+Validation loss: 0.0001837235759012401
+
+EVALUATION!
+Validation loss: 0.0002448308514431119
+
+EVALUATION!
+Validation loss: 0.0002604822220746428
+
+EVALUATION!
+Validation loss: 0.0001517201162641868
+Epoch 1501, Average loss: 0.0001343243475602298
+
+EVALUATION!
+Validation loss: 0.00023196663823910058
+
+EVALUATION!
+Validation loss: 0.00018406633171252906
+
+EVALUATION!
+Validation loss: 0.00014653615653514862
+
+EVALUATION!
+Validation loss: 0.0001577545772306621
+
+EVALUATION!
+Validation loss: 0.00016135722398757935
+Epoch 1601, Average loss: 0.00013674455923860362
+
+EVALUATION!
+Validation loss: 0.00016495682939421386
+
+EVALUATION!
+Validation loss: 0.00017439931980334222
+
+EVALUATION!
+Validation loss: 0.00015285180415958166
+
+EVALUATION!
+Validation loss: 0.00015003493172116578
+
+EVALUATION!
+Validation loss: 0.00016130306175909936
+Epoch 1701, Average loss: 0.00013503176577591474
+
+EVALUATION!
+Validation loss: 0.00024513242533430457
+
+EVALUATION!
+Validation loss: 0.0001573749032104388
+
+EVALUATION!
+Validation loss: 0.0001710204523988068
+
+EVALUATION!
+Validation loss: 0.00019583704124670476
+
+EVALUATION!
+Validation loss: 0.00022814588737674057
+Epoch 1801, Average loss: 0.00017950484761501846
+
+EVALUATION!
+Validation loss: 0.00015232700388878584
+
+EVALUATION!
+Validation loss: 0.00016650030738674104
+
+EVALUATION!
+Validation loss: 0.00014199841825757176
+
+EVALUATION!
+Validation loss: 0.00013791215314995497
+
+EVALUATION!
+Validation loss: 0.0001596759830135852
+Epoch 1901, Average loss: 0.00015537486012292973
+
+EVALUATION!
+Validation loss: 0.0003641004441305995
+
+EVALUATION!
+Validation loss: 0.00015874457312747836
+
+EVALUATION!
+Validation loss: 0.00014207285130396485
+
+EVALUATION!
+Validation loss: 0.00021936942357569933
+Model saved
+Done: 2024-05-21-02:45:28

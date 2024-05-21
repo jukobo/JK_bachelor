@@ -147,7 +147,7 @@ class conv_AE_UNet(nn.Module):
 
 
 
-class conv_AE_UNet2(nn.Module):
+class conv_AE_UNet2(nn.Module): # NOTE Bruges ikke
     # def __init__(self, dropout):
     def __init__(self, dim, device=device): # dim is a list with the dimensions of input, hidden and latent space
         super(conv_AE_UNet2, self).__init__()
@@ -247,7 +247,6 @@ def loss_function(x_reconstructed, x):
 
 
 ## For simple AE NN
-
 class AE(nn.Module): # Bruges til simpel AE
     # def __init__(self, dropout):
     def __init__(self, dim, device=device): # dim is a list with the dimensions of input, hidden and latent space
@@ -284,8 +283,6 @@ class AE(nn.Module): # Bruges til simpel AE
             nn.Linear(hidden_dim_2, hidden_dim_1),
             nn.ReLU(),
             nn.Linear(hidden_dim_1, input_dim),
-            nn.Sigmoid()
-            # nn.Tanh()
         )
 
     def encode(self, x):
@@ -302,4 +299,51 @@ class AE(nn.Module): # Bruges til simpel AE
         return x_reconstructed
 
 
+## For simple AE Convolutional NN
+class conv_AE(nn.Module):
+    def __init__(self, dim, device=device):
+        super(conv_AE, self).__init__()
+    
+        # Define dimensions
+        input_dim = dim[0]
+        hidden_dim_1 = dim[1]
+        hidden_dim_2 = dim[2]
+        latent_dim = dim[3]
+
+        kernel_size = 3
+        stride = 1
+        padding = 1
+
+
+        # Encoder
+        self.encoder = nn.Sequential(
+            nn.Conv2d(input_dim, hidden_dim_1, kernel_size = kernel_size, stride = stride, padding = padding),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(hidden_dim_1, hidden_dim_2, kernel_size = kernel_size, stride = stride, padding = padding),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(hidden_dim_2, latent_dim, kernel_size = kernel_size, stride = stride, padding = padding),
+        )
+
+        # Decoder
+        self.decoder = nn.Sequential(
+            nn.Conv2d(latent_dim, hidden_dim_2, kernel_size = kernel_size, stride = stride, padding = padding),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(hidden_dim_2, hidden_dim_1, kernel_size = kernel_size, stride = stride, padding = padding),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(hidden_dim_1, input_dim, kernel_size = kernel_size, stride = stride, padding = padding),
+        )
+
+
+    def encode(self, x):
+        return self.encoder(x)
+    
+    def decode(self, z):
+        return self.decoder(z)
+
+
+    def forward(self, image):
+        z = self.encode(image)
+        x_reconstructed = self.decode(z)
+
+        return x_reconstructed
 

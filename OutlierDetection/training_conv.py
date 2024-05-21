@@ -46,7 +46,8 @@ train_loader = DataLoader(VerSe_train, batch_size=batch_size, shuffle=True, num_
 # exit()
 
 ## Generere dataset med angivet antal 2D images
-n = 780
+# n = 780
+n = 39*16
 dataset = generate_dataset_training(train_loader, n)
 
 
@@ -84,7 +85,6 @@ def train2D_conv(model, optimizer, epochs, device):
         #     x = input_train[0][0,64,:,:].unsqueeze(dim=0)
         for idx, data in enumerate(dataset):
             x = data.to(device)
-
             x_reconstructed = model(x)
 
             #-- Loss function

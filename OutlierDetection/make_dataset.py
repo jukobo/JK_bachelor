@@ -25,7 +25,8 @@ def generate_dataset_training(trainloader, no):
     if no > 20*len(trainloader): 
         return print(f'Not enough data')
         
-    slices = [46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 80, 82, 84]
+    # slices = [46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 80, 82, 84]
+    slices = [50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70, 72, 74, 76, 78, 80] #16 slices
     dataset = []
     for i, (x, y, z) in enumerate(trainloader):
         for sli in slices:

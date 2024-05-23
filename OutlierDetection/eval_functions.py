@@ -10,7 +10,7 @@ from AE_functions import conv_AE_UNet, conv_AE_UNet2, loss_function
 
 def load_model(model_path, dim):
     # model = conv_AE_UNet(dim)
-    model = conv_AE_UNet(dim)
+    model = conv_AE_UNet2(dim)
     state_dict = torch.load(model_path, map_location=torch.device('cpu'))
     model.load_state_dict(state_dict)
     model.eval()

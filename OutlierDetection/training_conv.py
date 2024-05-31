@@ -29,9 +29,9 @@ study_no_save = 's214704'
 # img_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/img"
 # heatmap_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/heatmaps"
 # msk_dir_training = "C:/Users/julie/Bachelor_data/crops_training_prep/msk"
-img_dir_training = f"/scratch/{study_no_data}/Data/crops_training_prep/img"
-heatmap_dir_training = f"/scratch/{study_no_data}/Data/crops_training_prep/heatmaps"
-msk_dir_training = f"/scratch/{study_no_data}/Data/crops_training_prep/msk"
+img_dir_training = f"/scratch/{study_no_data}/Data/crops_training_prep2/img"
+heatmap_dir_training = f"/scratch/{study_no_data}/Data/crops_training_prep2/heatmaps"
+msk_dir_training = f"/scratch/{study_no_data}/Data/crops_training_prep2/msk"
 
 VerSe_train = LoadData(img_dir=img_dir_training, msk_dir = msk_dir_training, distfield_dir=heatmap_dir_training)
 train_loader = DataLoader(VerSe_train, batch_size=batch_size, shuffle=True, num_workers=0)

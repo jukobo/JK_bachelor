@@ -76,7 +76,7 @@ class conv_AE_UNet(nn.Module):
             nn.Conv2d(hidden_dim_1, hidden_dim_1, kernel_size = kernel_size, stride = stride, padding = padding), # output: 128x96x16
             nn.ReLU(inplace=True),
             nn.MaxPool2d(kernel_size=2, stride=2), # output: 64x48x16
-            # nn.AvgPool2d(kernel_size=2, stride=2), # output: 64x48x16
+
 
             # input: 64x48x16
             nn.Conv2d(hidden_dim_1, hidden_dim_2, kernel_size = kernel_size, stride = stride, padding = padding), # output: 64x48x32
@@ -84,7 +84,6 @@ class conv_AE_UNet(nn.Module):
             nn.Conv2d(hidden_dim_2, hidden_dim_2, kernel_size = kernel_size, stride = stride, padding = padding), # output: 64x48x32
             nn.ReLU(inplace=True),
             nn.MaxPool2d(kernel_size=2, stride=2), # output: 32x24x32
-            # nn.AvgPool2d(kernel_size=2, stride=2), # output: 32x24x32
 
 
             # input: 32x24x32
@@ -93,13 +92,10 @@ class conv_AE_UNet(nn.Module):
             nn.Conv2d(hidden_dim_3, hidden_dim_3, kernel_size = kernel_size, stride = stride, padding = padding), # output: 32x24x64
             nn.ReLU(inplace=True),
             nn.MaxPool2d(kernel_size=2, stride=2), # output: 16x12x64
-            # nn.AvgPool2d(kernel_size=2, stride=2), # output: 16x12x64
 
 
             # input: 16x12x64
             nn.Conv2d(hidden_dim_3, latent_dim, kernel_size = kernel_size, stride = stride, padding = padding), # output: 16x12x128
-
-            # --- NOTE er i tvivl med om vis skal have dette med
             nn.ReLU(inplace=True),
             nn.Conv2d(latent_dim, latent_dim, kernel_size = kernel_size, stride = stride, padding = padding), # output: 16x12x128
         )
@@ -299,7 +295,7 @@ class AE(nn.Module): # Bruges til simpel AE
         return x_reconstructed
 
 
-## For simple AE Convolutional NN
+## For simple AE Convolutional NN ! NOTE forkert
 class conv_AE(nn.Module):
     def __init__(self, dim, device=device):
         super(conv_AE, self).__init__()
@@ -308,7 +304,8 @@ class conv_AE(nn.Module):
         input_dim = dim[0]
         hidden_dim_1 = dim[1]
         hidden_dim_2 = dim[2]
-        latent_dim = dim[3]
+        hidden_dim_3 = dim[3]
+        latent_dim = dim[4]
 
         kernel_size = 3
         stride = 1
@@ -321,12 +318,16 @@ class conv_AE(nn.Module):
             nn.ReLU(inplace=True),
             nn.Conv2d(hidden_dim_1, hidden_dim_2, kernel_size = kernel_size, stride = stride, padding = padding),
             nn.ReLU(inplace=True),
-            nn.Conv2d(hidden_dim_2, latent_dim, kernel_size = kernel_size, stride = stride, padding = padding),
+            nn.Conv2d(hidden_dim_2, hidden_dim_3, kernel_size = kernel_size, stride = stride, padding = padding),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(hidden_dim_3, latent_dim, kernel_size = kernel_size, stride = stride, padding = padding),
         )
 
         # Decoder
         self.decoder = nn.Sequential(
-            nn.Conv2d(latent_dim, hidden_dim_2, kernel_size = kernel_size, stride = stride, padding = padding),
+            nn.Conv2d(latent_dim, hidden_dim_3, kernel_size = kernel_size, stride = stride, padding = padding),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(hidden_dim_3, hidden_dim_2, kernel_size = kernel_size, stride = stride, padding = padding),
             nn.ReLU(inplace=True),
             nn.Conv2d(hidden_dim_2, hidden_dim_1, kernel_size = kernel_size, stride = stride, padding = padding),
             nn.ReLU(inplace=True),
@@ -347,3 +348,78 @@ class conv_AE(nn.Module):
 
         return x_reconstructed
 
+
+class conv_UNet_AE(nn.Module): ## BRUGES IKKE
+    def __init__(self, dim, device=device): # dim is a list with the dimensions of input, hidden and latent space
+        super(conv_UNet_AE, self).__init__()
+    
+        # Define dimensions
+        input_dim = dim[0]
+        hidden_dim_1 = dim[1]
+        hidden_dim_2 = dim[2]
+        hidden_dim_3 = dim[3]
+        latent_dim = dim[4]
+
+        kernel_size = 3
+        stride = 1
+        padding = 1
+
+
+        # Encoder
+        self.encoder = nn.Sequential(
+            nn.Conv2d(input_dim, hidden_dim_1, kernel_size = kernel_size, stride = stride, padding = padding), # (32, 32)
+            nn.ReLU(inplace=True),
+            nn.Conv2d(hidden_dim_1, hidden_dim_1, kernel_size = kernel_size, stride = stride, padding = padding), 
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d(kernel_size=2, stride=2),
+
+            nn.Conv2d(hidden_dim_1, hidden_dim_2, kernel_size = kernel_size, stride = stride, padding = padding), # (16, 16)
+            nn.ReLU(inplace=True),
+            nn.Conv2d(hidden_dim_2, hidden_dim_2, kernel_size = kernel_size, stride = stride, padding = padding),
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d(kernel_size=2, stride=2),
+
+            nn.Conv2d(hidden_dim_2, hidden_dim_3, kernel_size = kernel_size, stride = stride, padding = padding), # (8, 8)
+            nn.ReLU(inplace=True),
+            nn.Conv2d(hidden_dim_3, hidden_dim_3, kernel_size = kernel_size, stride = stride, padding = padding),
+            nn.ReLU(inplace=True),
+            nn.MaxPool2d(kernel_size=2, stride=2),
+
+            nn.Flatten(),
+            nn.Linear(hidden_dim_3*8*8, latent_dim),
+            nn.ReLU(inplace=True)
+        )
+
+        # Decoder
+        self.conv = nn.Sequential(
+            nn.ConvTranspose2d(hidden_dim_3, hidden_dim_3, kernel_size=2, stride=2), # output: 32x24x64
+            nn.Conv2d(hidden_dim_3, hidden_dim_3, kernel_size = kernel_size, stride = stride, padding = padding), # output: 32x24x64
+            nn.ReLU(inplace=True),
+            nn.Conv2d(hidden_dim_3, hidden_dim_2, kernel_size = kernel_size, stride = stride, padding = padding), # output: 32x24x32
+            nn.ReLU(inplace=True),
+
+            nn.ConvTranspose2d(hidden_dim_2, hidden_dim_2, kernel_size=2, stride=2), # output: 64x48x32
+            nn.Conv2d(hidden_dim_2, hidden_dim_2, kernel_size = kernel_size, stride = stride, padding = padding), # output: 64x48x32
+            nn.ReLU(inplace=True),
+            nn.Conv2d(hidden_dim_2, hidden_dim_1, kernel_size = kernel_size, stride = stride, padding = padding), # output: 64x48x16
+            nn.ReLU(inplace=True),
+            
+            nn.ConvTranspose2d(hidden_dim_1, hidden_dim_1, kernel_size=2, stride=2), # output: 128x96x16
+            nn.Conv2d(hidden_dim_1, hidden_dim_1, kernel_size = kernel_size, stride = stride, padding = padding), # output: 128x96x16
+            nn.ReLU(inplace=True),
+            nn.Conv2d(hidden_dim_1, input_dim, kernel_size = kernel_size, stride = stride, padding = padding), # output: 128x96x1
+        )
+
+
+    def encode(self, x):
+        return self.encoder(x)
+    
+    def decode(self, z):
+        return self.decoder(z)
+
+
+    def forward(self, image):
+        z = self.encode(image)
+        x_reconstructed = self.decode(z)
+
+        return x_reconstructed

@@ -9,7 +9,7 @@ from make_dataset import *
 
 #Define paramters
 parameters_dict = {
-    'epochs': 2000,
+    'epochs': 1000,
     'learning_rate': 1e-3,
     'batch_size': 1, #Noget galt når batch size ændres til mere end 1
     'weight_decay': 5e-4 #1e-6
@@ -47,7 +47,7 @@ train_loader = DataLoader(VerSe_train, batch_size=batch_size, shuffle=True, num_
 
 ## Generere dataset med angivet antal 2D images
 # n = 780
-n = 39*16
+n = 80*7 # 560 images
 dataset = generate_dataset_training(train_loader, n)
 
 
@@ -100,7 +100,7 @@ def train2D_conv(model, optimizer, epochs, device):
             step+=1
 
             # Do evaluation every 50 epoch
-            if step%12480 == 0:
+            if step%14000 == 0:
                 print()
                 print("EVALUATION!")
                 model.eval() #Set to evaluation
@@ -128,10 +128,13 @@ def train2D_conv(model, optimizer, epochs, device):
                     #-- Loss function
                     v_loss = loss_function(inputs_reconstructed, inputs)
                     
+
+                    #-- Save image
+                    if step%28000 == 0: #step%500 == 0: #
                     # Save reconstructed images
-                    # numpy_array = inputs_reconstructed.cpu().numpy()
+                        numpy_array = inputs_reconstructed.cpu().numpy()
                     # np.save(f'OutlierDetection/rec_data3/reconstruction{epoch}.npy', numpy_array)
-                    # np.save(f'/scratch/{study_no_save}/Data/rec_data/reconstruction{epoch}.npy', numpy_array)
+                        np.save(f'/scratch/{study_no_save}/Data/rec_data/reconstruction{epoch}.npy', numpy_array)
 
 
                     # Save loss

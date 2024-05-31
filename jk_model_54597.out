@@ -3,3 +3,179 @@ Start: 2024-05-31-13:15:35
 Working dir: /home/s214704/JK_bachelor
 
 /var/lib/slurm/slurmd/job54597/slurm_script: line 24: /home/s214704/JK_bachelor/.bashrc: No such file or directory
+conv_AE_UNet(
+  (encoder): Sequential(
+    (0): Conv2d(1, 8, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (1): ReLU(inplace=True)
+    (2): Conv2d(8, 8, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (3): ReLU(inplace=True)
+    (4): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (5): Conv2d(8, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (6): ReLU(inplace=True)
+    (7): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (8): ReLU(inplace=True)
+    (9): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (10): Conv2d(16, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (11): ReLU(inplace=True)
+    (12): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (13): ReLU(inplace=True)
+    (14): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (15): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (16): ReLU(inplace=True)
+    (17): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  )
+  (decoder): Sequential(
+    (0): Conv2d(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (1): ReLU(inplace=True)
+    (2): ConvTranspose2d(32, 32, kernel_size=(2, 2), stride=(2, 2))
+    (3): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (4): ReLU(inplace=True)
+    (5): Conv2d(32, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (6): ReLU(inplace=True)
+    (7): ConvTranspose2d(16, 16, kernel_size=(2, 2), stride=(2, 2))
+    (8): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (9): ReLU(inplace=True)
+    (10): Conv2d(16, 8, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (11): ReLU(inplace=True)
+    (12): ConvTranspose2d(8, 8, kernel_size=(2, 2), stride=(2, 2))
+    (13): Conv2d(8, 8, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (14): ReLU(inplace=True)
+    (15): Conv2d(8, 1, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  )
+)
+
+EVALUATION!
+Validation loss: 0.21638837456703186
+Epoch 1, Average loss: 0.05203127764730847
+Model saved
+
+EVALUATION!
+Validation loss: 0.0005175782134756446
+
+EVALUATION!
+Validation loss: 0.0005571231013163924
+
+EVALUATION!
+Validation loss: 0.0005478637758642435
+
+EVALUATION!
+Validation loss: 0.00030719273490831256
+Epoch 101, Average loss: 0.000343818794512377
+Model saved
+
+EVALUATION!
+Validation loss: 0.00034458586014807224
+
+EVALUATION!
+Validation loss: 0.00029438704950734973
+
+EVALUATION!
+Validation loss: 0.0002136914263246581
+
+EVALUATION!
+Validation loss: 0.00034432392567396164
+Epoch 201, Average loss: 0.0003286821694018727
+
+EVALUATION!
+Validation loss: 0.0002609316725283861
+
+EVALUATION!
+Validation loss: 0.00019390409579500556
+Model saved
+
+EVALUATION!
+Validation loss: 0.00022258945682551712
+
+EVALUATION!
+Validation loss: 0.00018217104661744088
+Epoch 301, Average loss: 0.0002502926860545683
+
+EVALUATION!
+Validation loss: 0.0002129060449078679
+
+EVALUATION!
+Validation loss: 0.00019057292956858873
+
+EVALUATION!
+Validation loss: 0.00015871800133027136
+
+EVALUATION!
+Validation loss: 0.00014777718752156943
+Epoch 401, Average loss: 0.00020018406201286
+
+EVALUATION!
+Validation loss: 0.00015527238429058343
+
+EVALUATION!
+Validation loss: 0.00015441920550074428
+
+EVALUATION!
+Validation loss: 0.0001692167716100812
+
+EVALUATION!
+Validation loss: 0.00016360750305466354
+Epoch 501, Average loss: 0.0002284761275729709
+Model saved
+
+EVALUATION!
+Validation loss: 0.00015178119065240026
+
+EVALUATION!
+Validation loss: 0.00016237649833783507
+
+EVALUATION!
+Validation loss: 0.0001436322054360062
+
+EVALUATION!
+Validation loss: 0.00018175761215388775
+Epoch 601, Average loss: 0.0001837184478193064
+
+EVALUATION!
+Validation loss: 0.00013835876598022878
+
+EVALUATION!
+Validation loss: 0.00019790085207205266
+
+EVALUATION!
+Validation loss: 0.00013101083459332585
+
+EVALUATION!
+Validation loss: 0.0001447162067051977
+Epoch 701, Average loss: 0.00016522179410977906
+
+EVALUATION!
+Validation loss: 0.0001216829550685361
+
+EVALUATION!
+Validation loss: 0.00014338403707370162
+
+EVALUATION!
+Validation loss: 0.00012456935655791312
+
+EVALUATION!
+Validation loss: 0.00010843208292499185
+Epoch 801, Average loss: 0.00016245948759855569
+
+EVALUATION!
+Validation loss: 0.00011875806376338005
+
+EVALUATION!
+Validation loss: 0.00011027929576812312
+
+EVALUATION!
+Validation loss: 0.00011077171075157821
+
+EVALUATION!
+Validation loss: 0.00012774430797435343
+Epoch 901, Average loss: 0.0002142486234723557
+
+EVALUATION!
+Validation loss: 0.0001192109048133716
+
+EVALUATION!
+Validation loss: 0.00012416152458172292
+
+EVALUATION!
+Validation loss: 0.00010932626173598692
+Model saved
+Done: 2024-05-31-14:31:13

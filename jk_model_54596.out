@@ -1,6 +1,0 @@
-Node: comp-gpu01
-Start: 2024-05-31-13:13:39
-Working dir: /home/s214704/JK_bachelor
-
-/var/lib/slurm/slurmd/job54596/slurm_script: line 24: /home/s214704/JK_bachelor/.bashrc: No such file or directory
-slurmstepd: error: *** JOB 54596 ON comp-gpu01 CANCELLED AT 2024-05-31T13:14:43 ***

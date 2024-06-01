@@ -50,6 +50,8 @@ train_loader = DataLoader(VerSe_train, batch_size=batch_size, shuffle=True, num_
 n = 80*7 # 560 images
 dataset = generate_dataset_training(train_loader, n)
 
+org = dataset[0].cpu().numpy()
+np.save(f'/scratch/{study_no_save}/Data/rec_data/original.npy', org)
 
 
 ## Define model

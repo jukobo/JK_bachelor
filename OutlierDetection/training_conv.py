@@ -56,9 +56,8 @@ np.save(f'/scratch/{study_no_save}/Data/rec_data/original.npy', org)
 
 ## Define model
 # For simple AE
-model = conv_AE_UNet([1, 8, 16, 32, 64])
-# model = conv_AE_UNet([1, 16, 32, 64, 128]) 
-# model = conv_AE_UNet([1, 32, 64, 128, 256]) 
+# model = conv_AE_UNet([1, 8, 16, 32, 64])
+model = conv_AE_UNet2([1, 8, 16, 32, 64]) #With dropout, 0.2
 
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu') 

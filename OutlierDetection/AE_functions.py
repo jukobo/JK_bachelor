@@ -153,7 +153,6 @@ class conv_AE_UNet2(nn.Module): # NOTE Bruges ikke
         hidden_dim_1 = dim[1]
         hidden_dim_2 = dim[2]
         hidden_dim_3 = dim[3]
-        # hidden_dim_4 = 32
         latent_dim = dim[4]
 
         kernel_size = 3
@@ -186,20 +185,22 @@ class conv_AE_UNet2(nn.Module): # NOTE Bruges ikke
             nn.ReLU(inplace=True),
             nn.MaxPool2d(kernel_size=2, stride=2), # output: 16x12x64
 
-            nn.Dropout(p=0.2), 
+            nn.Dropout(0.2)
 
-            # input: 16x12x64 # NOTE LATENT SPACE
+            # input: 16x12x64
             nn.Conv2d(hidden_dim_3, latent_dim, kernel_size = kernel_size, stride = stride, padding = padding), # output: 16x12x128
             nn.ReLU(inplace=True),
-            nn.Conv2d(latent_dim, latent_dim, kernel_size = kernel_size, stride = stride, padding = padding),
-            nn.ReLU(inplace=True) # output: 16x12x128
+            nn.Conv2d(latent_dim, latent_dim, kernel_size = kernel_size, stride = stride, padding = padding), # output: 16x12x128
         )
 
 
         # Decoder
         self.decoder = nn.Sequential(
 
-            nn.ConvTranspose2d(latent_dim, hidden_dim_3, kernel_size=2, stride=2), # output: 32x24x64
+            nn.Conv2d(latent_dim, hidden_dim_3, kernel_size = kernel_size, stride = stride, padding = padding),
+            nn.ReLU(inplace=True),
+
+            nn.ConvTranspose2d(hidden_dim_3, hidden_dim_3, kernel_size=2, stride=2), # output: 32x24x64
             # nn.ConvTranspose2d(kernel_size=2, stride=2), # output: 32x24x64
             nn.Conv2d(hidden_dim_3, hidden_dim_3, kernel_size = kernel_size, stride = stride, padding = padding), # output: 32x24x64
             nn.ReLU(inplace=True),

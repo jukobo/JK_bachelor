@@ -69,10 +69,12 @@ def plot_histograms(loss_healthy, loss_outlier, no_bins):
 
 
     # Adding labels and title
-    plt.xlabel('Value')
-    plt.ylabel('Frequency')
-    plt.title('Histogram over MSE in reconstruction of images')
-    plt.legend()
+    plt.xlabel('Value', fontsize=15)
+    plt.ylabel('Frequency', fontsize=15)
+    plt.title('Histogram over MSE in reconstruction of images', fontsize=20)
+    plt.legend(fontsize=15)
+    plt.xticks(fontsize=15)
+    plt.yticks(fontsize=15)
 
     # Displaying the plot
     plt.show()
@@ -121,10 +123,12 @@ def plot_histograms_SSIM(ssim_healthy, ssim_outlier, no_bins):
 
 
     # Adding labels and title
-    plt.xlabel('Value')
-    plt.ylabel('Frequency')
-    plt.title('Histogram over SSIM in reconstruction of images')
-    plt.legend()
+    plt.xlabel('Value', fontsize=15)
+    plt.ylabel('Frequency', fontsize=15)
+    plt.title('Histogram over SSIM in reconstruction of images', fontsize=20)
+    plt.legend(fontsize=15)
+    plt.xticks(fontsize=15)
+    plt.yticks(fontsize=15)
 
     # Displaying the plot
     plt.show()

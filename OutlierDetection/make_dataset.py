@@ -88,6 +88,53 @@ def generate_dataset(dataset, no):
     return dataset_new
 
 
+def generate_dataset2(dataset, no):
+    
+    ## Generate a dataset from a trainloader
+
+    if no > 5*len(dataset): 
+        return print(f'Not enough data')
+        
+
+    dataset_new = []
+    for i, x in enumerate(dataset):
+
+        dataset_new.append(x[0,64,:,:].unsqueeze(dim=0))
+
+        if len(dataset_new) == no:
+            return dataset_new
+
+
+    for j, x in enumerate(dataset):
+        dataset_new.append(x[0,57,:,:].unsqueeze(dim=0))
+
+        if len(dataset_new) == no:
+            return dataset_new
+        
+
+    for l, x in enumerate(dataset):
+        dataset_new.append(x[0,72,:,:].unsqueeze(dim=0))
+
+        if len(dataset_new) == no:
+            return dataset_new
+
+      
+    for m, x in enumerate(dataset):
+        dataset_new.append(x[0,50,:,:].unsqueeze(dim=0))
+
+        if len(dataset_new) == no:
+            return dataset_new
+
+
+    for k, x in enumerate(dataset):
+        dataset_new.append(x[0,80,:,:].unsqueeze(dim=0))
+
+        if len(dataset_new) == no:
+            return dataset_new
+
+
+    return dataset_new
+
 
 def create_outlier(i, image, radius, mode):
     if mode.lower() == "black":
@@ -178,5 +225,60 @@ def generate_dataset_outlier(dataset, no, radius, mode=""):
     return dataset_new
 
 
+def generate_dataset_outlier2(dataset, no, radius, mode=""):
+    ## Generate a dataset with outliers from a trainloader
+    dataset_new = []
+    
+    for i, x in enumerate(dataset):
+        image = x[0, 64, :, :]
+        Type = random.randint(1, 2)
+        image_out = create_outlier(Type, image, radius, mode)
+        
+        dataset_new.append(image_out.unsqueeze(dim=0))
 
+        if len(dataset_new) == no:
+            return dataset_new
+
+    for j, x in enumerate(dataset):
+        image = x[0, 57, :, :]
+        Type = random.randint(1, 2)
+        image_out = create_outlier(Type, image, radius, mode)
+        
+        dataset_new.append(image_out.unsqueeze(dim=0))
+
+        if len(dataset_new) == no:
+            return dataset_new
+
+    for k, x in enumerate(dataset):
+        image = x[0, 72, :, :]
+        Type = random.randint(1, 2)
+        image_out = create_outlier(Type, image, radius,mode)
+        
+        dataset_new.append(image_out.unsqueeze(dim=0))
+
+        if len(dataset_new) == no:
+            return dataset_new
+
+    for l, x in enumerate(dataset):
+        image = x[0, 50, :, :]
+        Type = random.randint(1, 2)
+        image_out = create_outlier(Type, image, radius,mode)
+        
+        dataset_new.append(image_out.unsqueeze(dim=0))
+
+        if len(dataset_new) == no:
+            return dataset_new
+
+    for m, x in enumerate(dataset):
+        image = x[0, 80, :, :]
+        Type = random.randint(1, 2)
+        image_out = create_outlier(Type, image, radius, mode)
+        
+        dataset_new.append(image_out.unsqueeze(dim=0))
+
+        if len(dataset_new) == no:
+            return dataset_new
+
+
+    return dataset_new
 
